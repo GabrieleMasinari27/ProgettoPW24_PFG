@@ -1,0 +1,57 @@
+/* Stili per il corpo della pagina */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5dc; /* beige chiaro */
+}
+
+/* Stili per l'header */
+header {
+  background-color: #ccc; /* Grigio chiaro */
+  padding: 10px;
+  text-align: center;
+  font-size: 30px;
+
+}
+
+/* Stili per il footer */
+footer {
+  background-color: #ccc; /* Grigio chiaro */
+  padding: 10px;
+  bottom:0%;
+  position:fixed;
+  font-size:30px;
+	width: 100%;
+  text-align: center;
+}
+
+/* Stili per il contenitore dei div ricercasx e risultato */
+.container {
+  display: flex;
+  width: 100%;
+	height: 85vh;
+}
+
+/* Stili per il div ricercasx */
+.ricercasx {
+  width: 30%; /* Larghezza del 30% rispetto al contenitore */
+  background-color:#f5f5dc ; /* Beige chiaro */
+  padding: 5px;
+
+}
+
+/* Stili per il div risultato */
+.risultato {
+  width: 70%; /* Larghezza del 70% rispetto al contenitore */
+  background-color: #f0f0f0; /* Grigio chiaro */
+  padding: 20px;
+}
+.nav{
+  border:solid 1px red;
+  height: 40vh;
+}
+.filtro{
+  border: solid 1px green;
+    height: 42vh;
+}
