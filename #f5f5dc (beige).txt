@@ -1,0 +1,5 @@
+#f5f5dc (beige)
+#746D75 (grigio scuro)
+#8C4843 (marroncino)
+#9E643C (marrone chiaro)
+#0D0221 (viola scuro)
