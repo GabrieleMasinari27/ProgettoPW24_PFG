@@ -46,6 +46,7 @@ footer {
   width: 70%; /* Larghezza del 70% rispetto al contenitore */
   background-color: #f0f0f0; /* Grigio chiaro */
   padding: 20px;
+  overflow: auto;
 }
 .nav{
   border:solid 1px red;
