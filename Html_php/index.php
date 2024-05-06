@@ -23,8 +23,8 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
-          <input type="text" name="numerotarga" id="numTarga" placeholder=" Targa">
-          <input type="date" name="dataemtarga" id="dataEM"><br>
+          <input type="text" name="numerotarga"  placeholder=" Targa">
+          <input type="date" name="dataemtarga"><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
           <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>
           <input type="radio" name="radiofiltrotarga" value="targhetutte" checked> Tutte le targhe <br>
@@ -39,17 +39,18 @@
       $datEM = "";
       $radiocheck="";
       if(count($_POST)>0 ){
-        $numTarga = $_POST["numTarga"];
-        $dataEM = $_POST["dataEM"];
-        $radiocheck=$_POST["filtrotarga"];
+        $numTarga = $_POST["numerotarga"];
+        $dataEM = $_POST["dataemtarga"];
+        $radiocheck=$_POST["radiofiltrotarga"];
       }
       if(count($_GET)>0 ){
-        $numTarga = $_POST["numTarga"];
-        $dataEM = $_POST["dataEM"];
-        $radiocheck=$_POST["filtrotarga"];
+        $numTarga = $_POST["numerotarga"];
+        $dataEM = $_POST["dataemtarga"];
+        $radiocheck=$_POST["radiofiltrotarga"];
       }
       $query = getTarga($numTarga, $dataEM,$radiocheck);
       echo "<p>Query della Targa: " . $query . "</p>";
+      
       include 'connect.php';
       try {
         $result = $conn->query($query);
@@ -62,7 +63,6 @@
       <table class="table">
         <tr class="header">
           <th># </th>
-          <!--th>id </th-->
           <th>Targa</th>
           <th>Data Emissione</th>
         </tr>

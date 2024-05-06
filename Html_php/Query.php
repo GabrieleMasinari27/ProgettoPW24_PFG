@@ -4,10 +4,10 @@
 							"FROM TARGA " .
 							"WHERE 1=1 ";
 		if ($numTarga != "")
-			$qry = $qry . "AND numTarga LIKE '%" . $numTarga . "%' ";
+			$qry = $qry . "AND TARGA.numero LIKE '%" . $numTarga . "%' ";
 
 		if ($dataEM != "")
-			$qry = $qry . "AND dataEM  LIKE '%" . $datEM . "%' ";
+			$qry = $qry . "AND TARGA.dataEM  LIKE '%" . $datEM . "%' ";
 		return $qry;
 	}
 ?>
