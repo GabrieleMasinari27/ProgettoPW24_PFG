@@ -10,4 +10,24 @@
 			$qry = $qry . "AND TARGA.dataEM  LIKE '%" . $datEM . "%' ";
 		return $qry;
 	}
+
+	function queryRevisione($numRevione, $numTarga, $dataRE, $posneg) : string {
+    $qry = "SELECT REVISIONE.numero AS numRevisione, REVISIONE.dataRev AS dataRevisione, REVISIONE.targa AS numTarga, REVISIONE.esito AS esito, REVISIONE.motivazione AS motivazione " .
+           "FROM REVISIONE " .
+           "WHERE 1=1 ";
+
+    if ($numTarga != "")
+        $qry = $qry . "AND REVISIONE.targa LIKE '%" . $numTarga . "%' ";
+
+    if ($numRevione != "")
+        $qry = $qry . "AND REVISIONE.numero LIKE '%" . $numRevione . "%' ";
+
+    if ($dataRE != "")
+        $qry = $qry . "AND REVISIONE.dataRev LIKE '%" . $dataRE . "%' ";
+
+    if ($posneg != "")
+        $qry = $qry . "AND REVISIONE.esito LIKE '%" . $posneg . "%' ";
+
+    return $qry;
+	}
 ?>
