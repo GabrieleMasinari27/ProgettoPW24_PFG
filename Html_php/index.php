@@ -50,7 +50,7 @@
       }
       $query = getTarga($numTarga, $dataEM,$radiocheck);
       echo "<p>Query della Targa: " . $query . "</p>";
-      
+
       include 'connect.php';
       try {
         $result = $conn->query($query);
@@ -65,6 +65,7 @@
           <th># </th>
           <th>Targa</th>
           <th>Data Emissione</th>
+          <th>Stato della targa</th>
         </tr>
         <?php
         $i=0;
@@ -72,11 +73,13 @@
           $i=$i+1;
           $numTarga = $riga["numTarga"];
           $datEM = $riga["dataEM"];
+          $stato = $riga["stato"];
           ?>
           <tr>
             <td > <?php echo $i; ?> </td>
             <td > <?php echo $numTarga; ?> </td>
             <td > <?php echo $datEM; ?> </td>
+            <td > <?php echo $stato; ?> </td>
           </tr>
       <?php
         }
