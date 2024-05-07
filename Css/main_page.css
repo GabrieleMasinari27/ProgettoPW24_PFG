@@ -56,3 +56,55 @@ footer {
   border: solid 1px green;
     height: 42vh;
 }
+
+/*extra da filippo*/
+/* Stili per la tabella */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Stili per le righe della tabella*/
+.table tr {
+  background-color: #f8f8f8;
+}
+
+/* Stili per le righe della tabella alternativa*/
+.table tr:nth-child(even) {
+  background-color: #e8e8e8;
+}
+
+/* Stili per l'header della tabella */
+.table th {
+  padding: 8px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Stili per le celle della tabella */
+.table td {
+  padding: 8px;
+}
+
+
+/* Stili per il bordo della tabella */
+.table tr, .table th, .table td {
+  border: 5px solid #ddd;
+}
+
+}
+
+/* Stili per il footer della tabella */
+.table tfoot {
+  background-color: #f2f2f2;
+}
+
+.bg-green {
+  background-color: rgba(0, 255, 0, 0.3) !important; /* Verde con trasparenza */
+}
+
+.bg-red {
+  background-color: rgba(255, 0, 0, 0.3) !important; /* Rosso con trasparenza */
+}

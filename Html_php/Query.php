@@ -11,22 +11,44 @@
 		return $qry;
 	}
 
-	function queryRevisione($numRevione, $numTarga, $dataRE, $posneg) : string {
+	function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
     $qry = "SELECT REVISIONE.numero AS numRevisione, REVISIONE.dataRev AS dataRevisione, REVISIONE.targa AS numTarga, REVISIONE.esito AS esito, REVISIONE.motivazione AS motivazione " .
            "FROM REVISIONE " .
            "WHERE 1=1 ";
 
     if ($numTarga != "")
-        $qry = $qry . "AND REVISIONE.targa LIKE '%" . $numTarga . "%' ";
+        $qry .= "AND REVISIONE.targa LIKE '%" . $numTarga . "%' ";
 
     if ($numRevione != "")
-        $qry = $qry . "AND REVISIONE.numero LIKE '%" . $numRevione . "%' ";
+        $qry .= "AND REVISIONE.numero LIKE '%" . $numRevione . "%' ";
 
     if ($dataRE != "")
-        $qry = $qry . "AND REVISIONE.dataRev LIKE '%" . $dataRE . "%' ";
+        $qry .= "AND REVISIONE.dataRev LIKE '%" . $dataRE . "%' ";
 
-    if ($posneg != "")
-        $qry = $qry . "AND REVISIONE.esito LIKE '%" . $posneg . "%' ";
+    if ($posneg != "indifferente")
+        $qry .= "AND REVISIONE.esito LIKE '%" . $posneg . "%' ";
+
+    switch ($valoreordinamento) {
+        case 'ordinamentoNullo':
+
+            break;
+        case 'ordinaNumeroRev':
+
+            $qry .= " ORDER BY REVISIONE.numero";
+            break;
+        case 'ordinaNumeroTarga':
+
+            $qry .= " ORDER BY REVISIONE.targa";
+            break;
+        case 'ordinaPositivo':
+
+            $qry .= " ORDER BY REVISIONE.esito DESC";
+            break;
+        case 'ordinaNegativo':
+
+            $qry .= " ORDER BY REVISIONE.esito ASC";
+            break;
+    }
 
     return $qry;
 	}

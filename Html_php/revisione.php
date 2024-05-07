@@ -27,8 +27,17 @@
           <input type="text" name="numerotarga"  placeholder="Targa">
           <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
           esito:<br>
-          <input type="radio" name="esito" value="positivo" checked> Positivo <br>
-          <input type="radio" name="esito" value="negativo"> Negativo <br><br>
+          <input type="radio" name="esito" value="positivo"> Positivo <br>
+          <input type="radio" name="esito" value="negativo"> Negativo <br>
+          <input type="radio" name="esito" value="indifferente" checked> indifferente <br><br>
+          <label for="scelta">Ordina per:</label>
+          <select id="ordinamento" name="scelta">
+            <option value="ordinamentoNullo">Nessun ordinamento</option>
+            <option value="ordinaNumeroRev">Numero di revisione</option>
+            <option value="ordinaNumeroTarga">Numero di targa</option>
+            <option value="ordinaPositivo">Prima i positivi</option>
+            <option value="ordinaNegativo">Prima i negativi</option>
+          </select>
           <input type="submit" name="bottonericerca" value="Cerca">
 
         </form>
@@ -40,19 +49,22 @@
       $numTarga= "";
       $datRE = "";
       $posneg="";
+      $valoreordinamento="";
       if(count($_POST)>0 ){
         $numRevione= $_POST["numerorevisione"];
         $numTarga = $_POST["numerotarga"];
         $dataRE = $_POST["datarevisione"];
         $posneg=$_POST["esito"];
+        $valoreordinamento=$_POST["scelta"];
       }
       if(count($_GET)>0 ){
         $numRevione= $_POST["numerorevisione"];
         $numTarga = $_POST["numerotarga"];
         $dataRE = $_POST["datarevisione"];
         $posneg=$_POST["esito"];
+        $valoreordinamento=$_POST["scelta"];
       }
-      $query = queryRevisione($numRevione, $numTarga, $dataRE, $posneg);
+      $query = queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento);
       echo "<p>Query della Targa: " . $query . "</p>";
 
       include 'connect.php';
@@ -65,34 +77,34 @@
       	if(!$error) {
       ?>
       <table class="table">
-        <tr class="header">
-          <th>#Revisione </th>
-          <th>Targa</th>
-          <th>Data Emissione</th>
-          <th>Esito</th>
-          <th>Motivazione</th>
-        </tr>
-        <?php
-        $i=0;
-        foreach($result as $riga) {
-          $i=$i+1;
-          $numRevione = $riga["numRevisione"];
-          $numTarga = $riga["numTarga"];
-          $datRE = $riga["dataRevisione"];
-          $esito = $riga["esito"];
-          $motivazione = $riga["motivazione"];
-          ?>
-          <tr>
-            <td > <?php echo $numRevione; ?> </td>
-            <td > <?php echo $numTarga; ?> </td>
-            <td > <?php echo $datRE; ?> </td>
-            <td > <?php echo $esito; ?> </td>
-            <td > <?php echo $motivazione; ?> </td>
-          </tr>
+      <tr class="header">
+        <th>#Revisione</th>
+        <th>Targa</th>
+        <th>Data Emissione</th>
+        <th>Esito</th>
+        <th>Motivazione</th>
+      </tr>
       <?php
-        }
-        ?>
-      </table>
+      foreach($result as $riga) {
+        $numRevione = $riga["numRevisione"];
+        $numTarga = $riga["numTarga"];
+        $datRE = $riga["dataRevisione"];
+        $esito = $riga["esito"];
+        $motivazione = $riga["motivazione"];
+        // Determina la classe CSS in base all'esito
+        $bg_class = ($esito == 'positivo') ? 'bg-green' : 'bg-red';
+      ?>
+      <tr class="<?php echo $bg_class; ?>">
+        <td><?php echo $numRevione; ?></td>
+        <td><?php echo $numTarga; ?></td>
+        <td><?php echo $datRE; ?></td>
+        <td><?php echo $esito; ?></td>
+        <td><?php echo $motivazione; ?></td>
+      </tr>
+      <?php
+      }
+      ?>
+    </table>
       <?php
         }
        ?>
