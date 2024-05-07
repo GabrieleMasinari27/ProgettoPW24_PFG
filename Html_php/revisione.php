@@ -24,7 +24,8 @@
       <div class="filtro">
         <form name="form_ricerca" method="post">
           <input type="number" name="numerorevisione" placeholder="Numero di revisione"><br>
-          <input type="text" name="numerotarga"  placeholder="Targa">
+          <input type="text" name="numerotarga"  placeholder="Targa"><br><br>
+          data della revisione:
           <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
           esito:<br>
           <input type="radio" name="esito" value="positivo"> Positivo <br>

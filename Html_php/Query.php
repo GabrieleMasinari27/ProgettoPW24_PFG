@@ -52,4 +52,46 @@
 
     return $qry;
 	}
+
+	function queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento) : string {
+    $qry = "SELECT VEICOLO.telaio AS telaio, VEICOLO.marca AS marca, VEICOLO.modello AS modello, VEICOLO.dataProd AS data " .
+           "FROM VEICOLO " .
+           "WHERE 1=1 ";
+
+    if ($numTelaio != "")
+        $qry .= "AND VEICOLO.telaio LIKE '%" . $numTelaio . "%' ";
+
+    if ($marca != "")
+        $qry .= "AND VEICOLO.marca LIKE '%" . $marca . "%' ";
+
+    if ($modello != "")
+        $qry .= "AND VEICOLO.modello LIKE '%" . $modello . "%' ";
+
+    if ($dataPro != "")
+        $qry .= "AND VEICOLO.dataProd LIKE '%" . $dataPro . "%' ";
+
+    switch ($valoreordinamento) {
+        case 'ordinamentoNullo':
+
+            break;
+        case 'ordinaNumeroTel':
+
+            $qry .= " ORDER BY VEICOLO.telaio";
+            break;
+        case 'ordinaMarca':
+
+            $qry .= " ORDER BY VEICOLO.marca";
+            break;
+        case 'ordinaModello':
+
+            $qry .= " ORDER BY VEICOLO.modello";
+            break;
+        case 'ordinaData':
+
+            $qry .= " ORDER BY VEICOLO.dataProd";
+            break;
+    }
+
+    return $qry;
+	}
 ?>
