@@ -1,63 +1,54 @@
 /* Stili per il corpo della pagina */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5dc; /* beige chiaro */
+  background-color: #f2f2f2; /* Grigio chiaro */
 }
 
 /* Stili per l'header */
 header {
-  background-color: #ccc; /* Grigio chiaro */
-  padding: 10px;
+  background-color: #ccc; /* Grigio medio */
+  padding: 20px;
   text-align: center;
-  font-size: 30px;
-
+  font-size: 36px;
+  color: #4d4d4d; /* Grigio scuro */
 }
 
 /* Stili per il footer */
 footer {
-  background-color: #ccc; /* Grigio chiaro */
-  padding: 10px;
-  bottom:0%;
-  position:fixed;
-  font-size:30px;
-	width: 100%;
+  background-color: #ccc; /* Grigio medio */
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   text-align: center;
+  color: #4d4d4d; /* Grigio scuro */
 }
 
 /* Stili per il contenitore dei div ricercasx e risultato */
 .container {
   display: flex;
   width: 100%;
-	height: 85%;
+  height: calc(100vh - 100px); /* Altezza rimanente della finestra */
 }
 
 /* Stili per il div ricercasx */
 .ricercasx {
   width: 30%; /* Larghezza del 30% rispetto al contenitore */
-  background-color:#f5f5dc ; /* Beige chiaro */
-  padding: 5px;
-
+  background-color: #e6e6e6; /* Grigio chiaro */
+  padding: 20px;
+  border-right: 2px solid #ccc; /* Linea divisoria grigia */
 }
 
 /* Stili per il div risultato */
 .risultato {
   width: 70%; /* Larghezza del 70% rispetto al contenitore */
-  background-color: #f0f0f0; /* Grigio chiaro */
+  background-color: #fff; /* Bianco */
   padding: 20px;
-  overflow: auto;
-}
-.nav{
-  border:solid 1px red;
-  height: 40vh;
-}
-.filtro{
-  border: solid 1px green;
-    height: 42vh;
+  overflow: auto; /* Scorrimento verticale solo se necessario */
 }
 
-/*extra da filippo*/
 /* Stili per la tabella */
 .table {
   width: 100%;
@@ -65,42 +56,92 @@ footer {
   margin-top: 20px;
 }
 
-/* Stili per le righe della tabella*/
+/* Stili per le righe della tabella */
 .table tr {
-  background-color: #f8f8f8;
+  background-color: #f2f2f2; /* Grigio chiaro */
 }
 
-/* Stili per le righe della tabella alternativa*/
+/* Stili per le righe della tabella alternativa */
 .table tr:nth-child(even) {
-  background-color: #e8e8e8;
+  background-color: #e6e6e6; /* Grigio chiaro */
 }
 
 /* Stili per l'header della tabella */
 .table th {
-  padding: 8px;
+  padding: 12px;
   text-align: left;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #d9d9d9; /* Grigio */
+  color: #4d4d4d; /* Grigio scuro */
 }
 
 /* Stili per le celle della tabella */
 .table td {
-  padding: 8px;
-}
-
-
-/* Stili per il bordo della tabella */
-.table tr, .table th, .table td {
-  border: 5px solid #ddd;
-}
-
+  padding: 12px;
+  border: 3px solid #ccc; /* Grigio */
 }
 
 /* Stili per il footer della tabella */
 .table tfoot {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2; /* Grigio chiaro */
 }
 
+/* Stili per il bordo della tabella */
+.table tr, .table th, .table td {
+  border: 5px solid #ccc; /* Grigio */
+}
+
+/* Stili per i titoli */
+.title {
+  font-size: 24px;
+  color: #4d4d4d; /* Grigio scuro */
+  margin-bottom: 16px;
+}
+
+/* Stili per il testo */
+.text {
+  color: #666; /* Grigio medio */
+  line-height: 1.6;
+}
+
+/* Stili per i pulsanti */
+.button {
+  padding: 10px 20px;
+  background-color: #4d4d4d; /* Grigio scuro */
+  color: #fff; /* Bianco */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #333; /* Grigio più scuro */
+}
+
+/* Stili per la casella di ricerca */
+.search-box {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc; /* Grigio */
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Stili per il bottone di ricerca */
+.search-button {
+  background-color: #4d4d4d; /* Grigio scuro */
+  color: #fff; /* Bianco */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #333; /* Grigio più scuro */
+}
 .bg-green {
   background-color: rgba(0, 255, 0, 0.3) !important; /* Verde con trasparenza */
 }
