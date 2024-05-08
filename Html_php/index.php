@@ -12,7 +12,7 @@
   <?php
   include "header.html";
   include "footer.html";
-  include "Query.php";
+  include "query.php";
   ?>
   <div class="container">
     <div class="ricercasx">
@@ -24,10 +24,16 @@
       <div class="filtro">
         <form name="form_ricerca" method="post">
           <input type="text" name="numerotarga"  placeholder=" Targa">
+          Data di emissione:
           <input type="date" name="dataemtarga"><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
           <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>
-          <input type="radio" name="radiofiltrotarga" value="targhetutte" checked> Tutte le targhe <br>
+          <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe <br>
+          <label for="scelta">Ordina per:</label>
+          <select id="ordinamento" name="scelta">
+            <option value="ordinamentoNullo"selected>Nessun ordinamento</option>
+            <option value="ordinaDataEm">Data di Emissione</option>
+            <option value="ordinaNumeroTarga">Numero di targa</option>
           <input type="submit" name="bottonericerca" value="Cerca">
 
         </form>
@@ -37,19 +43,16 @@
 
       <?php
       $numTarga= "";
-      $datEM = "";
+      $dataEM = "";
       $radiocheck="";
+      $valoreordinamento="";
       if(count($_POST)>0 ){
         $numTarga = $_POST["numerotarga"];
         $dataEM = $_POST["dataemtarga"];
         $radiocheck=$_POST["radiofiltrotarga"];
+        $valoreordinamento=$_POST["scelta"];
       }
-      if(count($_GET)>0 ){
-        $numTarga = $_POST["numerotarga"];
-        $dataEM = $_POST["dataemtarga"];
-        $radiocheck=$_POST["radiofiltrotarga"];
-      }
-      $query = getTarga($numTarga, $dataEM,$radiocheck);
+      $query = getTarga($numTarga, $dataEM,$radiocheck,$valoreordinamento);
       echo "<p>Query della Targa: " . $query . "</p>";
 
       include 'connect.php';
@@ -61,13 +64,16 @@
       }
       	if(!$error) {
       ?>
-
+<!-- IMPLEMENTARE IL NUMERI DI REVISONI EFFETTUATE PER OGNI TARGA
+ e il telaio del veicolo-->
       <table class="table">
         <tr class="header">
           <th># </th>
           <th>Targa</th>
           <th>Data Emissione</th>
           <th>Stato della targa</th>
+          <th># Revisioni Effettuate</th>
+          <th>Telaio Veicolo</th>
         </tr>
 
         <?php
@@ -76,7 +82,7 @@
           $i=$i+1;
           $numTarga = $riga["numTarga"];
           $datEM = $riga["dataEM"];
-          $stato = $riga["stato"];
+          $stato = $riga["stato"]; //presente in query.php
           ?>
 
           <tr>

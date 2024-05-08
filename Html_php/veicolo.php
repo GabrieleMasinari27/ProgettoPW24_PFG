@@ -2,17 +2,16 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <script type="text/javascript" src="../js/rinominaheader.js"></script>
+<script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body onload="setVeicolo()">
-
-  <!--
-  <footer>footer</footer>-->
   <?php
   include "header.html";
   include "footer.html";
-  include "Query.php";
+  include "query.php";
   ?>
   <div class="container">
     <div class="ricercasx">
@@ -26,7 +25,7 @@
           <input type="number" name="telaio" placeholder="Telaio"><br>
           <input type="text" name="marca"  placeholder="Marca"><br>
           <input type="text" name="modello"  placeholder="Modello"><br><br>
-          data della produzione:
+          Data della produzione:
           <input type="date" name="dataproduzione" placeholder="Data della produzione"><br><br>
           <label for="scelta">Ordina per:</label>
           <select id="ordinamento" name="scelta">
@@ -55,13 +54,6 @@
         $dataPro=$_POST["dataproduzione"];
         $valoreordinamento=$_POST["scelta"];
       }
-      if(count($_GET)>0 ){
-        $numTelaio= $_POST["telaio"];
-        $marca = $_POST["marca"];
-        $modello = $_POST["modello"];
-        $dataPro=$_POST["dataproduzione"];
-        $valoreordinamento=$_POST["scelta"];
-      }
       $query = queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento);
       echo "<p>Query della Targa: " . $query . "</p>";
 
@@ -75,20 +67,27 @@
       	if(!$error) {
       ?>
       <table class="table">
+        <!-- IMPLEMENTARE IL NUMERO DI TARGHE restituite
+        E AGGIUNGERE ID DI TARGA ATTIVA-->
       <tr class="header">
         <th>#Telaio</th>
         <th>Marca</th>
         <th>Modello</th>
         <th>Data di produzione</th>
+        <th>#Targhe Restituite</th>
+        <th>IdTargaAttiva</th>
       </tr>
       <?php
+      $i=0;
       foreach($result as $riga) {
+        $i=$i+1;
         $numTelaio = $riga["telaio"];
         $marca = $riga["marca"];
         $modello = $riga["modello"];
         $dataPro = $riga["data"];
       ?>
       <tr>
+        <td><?php echo $i; ?></td>
         <td><?php echo $numTelaio; ?></td>
         <td><?php echo $marca; ?></td>
         <td><?php echo $modello; ?></td>

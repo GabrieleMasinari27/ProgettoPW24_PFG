@@ -2,6 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <script type="text/javascript" src="../js/rinominaheader.js"></script>
+  <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
@@ -10,7 +12,7 @@
   <?php
   include "header.html";
   include "footer.html";
-  include "Query.php";
+  include "query.php";
   ?>
   <div class="container">
     <div class="ricercasx">
@@ -23,15 +25,15 @@
         <form name="form_ricerca" method="post">
           <input type="number" name="numerorevisione" placeholder="Numero di revisione"><br>
           <input type="text" name="numerotarga"  placeholder="Targa"><br><br>
-          data della revisione:
+          Data della revisione:
           <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
-          esito:<br>
+          Esito:<br>
           <input type="radio" name="esito" value="positivo"> Positivo <br>
           <input type="radio" name="esito" value="negativo"> Negativo <br>
-          <input type="radio" name="esito" value="indifferente" checked> indifferente <br><br>
+          <input type="radio" name="esito" value="indifferente" checked> Indifferente <br><br>
           <label for="scelta">Ordina per:</label>
           <select id="ordinamento" name="scelta">
-            <option value="ordinamentoNullo">Nessun ordinamento</option>
+            <option value="ordinamentoNullo"selected>Nessun ordinamento</option>
             <option value="ordinaNumeroRev">Numero di revisione</option>
             <option value="ordinaNumeroTarga">Numero di targa</option>
             <option value="ordinaPositivo">Prima i positivi</option>
@@ -44,26 +46,20 @@
     </div>
     <div class="risultato">
       <?php
-      $numRevione= "";
+      $numRevisione= "";
       $numTarga= "";
-      $datRE = "";
+      $dataRE = "";
       $posneg="";
       $valoreordinamento="";
       if(count($_POST)>0 ){
-        $numRevione= $_POST["numerorevisione"];
+        $numRevisione= $_POST["numerorevisione"];
         $numTarga = $_POST["numerotarga"];
         $dataRE = $_POST["datarevisione"];
         $posneg=$_POST["esito"];
         $valoreordinamento=$_POST["scelta"];
       }
-      if(count($_GET)>0 ){
-        $numRevione= $_POST["numerorevisione"];
-        $numTarga = $_POST["numerotarga"];
-        $dataRE = $_POST["datarevisione"];
-        $posneg=$_POST["esito"];
-        $valoreordinamento=$_POST["scelta"];
-      }
-      $query = queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento);
+
+      $query = queryRevisione($numRevisione, $numTarga, $dataRE, $posneg, $valoreordinamento);
       echo "<p>Query della Targa: " . $query . "</p>";
 
       include 'connect.php';
@@ -77,26 +73,30 @@
       ?>
       <table class="table">
       <tr class="header">
-        <th>#Revisione</th>
+        <th>#</th>
+        <th>IdRevisione</th>
         <th>Targa</th>
         <th>Data Emissione</th>
         <th>Esito</th>
         <th>Motivazione</th>
       </tr>
       <?php
+      $i=0;
       foreach($result as $riga) {
-        $numRevione = $riga["numRevisione"];
+        $i =$i+1;
+        $numRevisione = $riga["numRevisione"];
         $numTarga = $riga["numTarga"];
-        $datRE = $riga["dataRevisione"];
+        $dataRE = $riga["dataRevisione"];
         $esito = $riga["esito"];
         $motivazione = $riga["motivazione"];
         // Determina la classe CSS in base all'esito
         $bg_class = ($esito == 'positivo') ? 'bg-green' : 'bg-red';
       ?>
       <tr class="<?php echo $bg_class; ?>">
-        <td><?php echo $numRevione; ?></td>
+        <td><?php echo $i; ?></td>
+        <td><?php echo $numRevisione; ?></td>
         <td><?php echo $numTarga; ?></td>
-        <td><?php echo $datRE; ?></td>
+        <td><?php echo $dataRE; ?></td>
         <td><?php echo $esito; ?></td>
         <td><?php echo $motivazione; ?></td>
       </tr>
