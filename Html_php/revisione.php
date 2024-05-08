@@ -5,10 +5,8 @@
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
-<body>
+<body onload="setRevisione()">
 
-  <!--
-  <footer>footer</footer>-->
   <?php
   include "header.html";
   include "footer.html";

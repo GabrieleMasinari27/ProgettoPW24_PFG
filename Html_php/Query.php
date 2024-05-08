@@ -3,27 +3,41 @@
     $qry = "SELECT
                 TARGA.numero AS numTarga,
                 TARGA.dataEM AS dataEM,
-                CASE
-                    WHEN TARGA_ATTIVA.targa IS NOT NULL THEN 'Attiva'
-                    WHEN TARGA_RESTITUITA.targa IS NOT NULL THEN 'Restituita'
-                    ELSE 'Non assegnata'
-                END AS stato
+						CASE
+								WHEN TARGA.numero IN (SELECT TARGA_RESTITUITA.targa FROM TARGA_RESTITUITA) THEN 'Restituita'
+								WHEN TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA) THEN 'Attiva'
+						END AS stato
+
             FROM
                 TARGA
-            LEFT JOIN
-                TARGA_ATTIVA ON TARGA.numero = TARGA_ATTIVA.targa
-            LEFT JOIN
-                TARGA_RESTITUITA ON TARGA.numero = TARGA_ATTIVA.targa
+
             WHERE 1=1 ";
 
     if ($numTarga != "")
         $qry .= "AND TARGA.numero LIKE '%" . $numTarga . "%' ";
 
     if ($dataEM != "")
-        $qry .= "AND TARGA.dataEM  LIKE '%" . $datEM . "%' ";
+        $qry .= "AND TARGA.dataEM  LIKE '%" . $dataEM . "%' ";
+
+		if($radiocheck=="targherest")
+				$qry .= "AND TARGA.numero IN (SELECT TARGA_RESTITUITA.targa FROM TARGA_RESTITUITA)";
+
+		if($radiocheck=="targheatt")
+				$qry .= "AND TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA)";
+
 
     return $qry;
 	}
+
+	#	CASE
+	#			WHEN TARGA_ATTIVA.targa IS NOT NULL THEN 'Attiva'
+	#			WHEN TARGA_RESTITUITA.targa IS NOT NULL THEN 'Restituita'
+	#	END AS stato
+
+	#LEFT JOIN
+	#    TARGA_ATTIVA ON TARGA.numero = TARGA_ATTIVA.targa
+	#LEFT JOIN
+	#    TARGA_RESTITUITA ON TARGA.numero = TARGA_ATTIVA.targa
 
 	function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
     $qry = "SELECT REVISIONE.numero AS numRevisione, REVISIONE.dataRev AS dataRevisione, REVISIONE.targa AS numTarga, REVISIONE.esito AS esito, REVISIONE.motivazione AS motivazione " .

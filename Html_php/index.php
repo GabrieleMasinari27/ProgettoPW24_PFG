@@ -34,6 +34,7 @@
       </div>
     </div>
     <div class="risultato">
+
       <?php
       $numTarga= "";
       $datEM = "";
@@ -60,6 +61,7 @@
       }
       	if(!$error) {
       ?>
+
       <table class="table">
         <tr class="header">
           <th># </th>
@@ -67,6 +69,7 @@
           <th>Data Emissione</th>
           <th>Stato della targa</th>
         </tr>
+
         <?php
         $i=0;
         foreach($result as $riga) {
@@ -75,12 +78,14 @@
           $datEM = $riga["dataEM"];
           $stato = $riga["stato"];
           ?>
+
           <tr>
             <td > <?php echo $i; ?> </td>
             <td > <?php echo $numTarga; ?> </td>
             <td > <?php echo $datEM; ?> </td>
             <td > <?php echo $stato; ?> </td>
           </tr>
+
       <?php
         }
         ?>

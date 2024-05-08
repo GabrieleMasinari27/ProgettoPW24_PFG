@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
-<body>
+<body onload="setVeicolo()">
 
   <!--
   <footer>footer</footer>-->
