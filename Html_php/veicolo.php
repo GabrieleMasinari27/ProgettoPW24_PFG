@@ -70,6 +70,7 @@
         <!-- IMPLEMENTARE IL NUMERO DI TARGHE restituite
         E AGGIUNGERE ID DI TARGA ATTIVA-->
       <tr class="header">
+        <th>#</th>
         <th>#Telaio</th>
         <th>Marca</th>
         <th>Modello</th>
