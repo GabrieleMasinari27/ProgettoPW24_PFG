@@ -8,24 +8,28 @@ body {
 
 /* Stili per l'header */
 header {
-  background-color: #ccc; /* Grigio medio */
+  background-color: #0D0221; /* viola scuro */
   padding: 20px;
   text-align: center;
   font-size: 36px;
-  color: #4d4d4d; /* Grigio scuro */
+  color: white; /* bianco */
 }
 
 /* Stili per il footer */
 footer {
-  background-color: #ccc; /* Grigio medio */
+  background-color: #0D0221; /* Grigio medio */
   padding: 20px;
   position: fixed;
   bottom: 0;
   width: 100%;
   text-align: center;
-  color: #4d4d4d; /* Grigio scuro */
+  color: white; /* Grigio scuro */
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
 /* Stili per il contenitore dei div ricercasx e risultato */
 .container {
   display: flex;
@@ -36,7 +40,7 @@ footer {
 /* Stili per il div ricercasx */
 .ricercasx {
   width: 30%; /* Larghezza del 30% rispetto al contenitore */
-  background-color: #e6e6e6; /* Grigio chiaro */
+  background-color: #9E643C; /* Raw Umber-Marrone chiaro */
   padding: 20px;
   border-right: 2px solid #ccc; /* Linea divisoria grigia */
 }
@@ -44,7 +48,7 @@ footer {
 /* Stili per il div risultato */
 .risultato {
   width: 70%; /* Larghezza del 70% rispetto al contenitore */
-  background-color: #fff; /* Bianco */
+  background-color: #f5f5dc; /* Beige */
   padding: 20px;
   overflow: auto; /* Scorrimento verticale solo se necessario */
 }
