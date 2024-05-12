@@ -12,12 +12,12 @@
   <header id="header">
      Targa
   </header>
-<!--
+
   <?php
-#  include "header.html";
-#  include "footer.html";
+  include "header.html";
+  include "footer.html";
   include "query.php";
-  ?>-->
+  ?>
   <div class="container">
     <div class="ricercasx">
       <div class="nav">
@@ -28,10 +28,9 @@
         <li><a href="veicolo.php">Veicolo</a></li>
         </ul>
         </nav>
-<!--
         <?php
-        #include "nav.html";
-        ?>-->
+        include "nav.html";
+        ?>
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
@@ -58,6 +57,8 @@
       $dataEM = "";
       $radiocheck="";
       $valoreordinamento="";
+      $count_revisioni=0;
+      $numero_veicolo=0;
       if(count($_POST)>0 ){
         $numTarga = $_POST["numerotarga"];
         $dataEM = $_POST["dataemtarga"];
@@ -93,15 +94,18 @@
         foreach($result as $riga) {
           $i=$i+1;
           $numTarga = $riga["numTarga"];
-          $datEM = $riga["dataEM"];
+          $dataEM = $riga["dataEM"];
           $stato = $riga["stato"]; //presente in query.php
+          $count_revisioni=$riga["count_revisioni"]
           ?>
 
           <tr>
             <td > <?php echo $i; ?> </td>
             <td > <?php echo $numTarga; ?> </td>
-            <td > <?php echo $datEM; ?> </td>
+            <td > <?php echo $dataEM; ?> </td>
             <td > <?php echo $stato; ?> </td>
+            <td > <?php echo $count_revisioni; ?> </td>
+            <td > <?php echo $numero_veicolo; ?> </td>
           </tr>
 
       <?php

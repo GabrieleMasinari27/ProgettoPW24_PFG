@@ -11,8 +11,12 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 	FROM
 	TARGA
 
-	WHERE 1=1 ";
-
+	WHERE  1=1 ";
+	#da mettere nel select però è sbagliato
+	#count(SELECT REVISIONE.targa
+	#	FROM REVISIONE JOIN TARGA ON
+	#	 TARGA.numero=REVISIONE.targa
+	 # ) AS count_revisioni,
 	if ($numTarga != "")
 	$qry .= "AND TARGA.numero LIKE '%" . $numTarga . "%' ";
 
@@ -64,7 +68,7 @@ function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinam
 		case 'ordinamentoNullo':
 		break;
 		case 'ordinaNumeroRev':
-		
+
 		$qry .= " ORDER BY REVISIONE.numero";
 		break;
 		case 'ordinaNumeroTarga':
