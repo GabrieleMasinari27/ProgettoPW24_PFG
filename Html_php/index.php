@@ -6,32 +6,17 @@
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
-  <footer id="footer">
-      PFG Motorizzazioni
-  </footer>
-  <header id="header">
-     Targa
-  </header>
-<!--
   <?php
   include "header.html";
   include "footer.html";
   include "query.php";
-  ?>-->
+  ?>
   <div class="container">
     <div class="ricercasx">
       <div class="nav">
-
-        <nav>
-          <ul>
-        <li><a href="index.php">Targa</a></li><br>
-        <li><a href="revisione.php">Revisione</a></li><br>
-        <li><a href="veicolo.php">Veicolo</a></li>
-        </ul>
-      </nav>
-      <!--  <?php
+        <?php
         include "nav.html";
-        ?>-->
+        ?>
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
