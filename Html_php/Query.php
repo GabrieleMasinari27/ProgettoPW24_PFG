@@ -3,6 +3,10 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 	$qry = "SELECT
 	TARGA.numero AS numTarga,
 	TARGA.dataEM AS dataEM,
+	(SELECT COUNT(*) FROM REVISIONE WHERE REVISIONE.targa = TARGA.numero) AS count_revisioni,
+	TARGA_RESTITUITA.veicolo AS telaio_res_associato,
+	TARGA_ATTIVA.veicolo AS telaio_att_associato,
+	
 	CASE
 	WHEN TARGA.numero IN (SELECT TARGA_RESTITUITA.targa FROM TARGA_RESTITUITA) THEN 'Restituita'
 	WHEN TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA) THEN 'Attiva'
@@ -10,13 +14,14 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 
 	FROM
 	TARGA
+	LEFT JOIN
+	TARGA_ATTIVA ON TARGA.numero = TARGA_ATTIVA.targa
+	LEFT JOIN
+	TARGA_RESTITUITA ON TARGA.numero = TARGA_RESTITUITA.targa
+
 
 	WHERE  1=1 ";
-	#da mettere nel select però è sbagliato
-	#count(SELECT REVISIONE.targa
-	#	FROM REVISIONE JOIN TARGA ON
-	#	 TARGA.numero=REVISIONE.targa
-	 # ) AS count_revisioni,
+	
 	if ($numTarga != "")
 	$qry .= "AND TARGA.numero LIKE '%" . $numTarga . "%' ";
 
@@ -28,6 +33,8 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 
 	if($radiocheck=="targheatt")
 	$qry .= "AND TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA)";
+
+	$qry .="GROUP BY TARGA.numero, TARGA.dataEM";
 
 	switch ($valoreordinamento) {
 		case 'ordinamentoNullo':
@@ -45,8 +52,10 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 	}
 
 
+
 	return $qry;
 }
+
 function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
 	$qry = "SELECT REVISIONE.numero AS numRevisione, REVISIONE.dataRev AS dataRevisione, REVISIONE.targa AS numTarga, REVISIONE.esito AS esito, REVISIONE.motivazione AS motivazione " .
 	"FROM REVISIONE " .

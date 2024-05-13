@@ -44,7 +44,6 @@
       $radiocheck="";
       $valoreordinamento="";
       $count_revisioni=0;
-      $numero_veicolo=0;
       if(count($_POST)>0 ){
         $numTarga = $_POST["numerotarga"];
         $dataEM = $_POST["dataemtarga"];
@@ -82,7 +81,9 @@
           $numTarga = $riga["numTarga"];
           $dataEM = $riga["dataEM"];
           $stato = $riga["stato"]; //presente in query.php
-          $count_revisioni=$riga["count_revisioni"]
+          $count_revisioni=$riga["count_revisioni"];
+          $telaio_res_veicolo=$riga["telaio_res_associato"];
+          $telaio_att_veicolo=$riga["telaio_att_associato"];
           ?>
 
           <tr>
@@ -91,7 +92,19 @@
             <td > <?php echo $dataEM; ?> </td>
             <td > <?php echo $stato; ?> </td>
             <td > <?php echo $count_revisioni; ?> </td>
-            <td > <?php echo $numero_veicolo; ?> </td>
+            <?php
+              if($stato=="Attiva"){
+              ?>
+              <td > <?php echo $telaio_att_veicolo; ?> </td>
+
+            <?php
+              }
+              else{
+              ?>
+              <td > <?php echo $telaio_res_veicolo; ?> </td>
+              <?php
+              }
+              ?>
           </tr>
 
       <?php
