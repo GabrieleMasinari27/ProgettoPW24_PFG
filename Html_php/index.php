@@ -20,8 +20,8 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
-          <input type="text" name="numerotarga"  placeholder=" Targa">
-          Data di emissione:
+          <input type="text" name="numerotarga"  placeholder=" Targa"><br>
+          Data di emissione:<br>
           <input type="date" name="dataemtarga"><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
           <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>

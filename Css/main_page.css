@@ -6,7 +6,8 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 220px;
+  width: 100%;
+  max-width: 300px;
   background-color: #f1f1f1;
   border: 1px solid #555;
 }
@@ -82,7 +83,7 @@ a {
 
 /* Stili per il div ricercasx */
 .ricercasx {
-  width: 45%; /* Larghezza del 30% rispetto al contenitore */
+  width: 25%; /* Larghezza del 30% rispetto al contenitore */
   background-color: #746d75; /* Raw Umber-Marrone chiaro */
   padding: 15px;
 }
