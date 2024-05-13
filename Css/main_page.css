@@ -8,7 +8,7 @@
   padding: 0;
   width: 100%;
   max-width: 300px;
-  background-color: #f1f1f1;
+  background-color: #D9CDAF;
   border: 1px solid #555;
 }
 
@@ -39,12 +39,12 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2; /* Grigio chiaro */
+  background-color: #f2f2f2;
 }
 
 /* Stili per l'header */
 header {
-  background-color: #0D0221; /* viola scuro */
+  background-color: #5F4334; 
   padding: 20px;
   text-align: center;
   font-size: 30px;
@@ -53,13 +53,13 @@ header {
 
 /* Stili per il footer */
 footer {
-  background-color: #0D0221; /* Grigio medio */
+  background-color: #5F4334; 
   padding: 20px;
   position: fixed;
   bottom: 0;
   width: 100%;
   text-align: center;
-  color: white; /* Grigio scuro */
+  color: white; 
 }
 .nav{
   height: 25vh;
@@ -68,7 +68,7 @@ footer {
     height: 42vh;
 }
 input[type=submit]{
-  background-color:#91A6ff;
+  background-color:#D9CDAF;
 }
 a {
   text-decoration: none;
@@ -84,14 +84,14 @@ a {
 /* Stili per il div ricercasx */
 .ricercasx {
   width: 25%; /* Larghezza del 30% rispetto al contenitore */
-  background-color: #746d75; /* Raw Umber-Marrone chiaro */
+  background-color: #704F38; 
   padding: 15px;
 }
 
 /* Stili per il div risultato */
 .risultato {
   width: 100%; /* Larghezza del 70% rispetto al contenitore */
-  background-color: #d9b89D; /* Beige */
+  background-color: #D9CDAF; 
   height: 100%;
   padding: 20px;
   overflow: auto; /* Scorrimento verticale solo se necessario */
@@ -107,19 +107,20 @@ a {
 
 /* Stili per le righe della tabella */
 .table tr {
-  background-color: #f5f5dc; /* Grigio chiaro */
+  background-color: #B2925D; 
 }
 
 /* Stili per le righe della tabella alternativa */
 .table tr:nth-child(even) {
-  background-color: #f5f5dc; /* Grigio chiaro */
+  background-color: #A28050; 
 }
 
 /* Stili per l'header della tabella */
 .table th {
   padding: 12px;
   text-align: left;
-  background-color: #91A6ff; /* vista blue*/
+  background-color: #5F4334; 
+  color: white;
 
 }
 
@@ -136,7 +137,7 @@ a {
 
 /* Stili per il bordo della tabella */
 .table tr, .table th, .table td {
-  border: 5px solid #746d75; /* Grigio */
+  border: 5px solid #494440; /* Grigio */
 }
 
 /* Stili per i titoli */
