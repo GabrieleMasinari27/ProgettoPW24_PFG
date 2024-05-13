@@ -57,9 +57,14 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 }
 
 function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
-	$qry = "SELECT REVISIONE.numero AS numRevisione, REVISIONE.dataRev AS dataRevisione, REVISIONE.targa AS numTarga, REVISIONE.esito AS esito, REVISIONE.motivazione AS motivazione " .
-	"FROM REVISIONE " .
-	"WHERE 1=1 ";
+	$qry = "SELECT 
+	REVISIONE.numero AS numRevisione, 
+	REVISIONE.dataRev AS dataRevisione, 
+	REVISIONE.targa AS numTarga, 
+	REVISIONE.esito AS esito, 
+	REVISIONE.motivazione AS motivazione
+	FROM REVISIONE
+	WHERE 1=1 ";
 
 	if ($numTarga != "")
 	$qry .= "AND REVISIONE.targa LIKE '%" . $numTarga . "%' ";
@@ -98,9 +103,15 @@ function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinam
 }
 
 function queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento) : string {
-	$qry = "SELECT VEICOLO.telaio AS telaio, VEICOLO.marca AS marca, VEICOLO.modello AS modello, VEICOLO.dataProd AS data " .
-	"FROM VEICOLO " .
-	"WHERE 1=1 ";
+	$qry = "SELECT
+	VEICOLO.telaio AS telaio, 
+	VEICOLO.marca AS marca, 
+	VEICOLO.modello AS modello, 
+	VEICOLO.dataProd AS data,
+	(SELECT COUNT(*) FROM TARGA_RESTITUITA WHERE TARGA_RESTITUITA.veicolo=VEICOLO.telaio) as num_restituite,
+	(SELECT targa FROM TARGA_ATTIVA WHERE TARGA_ATTIVA.veicolo=VEICOLO.telaio) as targa_attiva
+	FROM VEICOLO
+	WHERE 1=1 ";
 
 	if ($numTelaio != "")
 	$qry .= "AND VEICOLO.telaio LIKE '%" . $numTelaio . "%' ";

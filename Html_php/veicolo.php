@@ -86,6 +86,8 @@
         $marca = $riga["marca"];
         $modello = $riga["modello"];
         $dataPro = $riga["data"];
+        $num_res= $riga["num_restituite"];
+        $targa_att=$riga["targa_attiva"];
       ?>
       <tr>
         <td><?php echo $i; ?></td>
@@ -93,6 +95,8 @@
         <td><?php echo $marca; ?></td>
         <td><?php echo $modello; ?></td>
         <td><?php echo $dataPro; ?></td>
+        <td><?php echo $num_res; ?></td>
+        <td><?php echo $targa_att; ?></td>
       </tr>
       <?php
       }
