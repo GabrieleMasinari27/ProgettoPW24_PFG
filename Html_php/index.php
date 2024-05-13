@@ -20,17 +20,17 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
-          <input type="text" name="numerotarga"  placeholder=" Targa"><br>
+          <input type="text" name="numerotarga"  placeholder=" Targa"><br><br>
           Data di emissione:<br>
-          <input type="date" name="dataemtarga"><br>
+          <input type="date" name="dataemtarga"><br><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
           <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>
-          <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe <br>
+          <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe <br><br>
           <label for="scelta">Ordina per:</label>
           <select id="ordinamento" name="scelta">
             <option value="ordinamentoNullo"selected>Nessun ordinamento</option>
             <option value="ordinaDataEm">Data di Emissione</option>
-            <option value="ordinaNumeroTarga">Numero di targa</option>
+            <option value="ordinaNumeroTarga">Numero di targa</option><br>
           <input type="submit" name="bottonericerca" value="Cerca">
 
         </form>
