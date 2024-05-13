@@ -1,5 +1,5 @@
-#f5f5dc (beige)
+#f5f5dc (beige) oppure #D9B89D (desert sand)
 #746D75 (grigio scuro)
 #91A6FF (vista blue)
-#9E643C (marrone chiaro)
+#9E643C (marrone chiaro) oppure #996441
 #0D0221 (viola scuro)
