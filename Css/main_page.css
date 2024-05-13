@@ -28,7 +28,7 @@ li:last-child {
   border-bottom: none;
 }
 li a:hover {
-  background-color: #555;
+  background-color: #5f4334;
   color: white;
 }
 /*blocco filtro*/

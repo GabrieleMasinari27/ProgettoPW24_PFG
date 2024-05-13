@@ -60,8 +60,7 @@
       }
 
       $query = queryRevisione($numRevisione, $numTarga, $dataRE, $posneg, $valoreordinamento);
-      echo "<p>Query della Revisione: " . $query . "</p>";
-
+      
       include 'connect.php';
       try {
         $result = $conn->query($query);

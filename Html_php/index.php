@@ -20,7 +20,7 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
-          <input type="text" name="numerotarga"  placeholder=" Targa"><br><br>
+          <input type="search" name="numerotarga"  placeholder=" Targa"><br><br>
           Data di emissione:<br>
           <input type="date" name="dataemtarga"><br><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
@@ -51,8 +51,7 @@
         $valoreordinamento=$_POST["scelta"];
       }
       $query = getTarga($numTarga, $dataEM,$radiocheck,$valoreordinamento);
-      echo "<p>Query della Targa: " . $query . "</p>";
-
+      
       include 'connect.php';
       try {
         $result = $conn->query($query);

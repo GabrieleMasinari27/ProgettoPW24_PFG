@@ -55,8 +55,7 @@
         $valoreordinamento=$_POST["scelta"];
       }
       $query = queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento);
-      echo "<p>Query del Veicolo " . $query . "</p>";
-
+      
       include 'connect.php';
       try {
         $result = $conn->query($query);
