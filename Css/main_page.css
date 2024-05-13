@@ -90,7 +90,7 @@ a {
 
 /* Stili per il div risultato */
 .risultato {
-  width: 70%; /* Larghezza del 70% rispetto al contenitore */
+  width: 100%; /* Larghezza del 70% rispetto al contenitore */
   background-color: #d9b89D; /* Beige */
   height: 100%;
   padding: 20px;
