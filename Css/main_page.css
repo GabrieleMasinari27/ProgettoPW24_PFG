@@ -1,30 +1,34 @@
-/*Blocco css per il nav*/
-nav {
-  background-color: #333 ;
-}
-
-nav ul {
+* {
+  box-sizing:border-box;
+  }
+  /*Blocco */
+  ul {
   list-style-type: none;
-  padding: 0;
   margin: 0;
-  text-align: center;
+  padding: 0;
+  width: 220px;
+  background-color: #f1f1f1;
+  border: 1px solid #555;
 }
 
-nav ul li {
-  display: inline;
-}
-
-nav ul li a {
-  display: inline-block;
-  padding: 20px 15px;
-  color:white;
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
   text-decoration: none;
-  transition: background-color 0.3s;
-  width: 100px;
 }
 
-nav ul li a:hover {
+li {
+  text-align: center;
+  border-bottom: 1px solid #555;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+li a:hover {
   background-color: #555;
+  color: white;
 }
 /*blocco filtro*/
 
@@ -57,7 +61,7 @@ footer {
   color: white; /* Grigio scuro */
 }
 .nav{
-  height: 35vh;
+  height: 25vh;
 }
 .filtro{
     height: 42vh;
@@ -78,17 +82,16 @@ a {
 
 /* Stili per il div ricercasx */
 .ricercasx {
-  width: 30%; /* Larghezza del 30% rispetto al contenitore */
+  width: 45%; /* Larghezza del 30% rispetto al contenitore */
   background-color: #746d75; /* Raw Umber-Marrone chiaro */
-  padding: 20px;
-  border-right: 2px solid #ccc; /* Linea divisoria grigia */
+  padding: 15px;
 }
 
 /* Stili per il div risultato */
 .risultato {
   width: 70%; /* Larghezza del 70% rispetto al contenitore */
   background-color: #d9b89D; /* Beige */
-  height: 80vh;
+  height: 100%;
   padding: 20px;
   overflow: auto; /* Scorrimento verticale solo se necessario */
 }
@@ -98,6 +101,7 @@ a {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 /* Stili per le righe della tabella */
