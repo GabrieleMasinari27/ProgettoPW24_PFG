@@ -25,7 +25,7 @@
       <div class="filtro">
         <form name="form_ricerca" method="post">
           <fieldset>
-            <legend>Filtro Ricerca per:</legend>
+          <legend>Filtro Ricerca per:</legend>
           <input type="number" name="telaio" placeholder="Telaio"><br>
           <input type="text" name="marca"  placeholder="Marca"><br>
           <input type="text" name="modello"  placeholder="Modello"><br><br>
