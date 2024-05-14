@@ -5,3 +5,6 @@ function setVeicolo() {
 function setRevisione() {
 	$("#header").eq(0).html("Revisione");
 }
+function setTarga() {
+	$("#header").eq(0).html("Targa");
+}

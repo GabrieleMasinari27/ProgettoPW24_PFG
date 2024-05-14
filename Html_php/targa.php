@@ -4,8 +4,11 @@
   <link rel="stylesheet" href="../Css/main_page.css">
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
+  <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../js/rinominaheader.js"></script>
+  <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
 </head>
-<body>
+<body onload="setTarga()">
   <?php
   include "header.html";
   include "footer.html";
@@ -31,8 +34,8 @@
             <option value="ordinamentoNullo"selected>Nessun ordinamento</option>
             <option value="ordinaDataEm">Data di Emissione</option>
             <option value="ordinaNumeroTarga">Numero di targa</option><br>
+           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="submit" name="bottonericerca" value="Cerca">
-
         </form>
       </div>
     </div>
