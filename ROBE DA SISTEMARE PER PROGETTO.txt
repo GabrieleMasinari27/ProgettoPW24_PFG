@@ -1,6 +1,5 @@
 ROBE DA SISTEMARE/inserire PER PROGETTO
 -bottoncino cerca un pelo più grande
 -rivedere ordine link? (magari va già bene)
--pagina home da includere
 -inserimento/ modifica/ elimina si può fare con pag extra
 -accesso o da form o da tabella, però il modo deve essere lo stesso per tutti e tre
