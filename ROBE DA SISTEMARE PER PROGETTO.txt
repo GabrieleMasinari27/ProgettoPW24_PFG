@@ -1,5 +1,4 @@
 ROBE DA SISTEMARE/inserire PER PROGETTO
--rimuovere la stampa della query da tutte le pagine
 -bottoncino cerca un pelo più grande
 -rivedere ordine link? (magari va già bene)
 -pagina home da includere

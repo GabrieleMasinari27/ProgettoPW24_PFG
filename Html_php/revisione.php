@@ -2,8 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+  <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
+  
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
@@ -23,8 +26,10 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
+          <fieldset>
+           <legend>Filtro Ricerca per:</legend> 
           <input type="number" name="numerorevisione" placeholder="Numero di revisione"><br>
-          <input type="text" name="numerotarga"  placeholder="Targa"><br><br>
+          <input type="text" name="numerotarga"  placeholder="Targa"><i class="fa fa-automobile"></i><br><br>
           Data della revisione:
           <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
           Esito:<br>
@@ -39,8 +44,9 @@
             <option value="ordinaPositivo">Prima i positivi</option>
             <option value="ordinaNegativo">Prima i negativi</option>
           </select>
-          <input type="submit" name="bottonericerca" value="Cerca">
-
+          <br><br>
+          <input type="submit" name="bottonericerca" value="Cerca"><i class="fa fa-search"></i>
+          </fieldset>
         </form>
       </div>
     </div>

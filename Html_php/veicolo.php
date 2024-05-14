@@ -2,8 +2,10 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
-<script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+  <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
@@ -22,6 +24,8 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
+          <fieldset>
+            <legend>Filtro Ricerca per:</legend>
           <input type="number" name="telaio" placeholder="Telaio"><br>
           <input type="text" name="marca"  placeholder="Marca"><br>
           <input type="text" name="modello"  placeholder="Modello"><br><br>
@@ -35,8 +39,9 @@
             <option value="ordinaModello">Alfabetico perModello</option>
             <option value="ordinaData">Data Produzione</option>
           </select>
-          <input type="submit" name="bottonericerca" value="Cerca">
-
+           <br><br>
+          <input type="submit" name="bottonericerca" value="Cerca"><i class="fa fa-search"></i>
+         
         </form>
       </div>
     </div>
