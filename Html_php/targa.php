@@ -7,6 +7,7 @@
   <title>ProgettoPFG_Motorizzazione</title>
   <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
+  <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
 </head>
 <body onload="setTarga()">
@@ -39,13 +40,13 @@
             <option value="ordinaNumeroTarga">Numero di targa</option>
           </select>
            <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca"><i class="fa fa-search"></i>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
           </fieldset>
         </form>
       </div>
     </div>
     <div class="risultato">
-      <i class="fa fa-plus-square-o"></i>
+      <i id="icona_aggiungi"class="fa fa-plus-square-o"></i>
       <?php
       $numTarga= "";
       $dataEM = "";
@@ -115,7 +116,7 @@
               <?php
               }
               ?>
-            <td id="icona_modifica">  <i class="fa fa-pencil"></i> </td>
+            <td id="icona_modifica"> <a onclick="Cancella()"><i class="fa fa-pencil"></i></a> </td>
             <td id="icona_elimina">  <i class="fa fa-trash"></i> </td>
           </tr>
 

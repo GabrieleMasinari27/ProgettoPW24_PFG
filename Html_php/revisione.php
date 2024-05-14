@@ -45,7 +45,7 @@
             <option value="ordinaNegativo">Prima i negativi</option>
           </select>
           <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca"><i class="fa fa-search"></i>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
           </fieldset>
         </form>
       </div>
@@ -95,7 +95,7 @@
         $esito = $riga["esito"];
         $motivazione = $riga["motivazione"];
         // Determina la classe CSS in base all'esito
-        $bg_class = ($esito == 'positivo') ? 'bg-green' : 'bg-red';
+        $bg_class = ($esito == 'positivo') ? 'bg-positivo' : 'bg-negativo';
       ?>
       <tr class="<?php echo $bg_class; ?>">
         <td><?php echo $i; ?></td>

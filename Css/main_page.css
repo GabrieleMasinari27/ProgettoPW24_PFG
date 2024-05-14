@@ -1,7 +1,7 @@
 * {
   box-sizing:border-box;
   }
-  /*Blocco */
+  /*Blocco nav */
   ul {
   list-style-type: none;
   margin: 0;
@@ -31,9 +31,17 @@ li a:hover {
   background-color: #5f4334;
   color: white;
 }
+.nav {
+  height: 25vh;
+}
 /*blocco filtro*/
-
-
+input[type=submit] {
+  background-color: #D9CDAF;
+}
+.filtro {
+  height: 42vh;
+  color: white;
+}
 /* Stili per il corpo della pagina */
 body {
   font-family: 'Roboto', sans-serif;
@@ -61,16 +69,6 @@ footer {
   text-align: center;
   color: white; 
 }
-.nav{
-  height: 25vh;
-}
-.filtro{
-    height: 42vh;
-    color:white;
-}
-input[type=submit]{
-  background-color:#D9CDAF;
-}
 a {
   text-decoration: none;
   color: black;
@@ -81,10 +79,9 @@ a {
   width: 100%;
   height: calc(100vh - 100px); /* Altezza rimanente della finestra */
 }
-
-/* Stili per il div ricercasx */
+/*Blocco ricercasx*/
 .ricercasx {
-  width: 25%; /* Larghezza del 30% rispetto al contenitore */
+  width: 25%; 
   background-color: #704F38; 
   padding: 15px;
 }
@@ -97,18 +94,62 @@ a {
 p{
   text-align:left;
 }
-
-#icona_modifica{
+/*Blocco icone*/
+#icona_aggiungi {
   text-align: center;
 }
 
+#icona_aggiungi:hover {
+  cursor: help;
+}
+
+#icona_aggiungi:hover::after {
+  content: "Aggiungi una riga";
+  display: inline;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  z-index: 1;
+}
+#icona_modifica {
+  text-align: center;
+}
+
+#icona_modifica:hover {
+  cursor: help;
+}
+
+#icona_modifica:hover::after {
+  content: "Modifica questa riga";
+  display: inline;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  z-index: 1;
+}
 #icona_elimina{
   text-align: center;
 }
-
+#icona_elimina:hover {
+  cursor:help;
+}
+#icona_elimina:hover::after {
+  content: "Elimina questa riga";
+  display: inline;
+  position:absolute;
+  background-color: rgba(0,0,0,0.8);
+  color:white;
+  padding:4px;
+  border-radius: 4px;
+  z-index:1;
+}
 /* Stili per il div risultato */
 .risultato {
-  width: 100%; /* Larghezza del 70% rispetto al contenitore */
+  width: 100%; 
   background-color: #D9CDAF; 
   height: 100%;
   padding: 20px;

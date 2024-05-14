@@ -40,7 +40,7 @@
             <option value="ordinaData">Data Produzione</option>
           </select>
            <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca"><i class="fa fa-search"></i>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
          
         </form>
       </div>

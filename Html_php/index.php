@@ -23,7 +23,7 @@
         ?>
       </div>
       <div id="nota">
-      <p>NOTA: le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa, come da consegna</p>
+      <p>NOTA: <br>le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa</p>
       </div>
     </div>
     <div class="risultato">

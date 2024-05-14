@@ -7,4 +7,5 @@ function setRevisione() {
 }
 function setTarga() {
 	$("#header").eq(0).html("Targa");
+	
 }
