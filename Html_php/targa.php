@@ -15,6 +15,8 @@
   include "header.html";
   include "footer.html";
   include "query.php";
+  include "delete.php";
+  
   ?>
   <div class="container">
     <div class="ricercasx">
@@ -116,8 +118,8 @@
               <?php
               }
               ?>
-            <td id="icona_modifica"> <a onclick="Cancella()"><i class="fa fa-pencil"></i></a> </td>
-            <td id="icona_elimina">  <i class="fa fa-trash"></i> </td>
+            <td id="icona_modifica"> <a onclick=""><i class="fa fa-pencil"></i></a> </td>
+            <td id="icona_elimina">  <a onclick="Cancella()"><i class="fa fa-trash"></i></a> </td>
           </tr>
 
       <?php
