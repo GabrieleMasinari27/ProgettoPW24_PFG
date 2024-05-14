@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <script type="text/javascript" src="../js/rinominaheader.js"></script>
+<script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
-<body>
+<body onload="setVeicolo()">
   <?php
   include "header.html";
   include "footer.html";
@@ -20,37 +22,39 @@
       </div>
       <div class="filtro">
         <form name="form_ricerca" method="post">
-          <input type="search" name="numerotarga"  placeholder=" Targa"><br><br>
-          Data di emissione:<br>
-          <input type="date" name="dataemtarga"><br><br>
-          <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
-          <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>
-          <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe <br><br>
+          <input type="number" name="telaio" placeholder="Telaio"><br>
+          <input type="text" name="marca"  placeholder="Marca"><br>
+          <input type="text" name="modello"  placeholder="Modello"><br><br>
+          Data della produzione:
+          <input type="date" name="dataproduzione" placeholder="Data della produzione"><br><br>
           <label for="scelta">Ordina per:</label>
           <select id="ordinamento" name="scelta">
-            <option value="ordinamentoNullo"selected>Nessun ordinamento</option>
-            <option value="ordinaDataEm">Data di Emissione</option>
-            <option value="ordinaNumeroTarga">Numero di targa</option><br>
+            <option value="ordinamentoNullo">Nessun ordinamento</option>
+            <option value="ordinaNumeroTel">Numero telaio</option>
+            <option value="ordinaMarca">Alfabetico per marca</option>
+            <option value="ordinaModello">Alfabetico perModello</option>
+            <option value="ordinaData">Data Produzione</option>
+          </select>
           <input type="submit" name="bottonericerca" value="Cerca">
 
         </form>
       </div>
     </div>
     <div class="risultato">
-
       <?php
-      $numTarga= "";
-      $dataEM = "";
-      $radiocheck="";
+      $numTelaio= "";
+      $marca= "";
+      $modello = "";
+      $dataPro="";
       $valoreordinamento="";
-      $count_revisioni=0;
       if(count($_POST)>0 ){
-        $numTarga = $_POST["numerotarga"];
-        $dataEM = $_POST["dataemtarga"];
-        $radiocheck=$_POST["radiofiltrotarga"];
+        $numTelaio= $_POST["telaio"];
+        $marca = $_POST["marca"];
+        $modello = $_POST["modello"];
+        $dataPro=$_POST["dataproduzione"];
         $valoreordinamento=$_POST["scelta"];
       }
-      $query = getTarga($numTarga, $dataEM,$radiocheck,$valoreordinamento);
+      $query = queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento);
       
       include 'connect.php';
       try {
@@ -61,55 +65,42 @@
       }
       	if(!$error) {
       ?>
-<!-- IMPLEMENTARE IL NUMERI DI REVISONI EFFETTUATE PER OGNI TARGA
- e il telaio del veicolo-->
       <table class="table">
-        <tr class="header">
-          <th># </th>
-          <th>Targa</th>
-          <th>Data Emissione</th>
-          <th>Stato della targa</th>
-          <th># Revisioni Effettuate</th>
-          <th>Telaio Veicolo</th>
-        </tr>
-
-        <?php
-        $i=0;
-        foreach($result as $riga) {
-          $i=$i+1;
-          $numTarga = $riga["numTarga"];
-          $dataEM = $riga["dataEM"];
-          $stato = $riga["stato"]; //presente in query.php
-          $count_revisioni=$riga["count_revisioni"];
-          $telaio_res_veicolo=$riga["telaio_res_associato"];
-          $telaio_att_veicolo=$riga["telaio_att_associato"];
-          ?>
-
-          <tr>
-            <td > <?php echo $i; ?> </td>
-            <td > <?php echo $numTarga; ?> </td>
-            <td > <?php echo $dataEM; ?> </td>
-            <td > <?php echo $stato; ?> </td>
-            <td > <?php echo $count_revisioni; ?> </td>
-            <?php
-              if($stato=="Attiva"){
-              ?>
-              <td > <?php echo $telaio_att_veicolo; ?> </td>
-
-            <?php
-              }
-              else{
-              ?>
-              <td > <?php echo $telaio_res_veicolo; ?> </td>
-              <?php
-              }
-              ?>
-          </tr>
-
+        <!-- IMPLEMENTARE IL NUMERO DI TARGHE restituite
+        E AGGIUNGERE ID DI TARGA ATTIVA-->
+      <tr class="header">
+        <th>#</th>
+        <th>#Telaio</th>
+        <th>Marca</th>
+        <th>Modello</th>
+        <th>Data di produzione</th>
+        <th>#Targhe Restituite</th>
+        <th>IdTargaAttiva</th>
+      </tr>
       <?php
-        }
-        ?>
-      </table>
+      $i=0;
+      foreach($result as $riga) {
+        $i=$i+1;
+        $numTelaio = $riga["telaio"];
+        $marca = $riga["marca"];
+        $modello = $riga["modello"];
+        $dataPro = $riga["data"];
+        $num_res= $riga["num_restituite"];
+        $targa_att=$riga["targa_attiva"];
+      ?>
+      <tr>
+        <td><?php echo $i; ?></td>
+        <td><?php echo $numTelaio; ?></td>
+        <td><?php echo $marca; ?></td>
+        <td><?php echo $modello; ?></td>
+        <td><?php echo $dataPro; ?></td>
+        <td><?php echo $num_res; ?></td>
+        <td><?php echo $targa_att; ?></td>
+      </tr>
+      <?php
+      }
+      ?>
+    </table>
       <?php
         }
        ?>
