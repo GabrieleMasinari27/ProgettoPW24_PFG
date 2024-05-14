@@ -2,6 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <link rel="stylesheet" href="../Css/main_page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
 <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
@@ -32,7 +34,7 @@
         <p>Per iniziare la navigazione selezionare uno dei collegamenti sulla tabella di navigazione (sulla sinistra).</p>
       </div>
       <div class="immagini">
-        <img src="./../img/auto1.png" alt="macchinaBianca"></img>
+        <img src="./../img/auto1.png" alt="macchinaBiancaNonCaricata"></img>
       </div>
     </div>
 </div>

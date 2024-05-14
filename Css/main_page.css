@@ -62,10 +62,11 @@ footer {
   color: white; 
 }
 .nav{
-  height: 32vh;
+  height: 25vh;
 }
 .filtro{
     height: 42vh;
+    color:white;
 }
 input[type=submit]{
   background-color:#D9CDAF;
@@ -94,7 +95,7 @@ a {
 }
 
 p{
-  text-align:justify;
+  text-align:left;
 }
 
 #icona_modifica{
@@ -112,6 +113,12 @@ p{
   height: 100%;
   padding: 20px;
   overflow: auto; /* Scorrimento verticale solo se necessario */
+}
+
+/*Stili per le immagini*/
+.immagini{
+  max-width: 50%;
+  max-height: 50%;
 }
 
 /* Stili per la tabella */
