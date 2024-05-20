@@ -54,7 +54,7 @@
           <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
       </div>
 
-      <i id="icona_aggiungi"class="fa fa-plus-square-o"></i>
+      <a href="aggiungi.php"><i id="icona_aggiungi"class="fa fa-plus-square-o"></i></a>
       <?php
       $numTarga= "";
       $dataEM = "";

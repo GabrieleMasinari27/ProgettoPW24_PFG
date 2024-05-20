@@ -9,3 +9,7 @@ function setTarga() {
 	$("#header").eq(0).html("Targa");
 	
 }
+function setTargaAggiungi() {
+	$("#header").eq(0).html("Inserimento di una nuova Targa");
+
+}

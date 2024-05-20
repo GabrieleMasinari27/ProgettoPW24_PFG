@@ -55,6 +55,16 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 
 	return $qry;
 }
+//CAPIRE IL FATTO DI TARGHE ATTIVE O MENO
+function Inserimento($numTarga, $dataEM,$radio): string {
+	$qry = "INSERT INTO TARGA (numero, dataEM) VALUES
+      ('".$numTarga."','".$dataEM."');";
+    if($radio=='targheatt'){
+	$qry .= '';
+	}
+
+	return $qry;
+}
 
 function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
 	$qry = "SELECT 

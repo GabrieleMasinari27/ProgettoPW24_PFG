@@ -78,7 +78,7 @@
       ?>
       <table class="table">
       <tr class="header">
-        <th>#</th>
+        
         <th>IdRevisione</th>
         <th>Targa</th>
         <th>Data Emissione</th>
