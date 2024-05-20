@@ -46,6 +46,13 @@
       </div>
     </div>
     <div class="risultato">
+    <div id="hiddenDiv">
+        <p>Sei sicuro di voler eliminare questa targa?</p>
+        <p id="numeroTarga"></p>
+        <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
+        <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
+    </div>
+
       <i id="icona_aggiungi"class="fa fa-plus-square-o"></i>
       <?php
       $numTarga= "";
@@ -116,14 +123,8 @@
               }
               ?>
             <td id="icona_modifica"> <a onclick=""><i class="fa fa-pencil"></i></a> </td>
-            <td id="icona_elimina">  <a onclick="Mostra()"href="#"><i class="fa fa-trash"></i></a> </td>
+            <td id="icona_elimina">  <a onclick="Mostra('<?php echo $numTarga; ?>')"><i class="fa fa-trash"></i></a> </td>
           </tr>
-    <div id="hiddenDiv">
-        <p>Sei sicuro di voler eliminare questa riga?</p>
-        <p><?php  $numTarga; ?></p>
-        <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
-        <button onclick="Elimina(<?php $numTarga ?>)" id="bottoneElimina">Elimina</button>
-    </div>
       <?php
         }
         ?>

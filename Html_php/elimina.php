@@ -1,23 +1,22 @@
 <?php
-// Connessione al database
 include 'connect.php';
-  $data = $_POST['data'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-   try {
-    // Preparare la query di eliminazione
-    $stmt = $conn->prepare("DELETE FROM TARGA WHERE numero = :id");
-    $stmt->bindParam(':id', $data);
+    $numTarga = $_POST['targa'];
 
-    if ($stmt->execute()) {
-        echo 'Eliminazione completata con successo';
+    if (!empty($numTarga)) {
+        try {
+            $stmt = $conn->prepare("DELETE FROM TARGA WHERE numero = :numTarga");
+            $stmt->bindParam(':numTarga', $numTarga);
+            $stmt->execute();
+            echo "success";
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo "Error: " . $e->getMessage();
+        }
     } else {
-        echo 'Eliminazione non riuscita ';
+        http_response_code(400);
+        echo "Invalid request.";
     }
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-
-} 
-} 
-
+}
 ?>
