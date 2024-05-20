@@ -20,24 +20,43 @@
     $dataEM = "";
     if (count($_POST) > 0) {
         $NumTarga = $_POST["NumTarga"];
-        $dataEM = $_POST["dataEM"];
-        $radio= $_POST["radiotarga"];
-            $query = Inserimento($NumTarga, $dataEM,$radio);
-            try {
-                $result = $conn->query($query);
-            } catch (PDOException $e) {
-                echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
-                $error = true;
-            }
-            if (!$error) {
-                echo ("<script>alert('Inserimento andato a buon fine')</script>");
-                header('Location: ' . "targa.php");
-            } else {
-                echo ("<script>alert('L'inserimento non è andato a buon fine')</script>");
-            }
-        
+    	$dataEM = $_POST["dataEM"];
+    	$radio = $_POST["radiotarga"];
+    	$telaio = $_POST["telaio"];
+    	$datarest = $_POST["datares"];
+        if (empty($NumTarga)) {
+    			echo ("<h3>Si prega di inserire il numero di targa<h3>");
+		}
+        else if (empty($dataEM)) {
+    			echo ("<h3>Si prega di inserire la data di emissione<h3>");
+		}
+        else if (empty($datarest) && $radio == 'targherest') {
+    			echo ("<h3>Si prega di inserire la data di restituzione<h3>");
+		}
+        else if (empty($telaio)) {
+    			echo ("<h3>Si prega di inserire il numero di telaio<h3>");
+		}
+        else{
+          if (verificaVeicolo($telaio, $conn)) {
+              $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
+              try {
+                  $result = $conn->query($query);
+              } catch (PDOException $e) {
+                  echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
+                  $error = true;
+              }
+              if (!$error) {
+                  echo ("<script>alert('Inserimento andato a buon fine')</script>");
+                  header('Location: ' . "targa.php");
+              } else {
+                  echo ("<script>alert('L'inserimento non è andato a buon fine')</script>");
+              }
+          }
+          else{
+          		echo ("<h3>Il numero del telaio non è presente nel database!<h3>");
+          }
+       }
     }
-    
         $query = "SELECT DISTINCT numero FROM TARGA";
     try {
         $result = $conn->query($query);
@@ -46,7 +65,7 @@
         $error = true;
     }
     ?>
-    
+
   <div class="container">
     <div class="ricercasx">
       <div class="nav">
@@ -58,26 +77,32 @@
 </nav>
       </div>
       <div class="filtro">
-       
+
       </div>
     </div>
     <div class="risultato">
      <form name="form_ricerca" method="post">
-          
-            Aggiungi una nuova Targa: <br>
+
+          Aggiungi una nuova Targa: <br>
           <input type="search" name="NumTarga"  placeholder=" Targa"><i class="fa fa-automobile"></i><br><br>
-          
+
           Aggiungi data di emissione:<br>
           <input type="date" name="dataEM"><br><br>
-           
-           Seleziona il tipo di targa:<br>
+
+          Seleziona il tipo di targa:<br>
           <input type="radio" name="radiotarga" value="targheatt">Targa attiva<br>
           <input type="radio" name="radiotarga" value="targherest">Targhe restituita <br><br>
-         
+
+          Seleziona il numero di telaio del veicolo a cui associare la targa:<br>
+          <input type="search" name="telaio" placeholder=" Telaio veicolo associato"><br><br>
+
+          Aggiungi l'eventuale data di restituzione:<br>
+          <input type="date" name="datares"><br><br>
+
           <button class="btn"><i class="fa fa-plus-square-o"></i> Aggiungi</button>
-       
+
         </form>
-     
+
     </div>
 </div>
 </body>

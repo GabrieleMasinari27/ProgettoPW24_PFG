@@ -6,7 +6,7 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 	(SELECT COUNT(*) FROM REVISIONE WHERE REVISIONE.targa = TARGA.numero) AS count_revisioni,
 	TARGA_RESTITUITA.veicolo AS telaio_res_associato,
 	TARGA_ATTIVA.veicolo AS telaio_att_associato,
-	
+
 	CASE
 	WHEN TARGA.numero IN (SELECT TARGA_RESTITUITA.targa FROM TARGA_RESTITUITA) THEN 'Restituita'
 	WHEN TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA) THEN 'Attiva'
@@ -21,7 +21,7 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 
 
 	WHERE  1=1 ";
-	
+
 	if ($numTarga != "")
 	$qry .= "AND TARGA.numero LIKE '%" . $numTarga . "%' ";
 
@@ -55,23 +55,63 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 
 	return $qry;
 }
-//CAPIRE IL FATTO DI TARGHE ATTIVE O MENO
-function Inserimento($numTarga, $dataEM,$radio): string {
-	$qry = "INSERT INTO TARGA (numero, dataEM) VALUES
-      ('".$numTarga."','".$dataEM."');";
-    if($radio=='targheatt'){
-	$qry .= '';
-	}
 
-	return $qry;
+function verificaVeicolo($telaio, $conn): bool {
+    $checkQuery = "SELECT COUNT(*) AS count FROM TARGA_ATTIVA WHERE veicolo = ?";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->execute([$telaio]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count = $row['count'];
+    return $count > 0;
 }
 
+function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest, $conn): string {
+    $qry = "";
+
+    if ($radio == 'targheatt') {
+        if (verificaTargaAttiva($telaio, $conn)) {
+            return "Esiste già una targa attiva per questo veicolo.";
+        }
+        $qry .= "INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES ('$numTarga', '$telaio');";
+    } else if ($radio == 'targherest') {
+        // Controllo se la data di restituzione è più vecchia di quella di inserimento
+    	if ($radio == 'targheatt' && $datarest < $dataEM) {
+        // Se la data di restituzione è più vecchia, restituisco un messaggio di errore
+        return "La data di restituzione non può essere più vecchia della data di inserimento.";
+    	}
+        $qry .= "INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES ('$numTarga', '$telaio', '$datarest');";
+    }
+
+    return $qry;
+}
+
+function verificaTargaAttiva($telaio, $conn): bool {
+    $checkQuery = "SELECT COUNT(*) AS count FROM TARGA_ATTIVA WHERE veicolo = ?";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->execute([$telaio]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count = $row['count'];
+    return $count > 0;
+}
+
+
+//CAPIRE IL FATTO DI TARGHE ATTIVE O MENO
+//function Inserimento($numTarga, $dataEM,$radio): string {
+//	$qry = "INSERT INTO TARGA (numero, dataEM) VALUES
+//      ('".$numTarga."','".$dataEM."');";
+//    if($radio=='targheatt'){
+//	$qry .= '';
+//	}
+//
+//	return $qry;
+//}
+
 function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
-	$qry = "SELECT 
-	REVISIONE.numero AS numRevisione, 
-	REVISIONE.dataRev AS dataRevisione, 
-	REVISIONE.targa AS numTarga, 
-	REVISIONE.esito AS esito, 
+	$qry = "SELECT
+	REVISIONE.numero AS numRevisione,
+	REVISIONE.dataRev AS dataRevisione,
+	REVISIONE.targa AS numTarga,
+	REVISIONE.esito AS esito,
 	REVISIONE.motivazione AS motivazione
 	FROM REVISIONE
 	WHERE 1=1 ";
@@ -114,9 +154,9 @@ function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinam
 
 function queryVeicolo($numTelaio, $marca, $modello, $dataPro, $valoreordinamento) : string {
 	$qry = "SELECT
-	VEICOLO.telaio AS telaio, 
-	VEICOLO.marca AS marca, 
-	VEICOLO.modello AS modello, 
+	VEICOLO.telaio AS telaio,
+	VEICOLO.marca AS marca,
+	VEICOLO.modello AS modello,
 	VEICOLO.dataProd AS data,
 	(SELECT COUNT(*) FROM TARGA_RESTITUITA WHERE TARGA_RESTITUITA.veicolo=VEICOLO.telaio) as num_restituite,
 	(SELECT targa FROM TARGA_ATTIVA WHERE TARGA_ATTIVA.veicolo=VEICOLO.telaio) as targa_attiva
