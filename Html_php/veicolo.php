@@ -74,7 +74,7 @@
         <!-- IMPLEMENTARE IL NUMERO DI TARGHE restituite
         E AGGIUNGERE ID DI TARGA ATTIVA-->
       <tr class="header">
-        <th>#</th>
+        
         <th>#Telaio</th>
         <th>Marca</th>
         <th>Modello</th>
@@ -83,9 +83,9 @@
         <th>IdTargaAttiva</th>
       </tr>
       <?php
-      $i=0;
+      
       foreach($result as $riga) {
-        $i=$i+1;
+        
         $numTelaio = $riga["telaio"];
         $marca = $riga["marca"];
         $modello = $riga["modello"];
@@ -94,7 +94,6 @@
         $targa_att=$riga["targa_attiva"];
       ?>
       <tr>
-        <td><?php echo $i; ?></td>
         <td><?php echo $numTelaio; ?></td>
         <td><?php echo $marca; ?></td>
         <td><?php echo $modello; ?></td>

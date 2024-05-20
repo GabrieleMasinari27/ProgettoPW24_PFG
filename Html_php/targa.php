@@ -15,8 +15,6 @@
   include "header.html";
   include "footer.html";
   include "query.php";
-  include "delete.php";
-  
   ?>
   <div class="container">
     <div class="ricercasx">
@@ -72,11 +70,10 @@
       }
       	if(!$error) {
       ?>
-<!-- IMPLEMENTARE IL NUMERI DI REVISONI EFFETTUATE PER OGNI TARGA
- e il telaio del veicolo-->
+  
       <table class="table">
         <tr class="header">
-          <th># </th>
+          
           <th>Targa</th>
           <th>Data Emissione</th>
           <th>Stato della targa</th>
@@ -87,9 +84,9 @@
         </tr>
 
         <?php
-        $i=0;
+        
         foreach($result as $riga) {
-          $i=$i+1;
+        
           $numTarga = $riga["numTarga"];
           $dataEM = $riga["dataEM"];
           $stato = $riga["stato"]; //presente in query.php
@@ -99,7 +96,7 @@
           ?>
 
           <tr>
-            <td > <?php echo $i; ?> </td>
+            
             <td > <?php echo $numTarga; ?> </td>
             <td > <?php echo $dataEM; ?> </td>
             <td > <?php echo $stato; ?> </td>
@@ -119,13 +116,19 @@
               }
               ?>
             <td id="icona_modifica"> <a onclick=""><i class="fa fa-pencil"></i></a> </td>
-            <td id="icona_elimina">  <a onclick="Cancella()"><i class="fa fa-trash"></i></a> </td>
+            <td id="icona_elimina">  <a onclick="Mostra()"href="#"><i class="fa fa-trash"></i></a> </td>
           </tr>
-
+    <div id="hiddenDiv">
+        <p>Sei sicuro di voler eliminare questa riga?</p>
+        <p><?php  $numTarga; ?></p>
+        <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
+        <button onclick="Elimina(<?php $numTarga ?>)" id="bottoneElimina">Elimina</button>
+    </div>
       <?php
         }
         ?>
       </table>
+
       <?php
         }
        ?>

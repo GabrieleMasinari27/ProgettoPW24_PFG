@@ -86,9 +86,9 @@
         <th>Motivazione</th>
       </tr>
       <?php
-      $i=0;
+    
       foreach($result as $riga) {
-        $i =$i+1;
+       
         $numRevisione = $riga["numRevisione"];
         $numTarga = $riga["numTarga"];
         $dataRE = $riga["dataRevisione"];
@@ -98,7 +98,7 @@
         $bg_class = ($esito == 'positivo') ? 'bg-positivo' : 'bg-negativo';
       ?>
       <tr class="<?php echo $bg_class; ?>">
-        <td><?php echo $i; ?></td>
+       
         <td><?php echo $numRevisione; ?></td>
         <td><?php echo $numTarga; ?></td>
         <td><?php echo $dataRE; ?></td>
