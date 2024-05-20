@@ -1,4 +1,5 @@
 function Mostra(numTarga){
+    document.getElementById("overlay").style.display = "block";
     var hiddenDiv = document.getElementById('hiddenDiv');
     hiddenDiv.classList.toggle('show'); 
     document.getElementById("numeroTarga").innerText = numTarga;
@@ -8,6 +9,7 @@ function Mostra(numTarga){
 }
 
 function Annulla(){
+    document.getElementById("overlay").style.display = "none";
     var hiddenDiv = document.getElementById('hiddenDiv');
     hiddenDiv.classList.toggle('show');
     

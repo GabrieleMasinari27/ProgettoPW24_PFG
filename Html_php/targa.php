@@ -46,12 +46,13 @@
       </div>
     </div>
     <div class="risultato">
-    <div id="hiddenDiv">
-        <p>Sei sicuro di voler eliminare questa targa?</p>
-        <p id="numeroTarga"></p>
-        <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
-        <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
-    </div>
+      <div id="overlay"></div>
+      <div id="hiddenDiv">
+          <p>Sei sicuro di voler eliminare questa targa?</p>
+          <p id="numeroTarga"></p>
+          <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
+          <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
+      </div>
 
       <i id="icona_aggiungi"class="fa fa-plus-square-o"></i>
       <?php
