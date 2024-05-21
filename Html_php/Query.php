@@ -57,7 +57,7 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 }
 
 function verificaVeicolo($telaio, $conn): bool {
-    $checkQuery = "SELECT COUNT(*) AS count FROM TARGA_ATTIVA WHERE veicolo = ?";
+    $checkQuery = "SELECT COUNT(*) AS count FROM VEICOLO WHERE telaio = ?";
     $stmt = $conn->prepare($checkQuery);
     $stmt->execute([$telaio]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -72,14 +72,16 @@ function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest, $conn): str
         if (verificaTargaAttiva($telaio, $conn)) {
             return "Esiste già una targa attiva per questo veicolo.";
         }
-        $qry .= "INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES ('$numTarga', '$telaio');";
+        $qry .= "INSERT INTO TARGA (numero, dataEM) VALUES ('$numTarga', '$dataEM'); 
+		INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES ('$numTarga', '$telaio');";
     } else if ($radio == 'targherest') {
         // Controllo se la data di restituzione è più vecchia di quella di inserimento
-    	if ($radio == 'targheatt' && $datarest < $dataEM) {
+    	if ($datarest < $dataEM) {
         // Se la data di restituzione è più vecchia, restituisco un messaggio di errore
         return "La data di restituzione non può essere più vecchia della data di inserimento.";
     	}
-        $qry .= "INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES ('$numTarga', '$telaio', '$datarest');";
+        $qry .= "INSERT INTO TARGA (numero, dataEM) VALUES ('$numTarga', '$dataEM');
+		INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES ('$numTarga', '$telaio', '$datarest');";
     }
 
     return $qry;
