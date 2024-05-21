@@ -22,19 +22,13 @@
         $NumTarga = $_POST["NumTarga"];
     	$dataEM = $_POST["dataEM"];
     	$radio = $_POST["radiotarga"];
+      //$radio="<script> var radio=document.getElementsByName('radiotarga')</script>";
     	$telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
-        if (empty($NumTarga)) {
-    			echo ("<h3>Si prega di inserire il numero di targa<h3>");
-		}
-        else if (empty($dataEM)) {
-    			echo ("<h3>Si prega di inserire la data di emissione<h3>");
-		}
-        else if (empty($datarest) && $radio == 'targherest') {
-    			echo ("<h3>Si prega di inserire la data di restituzione<h3>");
-		}
-        else if (empty($telaio)) {
-    			echo ("<h3>Si prega di inserire il numero di telaio<h3>");
+        if (empty($radio)) {
+          echo("<script> const input = document.getElementById('datarest');
+                         input.disabled = true; </script>");
+    		
 		}
         else{
           if (verificaVeicolo($telaio, $conn)) {
@@ -84,20 +78,20 @@
      <form name="form_ricerca" method="post">
 
           Aggiungi una nuova Targa: <br>
-          <input type="search" name="NumTarga"  placeholder=" Targa"><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga"  placeholder=" Targa" required><i class="fa fa-automobile"></i><br><br>
 
           Aggiungi data di emissione:<br>
-          <input type="date" name="dataEM"><br><br>
+          <input type="date" name="dataEM"required><br><br>
 
           Seleziona il tipo di targa:<br>
-          <input type="radio" name="radiotarga" value="targheatt">Targa attiva<br>
-          <input type="radio" name="radiotarga" value="targherest">Targhe restituita <br><br>
+          <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required>Targa attiva<br>
+          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required>Targhe restituita <br><br>
 
           Seleziona il numero di telaio del veicolo a cui associare la targa:<br>
-          <input type="search" name="telaio" placeholder=" Telaio veicolo associato"><br><br>
+          <input type="search" name="telaio" placeholder="Telaio veicolo associato" required><br><br>
 
           Aggiungi l'eventuale data di restituzione:<br>
-          <input type="date" name="datares"><br><br>
+          <input type="date" name="datares" id="datarest"><br><br>
 
           <button class="btn"><i class="fa fa-plus-square-o"></i> Aggiungi</button>
 
