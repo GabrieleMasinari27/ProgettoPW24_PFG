@@ -28,7 +28,7 @@ li:last-child {
   border-bottom: none;
 }
 li a:hover {
-  background-color: #5f4334;
+  background-color: #938068;
   color: white;
 }
 .nav {
@@ -78,22 +78,49 @@ input[type=submit] {
     display: block;
     opacity: 1;
   }
+/*Bottoni del div nascosto*/
+#bottoneAnnulla {
 
+background-color:#A28050;
+color:white;
+padding: 10px 15px;
+ font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Ombra */
+  transition: background-color 0.3s ease;
+}
+#bottoneElimina {
+border-radius:4px;
+background-color: #5F4334;
+color: white;
+padding: 10px 15px;
+font-size: 15px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Ombra */
+transition: background-color 0.3s ease;
+}
 /* Stili per il corpo della pagina */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2;
+  background-color: #938068;
   min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+    
   
 }
 
 /* Stili per l'header */
 header {
-  background-color: #5F4334; 
+  background-color: #938068; 
   padding: 20px;
   text-align: center;
   font-size: 30px;
@@ -102,7 +129,7 @@ header {
 
 /* Stili per il footer */
 footer {
-  background-color: #5F4334; 
+  background-color: #938068; 
   padding: 21px;
   position: fixed;
   bottom: 0;
@@ -118,14 +145,14 @@ a {
 .container {
   display: flex;
   width: 100%;
-  height: calc(100vh - 138px);
+  height: calc(100vh - 140px);
   
    /* Altezza rimanente della finestra */
 }
 /*Blocco ricercasx*/
 .ricercasx {
   width: 25%; 
-  background-color: #704F38; 
+  background-color: #81715b ; 
   padding: 15px;
 }
 
@@ -219,10 +246,14 @@ p{
 
 /*Stili per le immagini*/
 .immagini{
+
   max-width: 50%;
   max-height: 50%;
 }
-
+img {
+  width: 100%;
+  height: auto;
+}
 /* Stili per la tabella */
 .table {
   width: 100%;
@@ -234,19 +265,19 @@ p{
 
 /* Stili per le righe della tabella */
 .table tr {
-  background-color: #B2925D; 
+  background-color: #b6a180; 
 }
 
 /* Stili per le righe della tabella alternativa */
 .table tr:nth-child(even) {
-  background-color: #A28050; 
+  background-color: #beb49a; 
 }
 
 /* Stili per l'header della tabella */
 .table th {
   padding: 12px;
   text-align: left;
-  background-color: #5F4334; 
+  background-color: #938068; 
   color: white;
 
 }
@@ -264,7 +295,7 @@ p{
 
 /* Stili per il bordo della tabella */
 .table tr, .table th, .table td {
-  border: 5px solid #494440; /* Grigio */
+  border: 5px solid #aa9b8d; /* Grigio */
 }
 
 /* Stili per i titoli */
@@ -319,10 +350,4 @@ p{
 .search-button:hover {
   background-color: #333; /* Grigio più scuro */
 }
-.bg-green {
-  background-color: rgba(0, 255, 0, 0.3) !important; /* Verde con trasparenza */
-}
 
-.bg-red {
-  background-color: rgba(255, 0, 0, 0.3) !important; /* Rosso con trasparenza */
-}
