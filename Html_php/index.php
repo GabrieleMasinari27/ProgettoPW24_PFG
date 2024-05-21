@@ -34,7 +34,7 @@
         <p>Per iniziare la navigazione selezionare uno dei collegamenti sulla tabella di navigazione (sulla sinistra).</p>
       </div>
       <div class="immagini">
-        <img src="./../img/auto1.png" alt="macchinaBiancaNonCaricata"></img>
+        <img src="./../img/auto1.png" alt="macchinaNonCaricata"></img>
       </div>
     </div>
 </div>
