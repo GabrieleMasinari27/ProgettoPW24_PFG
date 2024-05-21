@@ -30,28 +30,33 @@
       $telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
      
-          if (verificaVeicolo($telaio, $conn)) {
-              $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
-              try {
-                if($query!=""){
-                  $result = $conn->query($query);
-                }
-                  
-              } catch (PDOException $e) {
-                  echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
-                  $error = true;
-              }
-              if (!$error) {
-                  echo ("<script>alert('Inserimento andato a buon fine')</script>");
-                  header('Location: ' . "targa.php");
-              } else {
-                  echo ("<script>alert('L'inserimento non è andato a buon fine')</script>");
-              }
+      if (verificaVeicolo($telaio, $conn)) {
+        //se la targa è attiva, verifico che non sia già presente
+        if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
+          echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
           }
-          else{
-          		echo ("<h3>Il numero del telaio non è presente nel database!<h3>");
+        else if($radio == 'targherest' && $datarest < $dataEM){ 
+          //se è restituita, verifico che la data di restituzione non preceda quella di emissione
+          echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
+        }
+        else{ //se tutto va bene posso lanciare la query
+          $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest);
+          $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
+          try {
+            $result = $conn->query($query);
+            echo("<script> alert('Inserimento eseguito con successo.') </script>");
+          } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
+                echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
+                echo ("<script>alert('Inserimento non eseguito.')</script>");
           }
-       }
+      
+        }
+        header('Location: ' . "targa.php");
+        }
+        else{
+          		echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
+        }
+    }
     
         $query = "SELECT DISTINCT numero FROM TARGA";
     try {
