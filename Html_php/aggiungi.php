@@ -33,7 +33,10 @@
           if (verificaVeicolo($telaio, $conn)) {
               $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
               try {
+                if($query!=""){
                   $result = $conn->query($query);
+                }
+                  
               } catch (PDOException $e) {
                   echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
                   $error = true;
