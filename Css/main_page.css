@@ -120,11 +120,13 @@ body {
 
 /* Stili per l'header */
 header {
+  font-family: 'Trebuchet MS',
+    sans-serif;
   background-color: #938068; 
   padding: 20px;
   text-align: center;
   font-size: 30px;
-  color: white; /* bianco */
+  color: white; 
 }
 
 /* Stili per il footer */
@@ -247,8 +249,8 @@ p{
 /*Stili per le immagini*/
 .immagini{
 
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 65%;
+  max-height: 65%;
 }
 img {
   width: 100%;
