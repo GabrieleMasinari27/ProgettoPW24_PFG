@@ -9,6 +9,8 @@
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
   <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+   <script type="text/javascript" src="../js/controlli.js"></script>
+  
 </head>
 <body onload="setTargaAggiungi()">
   <?php
@@ -18,19 +20,17 @@
   include "connect.php";
     $NumTarga = "";
     $dataEM = "";
+    $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
+    $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
+  
     if (count($_POST) > 0) {
         $NumTarga = $_POST["NumTarga"];
     	$dataEM = $_POST["dataEM"];
     	$radio = $_POST["radiotarga"];
-      //$radio="<script> var radio=document.getElementsByName('radiotarga')</script>";
-    	$telaio = $_POST["telaio"];
+      $telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
-        if (empty($radio)) {
-          echo("<script> const input = document.getElementById('datarest');
-                         input.disabled = true; </script>");
-    		
-		}
-        else{
+    
+        
           if (verificaVeicolo($telaio, $conn)) {
               $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
               try {
@@ -50,7 +50,7 @@
           		echo ("<h3>Il numero del telaio non è presente nel database!<h3>");
           }
        }
-    }
+    
         $query = "SELECT DISTINCT numero FROM TARGA";
     try {
         $result = $conn->query($query);
@@ -85,18 +85,17 @@
 
           Seleziona il tipo di targa:<br>
           <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required>Targa attiva<br>
-          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required>Targhe restituita <br><br>
+          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required  >Targhe restituita <br><br>
 
           Seleziona il numero di telaio del veicolo a cui associare la targa:<br>
           <input type="search" name="telaio" placeholder="Telaio veicolo associato" required><br><br>
 
           Aggiungi l'eventuale data di restituzione:<br>
-          <input type="date" name="datares" id="datarest"><br><br>
+          <input type="date" name="datares" id="datarest"<?php echo $disabled; ?>><br><br>
 
           <button class="btn"><i class="fa fa-plus-square-o"></i> Aggiungi</button>
 
         </form>
-
     </div>
 </div>
 </body>
