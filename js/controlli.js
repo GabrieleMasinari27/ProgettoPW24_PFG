@@ -18,3 +18,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Esegui la funzione al caricamento della pagina per impostare lo stato iniziale
     toggleDataRest();
 });
+function convertToUpperCase(input) {
+    input.value = input.value.toUpperCase();
+}

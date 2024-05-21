@@ -24,12 +24,12 @@
     $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   
     if (count($_POST) > 0) {
-      $NumTarga = $_POST["NumTarga"];
+      $NumTarga =$_POST["NumTarga"];
     	$dataEM = $_POST["dataEM"];
     	$radio = $_POST["radiotarga"];
       $telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
-      
+     
           if (verificaVeicolo($telaio, $conn)) {
               $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
               try {
@@ -80,7 +80,7 @@
      <form name="form_ricerca" method="post">
 
           Aggiungi una nuova Targa: <br>
-          <input type="search" name="NumTarga"  placeholder=" Targa" maxlength="7" required><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga"  placeholder=" Targa" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" required><i class="fa fa-automobile"></i><br><br>
 
           Aggiungi data di emissione:<br>
           <input type="date" name="dataEM"required><br><br>
