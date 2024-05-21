@@ -71,14 +71,16 @@ function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest, $conn): str
     if ($radio == 'targheatt') {
         if (verificaTargaAttiva($telaio, $conn)) {
             echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
+			return $qry;
         }
         $qry .= "INSERT INTO TARGA (numero, dataEM) VALUES ('$numTarga', '$dataEM'); 
 		INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES ('$numTarga', '$telaio');";
     } else if ($radio == 'targherest') {
         // Controllo se la data di restituzione è più vecchia di quella di inserimento
     	if ($datarest < $dataEM) {
-        // Se la data di restituzione è più vecchia, restituisco un messaggio di errore
-		echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
+        	// Se la data di restituzione è più vecchia, restituisco un messaggio di errore
+			echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
+			return $qry;
     	}
         $qry .= "INSERT INTO TARGA (numero, dataEM) VALUES ('$numTarga', '$dataEM');
 		INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES ('$numTarga', '$telaio', '$datarest');";
