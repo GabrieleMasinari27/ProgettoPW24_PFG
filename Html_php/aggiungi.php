@@ -24,13 +24,12 @@
     $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   
     if (count($_POST) > 0) {
-        $NumTarga = $_POST["NumTarga"];
+      $NumTarga = $_POST["NumTarga"];
     	$dataEM = $_POST["dataEM"];
     	$radio = $_POST["radiotarga"];
       $telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
-    
-        
+      
           if (verificaVeicolo($telaio, $conn)) {
               $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest,$conn);
               try {
@@ -78,7 +77,7 @@
      <form name="form_ricerca" method="post">
 
           Aggiungi una nuova Targa: <br>
-          <input type="search" name="NumTarga"  placeholder=" Targa" required><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga"  placeholder=" Targa" maxlength="7" required><i class="fa fa-automobile"></i><br><br>
 
           Aggiungi data di emissione:<br>
           <input type="date" name="dataEM"required><br><br>
@@ -88,7 +87,7 @@
           <input type="radio" name="radiotarga" value="targherest"id="radiorest" required  >Targhe restituita <br><br>
 
           Seleziona il numero di telaio del veicolo a cui associare la targa:<br>
-          <input type="search" name="telaio" placeholder="Telaio veicolo associato" required><br><br>
+          <input type="number" name="telaio" placeholder="Telaio veicolo associato"min="100000" required><br><br>
 
           Aggiungi l'eventuale data di restituzione:<br>
           <input type="date" name="datares" id="datarest"<?php echo $disabled; ?>><br><br>
