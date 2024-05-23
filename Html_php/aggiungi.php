@@ -85,7 +85,7 @@
      <form name="form_ricerca" method="post">
 
           Aggiungi una nuova Targa: <br>
-          <input type="search" name="NumTarga"  placeholder=" Targa" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" required><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga"  placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" required><i class="fa fa-automobile"></i><br><br>
 
           Aggiungi data di emissione:<br>
           <input type="date" name="dataEM"required><br><br>
@@ -94,8 +94,8 @@
           <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required>Targa attiva<br>
           <input type="radio" name="radiotarga" value="targherest"id="radiorest" required  >Targhe restituita <br><br>
 
-          Seleziona il numero di telaio del veicolo a cui associare la targa:<br>
-          <input type="number" name="telaio" placeholder="Telaio veicolo associato"min="100000" required><br><br>
+          Seleziona il numero di telaio del veicolo a cui associare la targa(il numero del telaio deve essere già presente nella tabella Veicolo):<br>
+          <input type="number" name="telaio" placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
 
           Aggiungi l'eventuale data di restituzione:<br>
           <input type="date" name="datares" id="datarest"<?php echo $disabled; ?>><br><br>

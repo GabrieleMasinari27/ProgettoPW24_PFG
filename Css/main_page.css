@@ -32,14 +32,42 @@ li a:hover {
   color: white;
 }
 .nav {
-  height: 25vh;
+  height: 23vh;
 }
 /*blocco filtro*/
 input[type=submit] {
-  background-color: #D9CDAF;
+  background-color: #b6905b;
+  color: rgb(255, 255, 255);
+  margin-top:3px;
+    padding: 5px 5px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Ombra */
+    transition: background-color 0.3s ease;
 }
+input[type=reset] {
+  background-color: #b6905b;
+  margin-top: 4px;
+    color: rgb(255, 255, 255);
+    padding: 5px 5px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Ombra */
+    transition: background-color 0.3s ease;
+}
+/*per controlli*/
+ input[type="number"] {
+   width: 177px;
+   /* Imposta la larghezza desiderata */
+ }
 .filtro {
-  height: 42vh;
+  height: 35vh;
   color: white;
 }
 
@@ -257,29 +285,30 @@ img {
   height: auto;
 }
 /* Stili per la tabella */
+
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   margin-bottom: 20px;
-  
+
 }
 
 /* Stili per le righe della tabella */
 .table tr {
-  background-color: #b6a180; 
+  background-color: #b6a180;
 }
 
 /* Stili per le righe della tabella alternativa */
 .table tr:nth-child(even) {
-  background-color: #beb49a; 
+  background-color: #beb49a;
 }
 
 /* Stili per l'header della tabella */
 .table th {
   padding: 12px;
   text-align: left;
-  background-color: #938068; 
+  background-color: #938068;
   color: white;
 
 }
@@ -287,32 +316,23 @@ img {
 /* Stili per le celle della tabella */
 .table td {
   padding: 12px;
-  border: 3px solid #ccc; /* Grigio */
+  border: 3px solid #ccc;
+  /* Grigio */
 }
 
 /* Stili per il footer della tabella */
 .table tfoot {
-  background-color: #f2f2f2; /* Grigio chiaro */
+  background-color: #f2f2f2;
+  /* Grigio chiaro */
 }
 
 /* Stili per il bordo della tabella */
-.table tr, .table th, .table td {
-  border: 5px solid #aa9b8d; /* Grigio */
+.table tr,
+.table th,
+.table td {
+  border: 5px solid #aa9b8d;
+  /* Grigio */
 }
-
-/* Stili per i titoli */
-.title {
-  font-size: 24px;
-  color: #4d4d4d; /* Grigio scuro */
-  margin-bottom: 16px;
-}
-
-/* Stili per il testo */
-.text {
-  color: #666; /* Grigio medio */
-  line-height: 1.6;
-}
-
 /* Stili per i pulsanti */
 .button {
   padding: 10px 20px;

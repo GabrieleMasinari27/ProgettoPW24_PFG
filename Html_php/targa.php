@@ -27,7 +27,7 @@
         <form name="form_ricerca" method="post">
           <fieldset>
             <legend>Filtro Ricerca per: </legend>
-          <input type="search" name="numerotarga"  placeholder=" Targa"><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="numerotarga"  placeholder=" Targa"pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" minlength="7" maxlength="7"><i class="fa fa-automobile"></i><br><br>
           Data di emissione:<br>
           <input type="date" name="dataemtarga"><br><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
@@ -39,9 +39,11 @@
             <option value="ordinaDataEm">Data di Emissione</option>
             <option value="ordinaNumeroTarga">Numero di targa</option>
           </select>
-           <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
-          </fieldset>
+           <br>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i><br>
+          <input type="reset" name="bottonericerca" value="Resetta">
+          
+        </fieldset>
         </form>
       </div>
     </div>

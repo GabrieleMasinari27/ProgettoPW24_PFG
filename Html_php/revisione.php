@@ -28,8 +28,8 @@
         <form name="form_ricerca" method="post">
           <fieldset>
            <legend>Filtro Ricerca per:</legend> 
-          <input type="number" name="numerorevisione" placeholder="Numero di revisione"><br>
-          <input type="text" name="numerotarga"  placeholder="Targa"><i class="fa fa-automobile"></i><br><br>
+          <input type="number" name="numerorevisione"min="1"max="50"placeholder="Numero di revisione"><br>
+          <input type="text" name="numerotarga"  placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri"minlength="7" maxlength="7"><i class="fa fa-automobile"></i><br><br>
           Data della revisione:
           <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
           Esito:<br>
@@ -44,8 +44,9 @@
             <option value="ordinaPositivo">Prima i positivi</option>
             <option value="ordinaNegativo">Prima i negativi</option>
           </select>
-          <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
+          <br>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i><br>
+          <input type="reset" name="bottonericerca" value="Resetta">
           </fieldset>
         </form>
       </div>
@@ -81,7 +82,7 @@
         
         <th>IdRevisione</th>
         <th>Targa</th>
-        <th>Data Emissione</th>
+        <th>Data Revisione</th>
         <th>Esito</th>
         <th>Motivazione</th>
       </tr>

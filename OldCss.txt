@@ -108,3 +108,86 @@ footer {
 .bg-red {
   background-color: rgba(255, 0, 0, 0.3) !important; /* Rosso con trasparenza */
 }
+
+/////////////////////////////////table vecchia
+
+/* Stili per la tabella */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+}
+
+/* Stili per le righe della tabella */
+.table tr {
+  background-color: #b6a180; 
+}
+
+/* Stili per le righe della tabella alternativa */
+.table tr:nth-child(even) {
+  background-color: #beb49a; 
+}
+
+/* Stili per l'header della tabella */
+.table th {
+  padding: 12px;
+  text-align: left;
+  background-color: #938068; 
+  color: white;
+
+}
+
+/* Stili per le celle della tabella */
+.table td {
+  padding: 12px;
+  border: 3px solid #ccc; /* Grigio */
+}
+
+/* Stili per il footer della tabella */
+.table tfoot {
+  background-color: #f2f2f2; /* Grigio chiaro */
+}
+
+/* Stili per il bordo della tabella */
+.table tr, .table th, .table td {
+  border: 5px solid #aa9b8d; /* Grigio */
+}
+//////////////////////////////////////////table nuova
+/*Stili per la tabella*/
+table{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border-collapse: collapse;
+  width:100%;
+  border:1px solid #bdc3c7;
+  box-shadow: 2px 2px 12px;
+}
+tr{
+  transition: all .2s ease-in;
+  cursor: pointer;
+}
+th,
+td{
+  padding: 12px;
+  text-align:left;
+ border-bottom: 1px solid #ddd;
+}
+.header{
+  background-color: #16a085;
+  color:#fff;
+}
+tr:hover{
+  background-color: #f5f5f5;
+  transform: scale(1.02);
+  box-shadow:2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+}
+@media only screen and (max-width:768px){
+  table{
+    width:90%;
+  }
+}

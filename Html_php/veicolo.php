@@ -26,9 +26,9 @@
         <form name="form_ricerca" method="post">
           <fieldset>
           <legend>Filtro Ricerca per:</legend>
-          <input type="number" name="telaio" placeholder="Telaio"><br>
-          <input type="text" name="marca"  placeholder="Marca"><br>
-          <input type="text" name="modello"  placeholder="Modello"><br><br>
+          <input type="number" name="telaio" placeholder="Telaio"min="100000"max="1000000" ><br>
+          <input type="text" name="marca"  placeholder="Marca"  pattern="[A-Za-z0-9-]+" title="Inserisci solo lettere e numeri"maxlength="15"><br>
+          <input type="text" name="modello"  placeholder="Modello" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="15"><br><br>
           Data della produzione:
           <input type="date" name="dataproduzione" placeholder="Data della produzione"><br><br>
           <label for="scelta">Ordina per:</label>
@@ -39,9 +39,9 @@
             <option value="ordinaModello">Alfabetico perModello</option>
             <option value="ordinaData">Data Produzione</option>
           </select>
-           <br><br>
-          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i>
-         
+           <br>
+          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i><br>
+          <input type="reset" name="bottonericerca" value="Resetta">
         </form>
       </div>
     </div>
