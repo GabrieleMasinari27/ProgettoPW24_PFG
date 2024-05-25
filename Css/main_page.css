@@ -133,6 +133,7 @@ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 /* Ombra */
 transition: background-color 0.3s ease;
 }
+
 /* Stili per il corpo della pagina */
 body {
   font-family: 'Roboto', sans-serif;
@@ -224,7 +225,7 @@ p{
 }
 
 #icona_modifica:hover::after {
-  content: "Modifica questa riga";
+  content: "Modifica la  riga";
   display: block;
   position: absolute;
   left: 50%;
@@ -249,13 +250,13 @@ p{
   cursor:help;
 }
 #icona_elimina:hover::after {
-  content: "Elimina questa riga";
+  content: "Elimina la riga";
   display: block;
     position: absolute;
     left: 50%;
     bottom: 95%;
     /* Posiziona il tooltip sopra l'elemento */
-    transform: translateX(-60%);
+    transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 4px;
@@ -270,7 +271,8 @@ p{
   background-color: #D9CDAF; 
   height: 100%;
   padding: 20px;
-  overflow: auto; /* Scorrimento verticale solo se necessario */
+  overflow-y: auto; /* Scorrimento verticale solo se necessario */
+  overflow-x: hidden;
 }
 
 
@@ -291,7 +293,9 @@ table {
   border: 1px solid #bdc3c7;
   box-shadow: 2px 2px 12px;
 }
-
+span{
+  color:black;
+}
 tr {
   transition: all .2s ease-in;
   cursor: pointer;

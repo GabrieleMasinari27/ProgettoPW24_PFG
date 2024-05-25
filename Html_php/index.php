@@ -23,7 +23,7 @@
         ?>
       </div>
       <div id="nota">
-      <p>NOTA: <br>le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa</p>
+      <p>NOTA: <br>le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa, si prega di cliccare (rispettivamente) queste icone nella pagina delle targhe<br><span><i class="fa fa-plus-square-o"></i>&nbsp<i class="fa fa-pencil"></i>&nbsp<i class="fa fa-trash"></i></span></p>
       </div>
     </div>
     <div class="risultato">

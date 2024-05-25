@@ -55,6 +55,7 @@
           <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
           <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
       </div>
+      
 
       <a href="aggiungi.php"><i id="icona_aggiungi"class="fa fa-plus-square-o"></i></a>
       <?php
@@ -125,7 +126,7 @@
               <?php
               }
               ?>
-            <td id="icona_modifica"> <a onclick=""><i class="fa fa-pencil"></i></a> </td>
+            <td id="icona_modifica"> <a href="modifica.php"><i class="fa fa-pencil"></i></a></td>
             <td id="icona_elimina">  <a onclick="Mostra('<?php echo $numTarga; ?>')"><i class="fa fa-trash"></i></a> </td>
           </tr>
       <?php

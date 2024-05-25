@@ -14,6 +14,7 @@ function Annulla(){
     hiddenDiv.classList.toggle('show');
     
 }
+
 function Elimina(numTarga){
     $.ajax({
         url: 'elimina.php',
