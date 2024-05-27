@@ -78,6 +78,25 @@ function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest): string {
     return $qry;
 }
 
+function modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES): string{
+	$qry ="";
+	if($OLDstato=="Attiva" && $statoTarga=="targherest"){ //se rendiamo una targa attiva una targa restituita
+		$qry.="DELETE FROM TARGA_ATTIVA WHERE targa = '$numTarga';";
+		$qry .="INSERT INTO TARGA_RESTITUITA (targa,veicolo, dataRes) VALUES ('$numTarga','$telaio','$dataRES');";	
+	}
+	if(){
+
+	}
+	if(){
+
+	}
+	if(){
+		
+	}
+	$qry .="UPDATE TABLE TARGA SET dataEM='$dataEM' WHERE numero='$numTarga'";
+	return $qry;
+}
+
 function verificaTargaAttiva($telaio, $conn): bool {
     $checkQuery = "SELECT COUNT(*) AS count FROM TARGA_ATTIVA WHERE veicolo = ?";
     $stmt = $conn->prepare($checkQuery);

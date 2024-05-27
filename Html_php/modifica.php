@@ -18,7 +18,6 @@
   include "footer.html";
   include "query.php";
   include 'connect.php';
-  include "mysqli_connect.php";
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   $numTarga = $_GET['numTarga'];
@@ -27,7 +26,7 @@
   // Fetch record from database
   if($OLDstato=="Restituita"){
     $OLDtelaio = $_GET['telaioRes'];
-    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
+    $OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
   }
   else{
     $OLDtelaio = $_GET['telaioAtt'];
@@ -81,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $telaio=$_POST['telaio'];
   $dataRES=$_POST['datares'];
 
-  if (verificaVeicolo($telaio, $conn_sqli)) { //verifichiamo che il veicolo esista
+  if (verificaVeicolo($telaio, $conn)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
-    if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn_sqli)) {
+    if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn)) {
       echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
       }
     else if($statoTarga == 'targherest' && $datarest < $dataEM){ 
@@ -91,10 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
     }
     else{ //se tutto va bene posso lanciare la query
-      $query = modifica($numTarga,$dataEM,$statoTarga,$telaio,$dataRES);
-      $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
+      $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
-        $result = mysqli_query($conn_sqli, $query);
+        $result = $conn->query($query);
         echo("<script> alert('Inserimento eseguito con successo.') </script>");
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
             echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
