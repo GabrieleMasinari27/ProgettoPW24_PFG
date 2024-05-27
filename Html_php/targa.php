@@ -126,7 +126,7 @@
               <?php
               }
               ?>
-            <td id="icona_modifica"> <a href="modifica.php"><i class="fa fa-pencil"></i></a></td>
+            <td id="icona_modifica"> <a href="modifica.php?numTarga=<?= $numTarga ?>"><i class="fa fa-pencil"></i></a></td>
             <td id="icona_elimina">  <a onclick="Mostra('<?php echo $numTarga; ?>')"><i class="fa fa-trash"></i></a> </td>
           </tr>
       <?php
