@@ -32,6 +32,11 @@
         <p>Questa pagina web permette di visualizzare una collezione di dati relativi a targhe, siano esse ancora attive o gia' restituite; <br></p>
         <p>Ogni targa ha un collegamento a un veicolo e a un numero variabile revisioni, che possono essere consultate nelle apposite pagine. <br></p>
         <p>Per iniziare la navigazione selezionare uno dei collegamenti sulla tabella di navigazione (sulla sinistra).</p>
+        <p>Autori:</p>
+        <p>Gabriele Masinari: 1079692</p>
+        <p>Gabriele Mazzoleni: 1079514</p>
+        <p>Filippo Bolis Antonio: 1079493</p>
+      
       </div>
       <div class="immagini">
         <img src="./../img/auto1.png" alt="macchinaNonCaricata"></img>
