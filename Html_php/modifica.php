@@ -9,7 +9,7 @@
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
   <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
-   <script type="text/javascript" src="../js/controlli.js"></script>
+  <script type="text/javascript" src="../js/controlli.js"></script>
   
 </head>
 <body onload="setTargaModifica()">
@@ -21,9 +21,8 @@
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   $numTarga = $_GET['numTarga'];
-  echo $numTarga;
   // Fetch record from database
-$result = mysqli_query($conn_sqli, "SELECT * FROM targa WHERE numero = '$numTarga'");
+$result = mysqli_query($conn_sqli, "SELECT * FROM TARGA WHERE numero = '$numTarga'");
 $riga = mysqli_fetch_assoc($result);
 
   ?>
@@ -45,7 +44,7 @@ $riga = mysqli_fetch_assoc($result);
      <form  action="modifica.php"name="form_ricerca" method="post">
 
            Targa selezionata: <br>
-          <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" required><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" disabled><i class="fa fa-automobile"></i><br><br>
 
           Modifica data di emissione:<br>
           <input type="date"value="<?= $riga['dataEM'] ?>" name="dataEM"required><br><br>
