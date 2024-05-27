@@ -26,14 +26,11 @@
   // Fetch record from database
   if($OLDstato=="Restituita"){
     $OLDtelaio = $_GET['telaioRes'];
-    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$OLDnumTarga'");
-    $selectedRes ='selected';
-    $selectedAtt =' ';
+    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
   }
   else{
     $OLDtelaio = $_GET['telaioAtt'];
-    $selectedAtt ='selected';
-    $selectedRes =' ';
+    
   }  
 
 
@@ -63,8 +60,8 @@
           <input type="date"value="<?= $OLDdataEM ?>" name="dataEM"required><br><br>
 
           Modifica il tipo di targa:<br>
-          <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required<?php if($selectedAtt=='selected') echo 'checked'?>>Targa attiva<br>
-          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required<?php if($selectedRes=='selected') echo 'checked'?>>Targhe restituita <br><br>
+          <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required <?php echo ($OLDstato === 'Attiva') ? 'checked' : ''; ?>>Targa attiva<br>
+          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required <?php echo ($OLDstato === 'Restituita') ? 'checked' : ''; ?>>Targhe restituita <br><br>
 
           Modifica il numero di telaio del veicolo a cui associare la targa(il numero del telaio deve essere già presente nella tabella Veicolo):<br>
           <input type="number" name="telaio" value="<?= $OLDtelaio ?>"placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
