@@ -87,14 +87,6 @@ function verificaTargaAttiva($telaio, $conn): bool {
     return $count > 0;
 }
 
-function verificaAltraTargaAttiva($numTarga, $telaio, $conn): bool {
-    $checkQuery = "SELECT COUNT(*) AS count FROM TARGA_ATTIVA WHERE veicolo = ?";
-    $stmt = $conn->prepare($checkQuery);
-    $stmt->execute([$telaio]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $count = $row['count'];
-    return $count > 0;
-}
 
 function queryRevisione($numRevione, $numTarga, $dataRE, $posneg, $valoreordinamento) : string {
 	$qry = "SELECT

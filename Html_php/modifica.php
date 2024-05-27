@@ -17,6 +17,7 @@
   include "header.html";
   include "footer.html";
   include "query.php";
+  include 'connect.php';
   include "mysqli_connect.php";
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
@@ -83,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (verificaVeicolo($telaio, $conn_sqli)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
-    if ($statoTarga == 'targheatt' && verificaAltraTargaAttiva($telaio, $conn_sqli)) {
+    if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn_sqli)) {
       echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
       }
     else if($statoTarga == 'targherest' && $datarest < $dataEM){ 
@@ -94,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $query = modifica($numTarga,$dataEM,$statoTarga,$telaio,$dataRES);
       $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
       try {
-        $result = $conn->query($query);
+        $result = mysqli_query($conn_sqli, $query);
         echo("<script> alert('Inserimento eseguito con successo.') </script>");
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
             echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
@@ -108,13 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
     }
 
-  // Update database
-  $query = 
-  //"UPDATE TARGA SET dataEM = '$dataEM' WHERE numero = '$numTarga'  ";
-  mysqli_query($conn_sqli, $query);
-
-  // Redirect back to main page
-  header('Location: targa.php');
   exit;
 }
 ?>
