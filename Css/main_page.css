@@ -290,6 +290,11 @@ img {
 }
 
 #footerImage{
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 10%;
   max-height: 10%;
   position: relative;

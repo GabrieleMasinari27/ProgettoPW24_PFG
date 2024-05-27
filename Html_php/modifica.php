@@ -18,6 +18,7 @@
   include "footer.html";
   include "query.php";
   include 'connect.php';
+  include 'mysqli_connect.php';
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   $numTarga = $_GET['numTarga'];
@@ -26,7 +27,9 @@
   // Fetch record from database
   if($OLDstato=="Restituita"){
     $OLDtelaio = $_GET['telaioRes'];
-    $OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
+    //$OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
+    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
+    $row = mysqli_fetch_assoc($OLDdataRes);
   }
   else{
     $OLDtelaio = $_GET['telaioAtt'];
@@ -53,7 +56,7 @@
      <form  action="modifica.php"name="form_ricerca" method="post">
 
            Targa selezionata: <br>
-          <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" disabled><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" readonly><i class="fa fa-automobile"></i><br><br>
 
           Modifica data di emissione:<br>
           <input type="date"value="<?= $OLDdataEM ?>" name="dataEM"required><br><br>
@@ -66,10 +69,10 @@
           <input type="number" name="telaio" value="<?= $OLDtelaio ?>"placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
 
           Aggiungi/Modifica l'eventuale data di restituzione:<br>
-          <input type="date" name="datares" value="<?= $OLDdataRes ?>"id="datarest"<?php echo $disabled; ?>><br><br>
+          <input type="date" name="datares"value="<?= $row['dataRes']?>" id="datarest"<?php echo $disabled; ?>><br><br>
 
           <button class="btn"><i class="fa fa-pencil"></i> Modifica</button>
-
+    
         </form>
         <?php
 // Update logic
@@ -93,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
-        echo("<script> alert('Inserimento eseguito con successo.') </script>");
+        //echo("<script> alert('Inserimento eseguito con successo.') </script>");
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
             echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
             echo ("<script>alert('Inserimento non eseguito.')</script>");
@@ -106,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
     }
 
-  exit;
+  
 }
 ?>
     </div>
