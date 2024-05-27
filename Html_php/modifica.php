@@ -31,7 +31,6 @@
   }
   else{
     $OLDtelaio = $_GET['telaioAtt'];
-    
   }  
 
 
