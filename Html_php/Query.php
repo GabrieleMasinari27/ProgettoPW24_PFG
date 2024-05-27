@@ -84,14 +84,15 @@ function modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES): str
 		$qry.="DELETE FROM TARGA_ATTIVA WHERE targa = '$numTarga';";
 		$qry .="INSERT INTO TARGA_RESTITUITA (targa,veicolo, dataRes) VALUES ('$numTarga','$telaio','$dataRES');";	
 	}
-	if(){
-
+	if($OLDstato=="Restituita" && $statoTarga=="targheatt"){ //se rendiamo una targa restituita una targa attiva
+		$qry.="DELETE FROM TARGA_RESTITUITA WHERE targa = '$numTarga';";
+		$qry .="INSERT INTO TARGA_ATTIVA (targa,veicolo) VALUES ('$numTarga','$telaio');";
 	}
-	if(){
-
+	if($OLDstato=="Restituita" && $statoTarga=="targherest"){ //se modifichiamo una targa restituita
+		$qry .="UPDATE TABLE TARGA_RESTITUITA SET veicolo='$telaio', dataRes='$dataRES' WHERE targa='$numTarga';";
 	}
-	if(){
-		
+	if($OLDstato=="Attiva" && $statoTarga=="targheatt"){ //se modifichiamo una targa attiva
+		$qry .="UPDATE TABLE TARGA_ATTIVA SET veicolo='$telaio' WHERE targa='$numTarga';";
 	}
 	$qry .="UPDATE TABLE TARGA SET dataEM='$dataEM' WHERE numero='$numTarga'";
 	return $qry;
