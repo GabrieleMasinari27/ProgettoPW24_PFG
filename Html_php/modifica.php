@@ -21,9 +21,22 @@
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   $numTarga = $_GET['numTarga'];
+  $OLDdataEM= $_GET['dataEM'];
+  $OLDstato= $_GET['stato'];
   // Fetch record from database
-$result = mysqli_query($conn_sqli, "SELECT * FROM TARGA WHERE numero = '$numTarga'");
-$riga = mysqli_fetch_assoc($result);
+  if($OLDstato=="Restituita"){
+    $OLDtelaio = $_GET['telaioRes'];
+    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$OLDnumTarga'");
+    $selectedRes ='selected';
+    $selectedAtt =' ';
+  }
+  else{
+    $OLDtelaio = $_GET['telaioAtt'];
+    $selectedAtt ='selected';
+    $selectedRes =' ';
+  }  
+
+
 
   ?>
   <div class="container">
@@ -47,17 +60,17 @@ $riga = mysqli_fetch_assoc($result);
           <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" disabled><i class="fa fa-automobile"></i><br><br>
 
           Modifica data di emissione:<br>
-          <input type="date"value="<?= $riga['dataEM'] ?>" name="dataEM"required><br><br>
+          <input type="date"value="<?= $OLDdataEM ?>" name="dataEM"required><br><br>
 
           Modifica il tipo di targa:<br>
-          <input type="radio" name="radiotarga" value="targheatt"id="radioatt"value="" required>Targa attiva<br>
-          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required value="" >Targhe restituita <br><br>
+          <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required<?php if($selectedAtt=='selected') echo 'checked'?>>Targa attiva<br>
+          <input type="radio" name="radiotarga" value="targherest"id="radiorest" required<?php if($selectedRes=='selected') echo 'checked'?>>Targhe restituita <br><br>
 
           Modifica il numero di telaio del veicolo a cui associare la targa(il numero del telaio deve essere già presente nella tabella Veicolo):<br>
-          <input type="number" name="telaio" value=""placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
+          <input type="number" name="telaio" value="<?= $OLDtelaio ?>"placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
 
           Aggiungi/Modifica l'eventuale data di restituzione:<br>
-          <input type="date" name="datares" value=""id="datarest"<?php echo $disabled; ?>><br><br>
+          <input type="date" name="datares" value="<?= $OLDdataRes ?>"id="datarest"<?php echo $disabled; ?>><br><br>
 
           <button class="btn"><i class="fa fa-pencil"></i> Modifica</button>
 
@@ -67,9 +80,40 @@ $riga = mysqli_fetch_assoc($result);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $numTarga = $_POST['NumTarga'];
   $dataEM = $_POST['dataEM'];
+  $statoTarga=$_POST['radiotarga'];
+  $telaio=$_POST['telaio'];
+  $dataRES=$_POST['datares'];
+
+  if (verificaVeicolo($telaio, $conn_sqli)) { //verifichiamo che il veicolo esista
+    //se la targa è attiva, verifico che non sia già presente
+    if ($statoTarga == 'targheatt' && verificaAltraTargaAttiva($telaio, $conn_sqli)) {
+      echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
+      }
+    else if($statoTarga == 'targherest' && $datarest < $dataEM){ 
+      //se è restituita, verifico che la data di restituzione non preceda quella di emissione
+      echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
+    }
+    else{ //se tutto va bene posso lanciare la query
+      $query = modifica($numTarga,$dataEM,$statoTarga,$telaio,$dataRES);
+      $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
+      try {
+        $result = $conn->query($query);
+        echo("<script> alert('Inserimento eseguito con successo.') </script>");
+      } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
+            echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
+            echo ("<script>alert('Inserimento non eseguito.')</script>");
+      }
+  
+    }
+    header('Location: ' . "targa.php");
+    }
+    else{
+          echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
+    }
 
   // Update database
-  $query = "UPDATE TARGA SET dataEM = '$dataEM' WHERE numero = '$numTarga'  ";
+  $query = 
+  //"UPDATE TARGA SET dataEM = '$dataEM' WHERE numero = '$numTarga'  ";
   mysqli_query($conn_sqli, $query);
 
   // Redirect back to main page
