@@ -56,7 +56,7 @@
     <div class="risultato">
       <div id="overlay"></div>
       <div id="hiddenDiv">
-          <p><b>Siamo spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido.<br>Sarà reindirizzato alla pagina di Targa</b></p>      
+          <p><b>Siamo spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido<br>Sarà reindirizzato alla pagina di targa</b></p>      
           
       </div>
      <form  action="modifica.php"name="form_ricerca" method="post">
