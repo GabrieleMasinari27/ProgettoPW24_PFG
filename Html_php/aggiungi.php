@@ -29,13 +29,16 @@
     	$radio = $_POST["radiotarga"];
       $telaio = $_POST["telaio"];
     	$datarest = $_POST["datares"];
+        //trasformo le date in DateTime per garantire il corretto confronto tra le due date
+      $dateEMObj = new DateTime($dataEM);
+      $dataRESObj = new DateTime($datarest);
      
       if (verificaVeicolo($telaio, $conn)) {
         //se la targa è attiva, verifico che non sia già presente
         if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
           echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
           }
-        else if($radio == 'targherest' && $datarest < $dataEM){ 
+        else if($radio == 'targherest' && $dataRESObj < $dataEMObj){ 
           //se è restituita, verifico che la data di restituzione non preceda quella di emissione
           echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
         }
