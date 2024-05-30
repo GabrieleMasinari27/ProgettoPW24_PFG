@@ -87,8 +87,8 @@
           
           <th>Targa</th>
           <th>Data Emissione</th>
-          <!--<th>Data Restituzione</th>-->
           <th>Stato della targa</th>
+          <th>Data Restituzione</th>
           <th># Revisioni Effettuate</th>
           <th>Telaio Veicolo</th>
           <th>Modifica</th>
@@ -101,9 +101,8 @@
         
           $numTarga = $riga["numTarga"];
           $dataEM = $riga["dataEM"];
-          //$dataRes = $riga[""];//WARNING: implementare dataRes
-          
           $stato = $riga["stato"]; //presente in query.php
+          $dataRes = $riga["dataRes"];
           $count_revisioni=$riga["count_revisioni"];
           $telaio_res_veicolo=$riga["telaio_res_associato"];
           $telaio_att_veicolo=$riga["telaio_att_associato"];
@@ -113,9 +112,8 @@
             
             <td > <?php echo $numTarga; ?> </td>
             <td > <?php echo $dataEM; ?> </td>
-            <!-- <td> <?php //echo $dataRes; ?> </td> -->
-            
             <td > <?php echo $stato; ?> </td>
+            <td> <?php echo $dataRes; ?> </td>
             <td > <?php echo $count_revisioni; ?> </td>
             
             <?php
