@@ -30,7 +30,7 @@
     $OLDtelaio = $_GET['telaioRes'];
     //$OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
     $OLDdataRes = $_GET['dataRes'];
-    $row = mysqli_fetch_assoc($OLDdataRes);
+    
   }
   else{
     $OLDtelaio = $_GET['telaioAtt'];
@@ -56,8 +56,8 @@
     <div class="risultato">
       <div id="overlay"></div>
       <div id="hiddenDiv">
-          <p>Siamo Spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido</p>      
-          <button  id="bottoneConferma">Conferma</button>
+          <p><b>Siamo spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido.<br>Sarà reindirizzato alla pagina di Targa</b></p>      
+          
       </div>
      <form  action="modifica.php"name="form_ricerca" method="post">
        
@@ -75,7 +75,7 @@
           <input type="number" name="telaio" value="<?= $OLDtelaio ?>"placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
 
           Aggiungi/Modifica l'eventuale data di restituzione:<br>
-          <input type="date" name="datares"value="<?= $row['dataRes']?>" id="datarest"<?php echo $disabled; ?>><br><br>
+          <input type="date" name="datares"value="<?= $OLDdataRes?>" id="datarest"<?php echo $disabled; ?>><br><br>
 
           <button class="btn"><i class="fa fa-pencil"></i> Modifica</button>
     
