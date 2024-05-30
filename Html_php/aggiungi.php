@@ -38,14 +38,14 @@
         if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
           echo "<script>
        testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarà reindirizzato alla pagina delle targhe';
-       testoHiddenDiv(testo);
+       testoHiddenDivAggiungi(testo);
         </script>";
       }
         else if($radio == 'targherest' && $dataRESObj < $dataEMObj){ 
           //se è restituita, verifico che la data di restituzione non preceda quella di emissione
           echo "<script>
        testo='L'inserimento è stata effettuata correttamente';
-       testoHiddenDiv(testo);
+       testoHiddenDivAggiungi(testo);
         </script>";}
         else{ //se tutto va bene posso lanciare la query
           $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest);
@@ -57,7 +57,7 @@
                 //echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
                echo "<script>
             testo='L'inserimento non è stata effettuata correttamente';
-            testoHiddenDiv(testo);
+            testoHiddenDivAggiungi(testo);
             </script>";}
       
         }
@@ -66,7 +66,7 @@
         else{
         echo "<script>
        testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
-       testoHiddenDiv(testo);
+       testoHiddenDivAggiungi(testo);
         </script>"; }
     }
     
@@ -94,9 +94,9 @@
       </div>
     </div>
     <div class="risultato">
-      <div id="overlay"></div>
-      <div id="hiddenDiv">
-          <p><b id="testo"></b></p>      
+      <div id="overlay1"></div>
+      <div id="hiddenDiv1">
+          <p><b id="testo1"></b></p>      
           </div>
      <form name="form_ricerca" method="post">
 

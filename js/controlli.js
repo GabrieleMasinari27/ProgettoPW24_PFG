@@ -31,3 +31,13 @@ function testoHiddenDiv(testo){
         window.location.href = 'targa.php';
     }, 5000); // reindirizza dopo 2 secondi
 }
+function testoHiddenDivAggiungi(testo) {
+    document.getElementById('testo1').innerHTML = testo;
+    document.getElementById('overlay1').style.display = 'block';
+    var hiddenDiv = document.getElementById('hiddenDiv1');
+    hiddenDiv.style.display = 'block';
+    hiddenDiv.style.opacity = 1; // aggiungi questa riga
+    setTimeout(function () {
+        window.location.href = 'targa.php';
+    }, 5000); // reindirizza dopo 2 secondi
+}
