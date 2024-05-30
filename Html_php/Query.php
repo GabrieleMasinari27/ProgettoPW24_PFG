@@ -10,7 +10,9 @@ function getTarga($numTarga, $dataEM, $radiocheck,$valoreordinamento): string {
 	CASE
 	WHEN TARGA.numero IN (SELECT TARGA_RESTITUITA.targa FROM TARGA_RESTITUITA) THEN 'Restituita'
 	WHEN TARGA.numero IN (SELECT TARGA_ATTIVA.targa FROM TARGA_ATTIVA) THEN 'Attiva'
-	END AS stato
+	END AS stato,
+	COALESCE(TARGA_RESTITUITA.dataRes, 'N/A') AS dataRes
+	
 
 	FROM
 	TARGA
@@ -79,7 +81,8 @@ function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest): string {
 }
 
 function modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES): string{
-	
+	echo($OLDstato);
+
 	$qry ="";
 	if($OLDstato=="Attiva" && $statoTarga=='targherest'){ //se rendiamo una targa attiva una targa restituita
 		echo("<script> alert('Entrato in if 1') </script>");
