@@ -82,13 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $statoTarga=$_POST['radiotarga'];
   $telaio=$_POST['telaio'];
   $dataRES=$_POST['datares'];
+  //trasformo le date in DateTime per garantire il corretto confronto tra le due date
+  $dateEMObj = new DateTime($dataEM);
+  $dataRESObj = new DateTime($dataRES);
 
   if (verificaVeicolo($telaio, $conn)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
     if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn)) {
       echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
       }
-    else if($statoTarga == 'targherest' && $datarest < $dataEM){ 
+    else if($statoTarga == 'targherest' && $dataRESObj < $dataEMObj){ 
       //se è restituita, verifico che la data di restituzione non preceda quella di emissione
       echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
     }
@@ -103,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
   
     }
-    header('Location: ' . "targa.php");
+    //header('Location: ' . "targa.php");
     }
     else{
           echo ("<h3>Il numero del telaio non è presente nel database!</h3>");

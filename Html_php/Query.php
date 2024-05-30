@@ -79,19 +79,24 @@ function Inserimento($numTarga, $dataEM, $radio, $telaio, $datarest): string {
 }
 
 function modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES): string{
+	
 	$qry ="";
-	if($OLDstato=="Attiva" && $statoTarga=="targherest"){ //se rendiamo una targa attiva una targa restituita
+	if($OLDstato=="Attiva" && $statoTarga=='targherest'){ //se rendiamo una targa attiva una targa restituita
+		echo("<script> alert('Entrato in if 1') </script>");
 		$qry.="DELETE FROM TARGA_ATTIVA WHERE targa = '$numTarga';";
 		$qry .="INSERT INTO TARGA_RESTITUITA (targa,veicolo, dataRes) VALUES ('$numTarga','$telaio','$dataRES');";	
 	}
-	if($OLDstato=="Restituita" && $statoTarga=="targheatt"){ //se rendiamo una targa restituita una targa attiva
+	if($OLDstato=="Restituita" && $statoTarga=='targheatt'){ //se rendiamo una targa restituita una targa attiva
+		echo("<script> alert('Entrato in if 2') </script>");
 		$qry.="DELETE FROM TARGA_RESTITUITA WHERE targa = '$numTarga';";
 		$qry .="INSERT INTO TARGA_ATTIVA (targa,veicolo) VALUES ('$numTarga','$telaio');";
 	}
-	if($OLDstato=="Restituita" && $statoTarga=="targherest"){ //se modifichiamo una targa restituita
+	if($OLDstato=="Restituita" && $statoTarga=='targherest'){ //se modifichiamo una targa restituita
+		echo("<script> alert('Entrato in if 3') </script>");
 		$qry .="UPDATE TARGA_RESTITUITA SET veicolo='$telaio', dataRes='$dataRES' WHERE targa='$numTarga';";
 	}
-	if($OLDstato=="Attiva" && $statoTarga=="targheatt"){ //se modifichiamo una targa attiva
+	if($OLDstato=="Attiva" && $statoTarga=='targheatt'){ //se modifichiamo una targa attiva
+		echo("<script> alert('Entrato in if 4') </script>");
 		$qry .="UPDATE TARGA_ATTIVA SET veicolo='$telaio' WHERE targa='$numTarga';";
 	}
 
