@@ -56,7 +56,7 @@
     <div class="risultato">
       <div id="overlay"></div>
       <div id="hiddenDiv">
-          <p id="testo"><b>Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa</b></p>      
+          <p><b id="testo"></b></p>      
           
       </div>
      <form  action="modifica.php"name="form_ricerca" method="post">
@@ -95,22 +95,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (verificaVeicolo($telaio, $conn)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
     if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn)) {
-      echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
+      echo "<script>
+       testo='Mi dispiace,e siste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
+       testoHiddenDiv(testo);
+        </script>";
+     
       }
     else if($statoTarga == 'targherest' && $dataRESObj < $dataEMObj){ 
       //se è restituita, verifico che la data di restituzione non preceda quella di emissione
-      echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
-    }
+      echo "<script>
+       testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe';
+       testoHiddenDiv(testo);
+        </script>";
+      }
     else{ //se tutto va bene posso lanciare la query
       
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
+       echo "<script>
+       testo='La modifica è stata effettuata correttamente';
+       testoHiddenDiv(testo);
+        </script>";
         
-        //echo("<script> alert('Inserimento eseguito con successo.') </script>");
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
-            echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
-            echo ("<script>alert('Inserimento non eseguito.')</script>");
+            //echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
+            echo "<script>
+            testo='La modifica non è stata effettuata correttamente';
+            testoHiddenDiv(testo);
+            </script>";
       }
   
     }
@@ -118,13 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     else{
    echo "<script>
-          document.getElementById('overlay').style.display = 'block';
-          var hiddenDiv = document.getElementById('hiddenDiv');
-          hiddenDiv.style.display = 'block';
-          hiddenDiv.style.opacity = 1; // aggiungi questa riga
-          setTimeout(function(){
-            window.location.href = 'targa.php';
-          }, 5000); // reindirizza dopo 2 secondi
+       testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
+       testoHiddenDiv(testo);
         </script>";
     }
 
