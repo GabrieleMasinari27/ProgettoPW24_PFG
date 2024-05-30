@@ -18,7 +18,6 @@
   include "footer.html";
   include "query.php";
   include 'connect.php';
-  include 'mysqli_connect.php';
   $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
   $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
   $numTarga = $_GET['numTarga'];
@@ -28,7 +27,6 @@
   // Fetch record from database
   if($OLDstato=="Restituita"){
     $OLDtelaio = $_GET['telaioRes'];
-    //$OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
     $OLDdataRes = $_GET['dataRes'];
     
   }
@@ -94,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //trasformo le date in DateTime per garantire il corretto confronto tra le due date
   $dateEMObj = new DateTime($dataEM);
   $dataRESObj = new DateTime($dataRES);
-  $OLDstato = $_POST['OLDstato']; // Recupero il vecchio stato inviato dal form
+  // Recupero il vecchio stato inviato dal form
+  $OLDstato = $_POST['OLDstato']; 
 
   if (verificaVeicolo($telaio, $conn)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
@@ -122,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>";
         
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
-            //echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
             echo "<script>
             testo='La modifica non è stata effettuata correttamente';
             testoHiddenDiv(testo);
@@ -130,10 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
   
     }
-   // header('Location: ' . "targa.php");
     }
     else{
-   echo "<script>
+      echo "<script>
        testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
        testoHiddenDiv(testo);
         </script>";
