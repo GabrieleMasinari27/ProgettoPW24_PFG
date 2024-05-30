@@ -21,3 +21,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function convertToUpperCase(input) {
     input.value = input.value.toUpperCase();
 }
+function testoHiddenDiv(testo){
+    document.getElementById('testo').innerHTML=testo;
+    document.getElementById('overlay').style.display = 'block';
+    var hiddenDiv = document.getElementById('hiddenDiv');
+    hiddenDiv.style.display = 'block';
+    hiddenDiv.style.opacity = 1; // aggiungi questa riga
+    setTimeout(function () {
+        window.location.href = 'targa.php';
+    }, 5000); // reindirizza dopo 2 secondi
+}

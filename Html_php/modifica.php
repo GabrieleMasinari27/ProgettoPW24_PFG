@@ -56,7 +56,7 @@
     <div class="risultato">
       <div id="overlay"></div>
       <div id="hiddenDiv">
-          <p><b>Siamo spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido<br>Sarà reindirizzato alla pagina di targa</b></p>      
+          <p id="testo"><b>Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa</b></p>      
           
       </div>
      <form  action="modifica.php"name="form_ricerca" method="post">
@@ -106,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
+        
         //echo("<script> alert('Inserimento eseguito con successo.') </script>");
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
             echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
