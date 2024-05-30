@@ -31,10 +31,3 @@ function testoHiddenDiv(testo){
         window.location.href = 'targa.php';
     }, 5000); // reindirizza dopo 2 secondi
 }
-function modificaValoreBottone(bottone) {
-    if (bottone.value === "Cerca") {
-        bottone.value = "Annulla Filtro";
-    } else {
-        bottone.value = "Cerca";
-    }
-}
