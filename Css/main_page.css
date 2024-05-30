@@ -71,7 +71,7 @@ input[type=reset] {
   color: white;
 }
 /* Stile per l'overlay scuro */
-#overlay {
+#overlay1 {
   display: none; /* Inizialmente nascosto */
   position: fixed; 
   top: 0; 
@@ -83,7 +83,7 @@ input[type=reset] {
 }
 
 /*blocco div nascosto*/
-  #hiddenDiv {
+  #hiddenDiv1  {
     display: none;
     opacity: 0;
     transition: opacity 0.5s;
