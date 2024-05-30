@@ -29,7 +29,7 @@ function testoHiddenDiv(testo){
     hiddenDiv.style.opacity = 1; // aggiungi questa riga
     setTimeout(function () {
         window.location.href = 'targa.php';
-    }, 5000); // reindirizza dopo 2 secondi
+    }, 3000); // reindirizza dopo 3 secondi
 }
 function testoHiddenDivAggiungi(testo) {
     document.getElementById('testo1').innerHTML = testo;
@@ -39,5 +39,5 @@ function testoHiddenDivAggiungi(testo) {
     hiddenDiv.style.opacity = 1; // aggiungi questa riga
     setTimeout(function () {
         window.location.href = 'targa.php';
-    }, 5000); // reindirizza dopo 2 secondi
+    }, 3000); // reindirizza dopo 3 secondi
 }

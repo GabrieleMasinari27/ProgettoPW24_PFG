@@ -89,9 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $statoTarga=$_POST['radiotarga'];
   $telaio=$_POST['telaio'];
   $dataRES=$_POST['datares'];
-  //trasformo le date in DateTime per garantire il corretto confronto tra le due date
-  $dateEMObj = new DateTime($dataEM);
-  $dataRESObj = new DateTime($dataRES);
   // Recupero il vecchio stato inviato dal form
   $OLDstato = $_POST['OLDstato']; 
 
@@ -104,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>";
      
       }
-    else if($statoTarga == 'targherest' && $dataRESObj < $dataEMObj){ 
+    else if($statoTarga == 'targherest' && $dataRES < $dataEM){ 
       //se è restituita, verifico che la data di restituzione non preceda quella di emissione
       echo "<script>
        testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe';
@@ -115,9 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
-       echo "<script>
-       testo='La modifica è stata effettuata correttamente';
-       testoHiddenDiv(testo);
+        echo "<script>
+        testo='La modifica è stata effettuata correttamente';
+        testoHiddenDiv(testo);
         </script>";
         
       } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo

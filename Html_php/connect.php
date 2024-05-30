@@ -1,7 +1,7 @@
 <?php
 	$servername= "localhost";
-	$username = "root";
-	$dbname= "progettopw";
+	$username = "bolisfilippouni";
+	$dbname= "my_bolisfilippouni";
 	$password = null;
 	$error = false;
 

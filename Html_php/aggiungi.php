@@ -13,76 +13,13 @@
   
 </head>
 <body onload="setTargaAggiungi()">
+
   <?php
   include "header.html";
   include "footer.html";
   include "query.php";
   include "connect.php";
-    $NumTarga = "";
-    $dataEM = "";
-    $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
-    $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
-  
-    if (count($_POST) > 0) {
-      $NumTarga =$_POST["NumTarga"];
-    	$dataEM = $_POST["dataEM"];
-    	$radio = $_POST["radiotarga"];
-      $telaio = $_POST["telaio"];
-    	$datarest = $_POST["datares"];
-        //trasformo le date in DateTime per garantire il corretto confronto tra le due date
-      $dateEMObj = new DateTime($dataEM);
-      $dataRESObj = new DateTime($datarest);
-     
-      if (verificaVeicolo($telaio, $conn)) {
-        //se la targa è attiva, verifico che non sia già presente
-        if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
-         echo "<script>
-       testo='Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
-       testoHiddenDivAggiungi(testo);
-        </script>"; 
-      }
-        else if($radio == 'targherest' && $dataRESObj < $dataEMObj){ 
-          //se è restituita, verifico che la data di restituzione non preceda quella di emissione
-          echo "<script>
-       testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarà reindirizzato alla pagina delle targhe';
-       testoHiddenDivAggiungi(testo);
-        </script>";
-        }
-        else{ //se tutto va bene posso lanciare la query
-          $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest);
-          $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
-          try {
-            $result = $conn->query($query);
-             echo "<script>
-       testo='L'inserimento è stata effettuata correttamente';
-       testoHiddenDivAggiungi(testo);
-        </script>";
-      } catch (PDOException $e) 
-      { //se qualcosa va comunque storto, lo comunichiamo
-                //echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
-               echo "<script>
-            testo='L'inserimento non è stata effettuata correttamente';
-            testoHiddenDivAggiungi(testo);
-            </script>";}
-      
-        }
-        header('Location: ' . "targa.php");
-        }
-        else{
-        echo "<script>
-       testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
-       testoHiddenDivAggiungi(testo);
-        </script>"; }
-    }
-    
-        $query = "SELECT DISTINCT numero FROM TARGA";
-    try {
-        $result = $conn->query($query);
-    } catch (PDOException $e) {
-        echo "<h3 class='msg'>DB Error on Query: " . $e->getMessage() . "</h3>";
-        $error = true;
-    }
-    ?>
+  ?>
 
   <div class="container">
     <div class="ricercasx">
@@ -126,5 +63,68 @@
         </form>
     </div>
 </div>
+
+  <?php
+    $NumTarga = "";
+    $dataEM = "";
+    $radio = isset($_POST["radiotarga"]) ? $_POST["radiotarga"] : '';
+    $disabled = ($radio === 'targherest') ? ' ' : 'disabled';
+  
+    if (count($_POST) > 0) {
+      $NumTarga =$_POST["NumTarga"];
+    	$dataEM = $_POST["dataEM"];
+    	$radio = $_POST["radiotarga"];
+      $telaio = $_POST["telaio"];
+    	$datarest = $_POST["datares"];
+
+     
+      if (verificaVeicolo($telaio, $conn)) { //verifichiamo se il veicolo esiste
+        //se la targa è attiva, verifico che non sia già presente
+        if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
+          echo "<script>
+          testo='Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
+          testoHiddenDivAggiungi(testo);
+          </script>"; 
+      }
+        else if($radio == 'targherest' && $datarest < $dataEM){ 
+          //se è restituita, verifico che la data di restituzione non preceda quella di emissione
+          echo "<script>
+       testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarà reindirizzato alla pagina delle targhe';
+       testoHiddenDivAggiungi(testo);
+        </script>";
+        }
+        else{ //se tutto va bene posso lanciare la query
+          $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest);
+          try {
+            $result = $conn->query($query);
+            echo "<script>
+            testo='Inserimento effettuato correttamente';
+            testoHiddenDivAggiungi(testo);
+            </script>";
+
+      } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
+            echo "<script>
+            testo='Inserimento non effettuato correttamente';
+            testoHiddenDivAggiungi(testo);
+            </script>";}
+      
+        }
+
+        }
+        else{
+        echo "<script>
+       testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
+       testoHiddenDivAggiungi(testo);
+        </script>"; }
+    }
+    
+        $query = "SELECT DISTINCT numero FROM TARGA";
+    try {
+        $result = $conn->query($query);
+    } catch (PDOException $e) {
+        echo "<h3 class='msg'>DB Error on Query: " . $e->getMessage() . "</h3>";
+        $error = true;
+    }
+    ?>
 </body>
 </html>
