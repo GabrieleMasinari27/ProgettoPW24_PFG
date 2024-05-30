@@ -71,6 +71,9 @@
           <input type="radio" name="radiotarga" value="targheatt"id="radioatt" required <?php echo ($OLDstato === 'Attiva') ? 'checked' : ''; ?>>Targa attiva<br>
           <input type="radio" name="radiotarga" value="targherest"id="radiorest" required <?php echo ($OLDstato === 'Restituita') ? 'checked' : ''; ?>>Targhe restituita <br><br>
 
+          
+          <input type="hidden" name="OLDstato" value="<?= $OLDstato ?>">
+
           Modifica il numero di telaio del veicolo a cui associare la targa(il numero del telaio deve essere già presente nella tabella Veicolo):<br>
           <input type="number" name="telaio" value="<?= $OLDtelaio ?>"placeholder="Telaio veicolo associato"min="100000"max="1000000" required><br><br>
 
@@ -91,12 +94,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //trasformo le date in DateTime per garantire il corretto confronto tra le due date
   $dateEMObj = new DateTime($dataEM);
   $dataRESObj = new DateTime($dataRES);
+  $OLDstato = $_POST['OLDstato']; // Recupero il vecchio stato inviato dal form
 
   if (verificaVeicolo($telaio, $conn)) { //verifichiamo che il veicolo esista
     //se la targa è attiva, verifico che non sia già presente
-    if ($statoTarga == 'targheatt' && $OLDstato=="Restituita" && verificaTargaAttiva($telaio, $conn)) {
+    if ($statoTarga == 'targheatt' && $OLDstato==="Restituita" && verificaTargaAttiva($telaio, $conn)) {
       echo "<script>
-       testo='Mi dispiace,e siste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
+       testo='Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
        testoHiddenDiv(testo);
         </script>";
      
@@ -109,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>";
       }
     else{ //se tutto va bene posso lanciare la query
-      
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
@@ -127,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
   
     }
-    header('Location: ' . "targa.php");
+   // header('Location: ' . "targa.php");
     }
     else{
    echo "<script>

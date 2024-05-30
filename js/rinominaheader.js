@@ -10,11 +10,11 @@ function setTarga() {
 	
 }
 function setTargaAggiungi() {
-	$("#header").eq(0).html("Inserimento di una nuova Targa");
+	$("#header").eq(0).html("Inserimento di una nuova targa");
 
 }
 function setTargaModifica() {
-	$("#header").eq(0).html("Modifica di una nuova Targa");
+	$("#header").eq(0).html("Modifica di una targa");
 
 }
 
