@@ -9,6 +9,8 @@
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
   <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+  <script type="text/javascript" src="../js/controlli.js"></script>
+  
 </head>
 <body onload="setTarga()">
   <?php
@@ -40,9 +42,8 @@
             <option value="ordinaNumeroTarga">Numero di targa</option>
           </select>
            <br>
-          <input type="submit" name="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i><br>
+           <input type="submit" name="bottonericerca" id="bottonericerca" value="Cerca">&nbsp&nbsp<i class="fa fa-search"></i><br>
           <input type="reset" name="bottonericerca" value="Resetta">
-          
         </fieldset>
         </form>
       </div>
@@ -69,6 +70,7 @@
         $dataEM = $_POST["dataemtarga"];
         $radiocheck=$_POST["radiofiltrotarga"];
         $valoreordinamento=$_POST["scelta"];
+        
       }
       $query = getTarga($numTarga, $dataEM,$radiocheck,$valoreordinamento);
       
