@@ -38,7 +38,7 @@
         if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
          echo "<script>
        testo='Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe';
-       testoHiddenDiv(testo);
+       testoHiddenDivAggiungi(testo);
         </script>"; 
       }
         else if($radio == 'targherest' && $dataRESObj < $dataEMObj){ 
