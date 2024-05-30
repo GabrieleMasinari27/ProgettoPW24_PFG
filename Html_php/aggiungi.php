@@ -73,7 +73,7 @@
        <nav>
   <ul>
 <li><a class="active" href="index.php"><i class="fa fa-home"></i></a></li>
-
+<li><a href="targa.php">Targa <i class="fa fa-drivers-license-o"></i></a></li>
 </ul>
 </nav>
       </div>

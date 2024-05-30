@@ -24,11 +24,12 @@
   $numTarga = $_GET['numTarga'];
   $OLDdataEM= $_GET['dataEM'];
   $OLDstato= $_GET['stato'];
+  
   // Fetch record from database
   if($OLDstato=="Restituita"){
     $OLDtelaio = $_GET['telaioRes'];
     //$OLDdataRes =$conn->query("SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
-    $OLDdataRes = mysqli_query($conn_sqli, "SELECT dataRes FROM TARGA_RESTITUITA WHERE targa = '$numTarga'");
+    $OLDdataRes = $_GET['dataRes'];
     $row = mysqli_fetch_assoc($OLDdataRes);
   }
   else{
@@ -44,7 +45,7 @@
        <nav>
   <ul>
 <li><a class="active" href="index.php"><i class="fa fa-home"></i></a></li>
-
+<li><a href="targa.php">Targa <i class="fa fa-drivers-license-o"></i></a></li>
 </ul>
 </nav>
       </div>
@@ -53,8 +54,13 @@
       </div>
     </div>
     <div class="risultato">
+      <div id="overlay"></div>
+      <div id="hiddenDiv">
+          <p>Siamo Spiacenti il telaio da lei inserito per la targa <p id="numeroTarga"></p> non è valido</p>      
+          <button  id="bottoneConferma">Conferma</button>
+      </div>
      <form  action="modifica.php"name="form_ricerca" method="post">
-
+       
            Targa selezionata: <br>
           <input type="search" name="NumTarga" value="<?= $numTarga ?>" placeholder=" Targa"placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7"minlength="7" oninput="convertToUpperCase(this)" readonly><i class="fa fa-automobile"></i><br><br>
 
@@ -96,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
     }
     else{ //se tutto va bene posso lanciare la query
+      
       $query = modifica($numTarga,$dataEM,$OLDstato,$statoTarga,$telaio,$dataRES);
       try {
         $result = $conn->query($query);
@@ -106,10 +113,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
   
     }
-    //header('Location: ' . "targa.php");
+    header('Location: ' . "targa.php");
     }
     else{
-          echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
+   echo "<script>
+          document.getElementById('overlay').style.display = 'block';
+          var hiddenDiv = document.getElementById('hiddenDiv');
+          hiddenDiv.style.display = 'block';
+          hiddenDiv.style.opacity = 1; // aggiungi questa riga
+          setTimeout(function(){
+            window.location.href = 'targa.php';
+          }, 5000); // reindirizza dopo 2 secondi
+        </script>";
     }
 
   
