@@ -33,6 +33,7 @@ li a:hover {
 }
 .nav {
   height: 23vh;
+  flex: 1 1 23vh;
 }
 /*blocco filtro*/
 input[type=submit] {
@@ -63,11 +64,13 @@ input[type=reset] {
 }
 /*per controlli*/
  input[type="number"] {
-   width: 177px;
+   /*width: 177px;*/
+   width: 60%;
    /* Imposta la larghezza desiderata */
  }
 .filtro {
-  height: 35vh;
+  /*height: 35vh;*/
+  flex:1 1 35vh;
   color: white;
 }
 /* Stile per l'overlay scuro */
@@ -183,14 +186,15 @@ a {
   display: flex;
   width: 100%;
   height: calc(100vh - 140px);
-  
+
    /* Altezza rimanente della finestra */
 }
 /*Blocco ricercasx*/
 .ricercasx {
-  width: 25%; 
+  /*width: 25%;*/
   background-color: #81715b ; 
   padding: 15px;
+  flex: 1 1 25vw;
 }
 
 /* Stili per la nota testuale*/
@@ -278,7 +282,7 @@ p{
   height: 100%;
   padding: 20px;
   overflow-y: auto; /* Scorrimento verticale solo se necessario */
-  overflow-x: hidden;
+  overflow-x: auto; /* Scorrimento orizzontale in caso di necessità */
 }
 
 
