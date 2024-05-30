@@ -56,7 +56,11 @@
           <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
           <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
       </div>
-      
+      <div id="overlay2"></div>
+      <div id="hiddenDiv2">
+         <p><b id="testo2"></b></p>      
+          
+      </div>
 
       <a href="aggiungi.php"><i id="icona_aggiungi"class="fa fa-plus-square-o"></i></a>
       <?php

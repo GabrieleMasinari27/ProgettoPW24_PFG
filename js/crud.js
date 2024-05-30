@@ -21,11 +21,17 @@ function Elimina(numTarga){
         type: 'POST',
         data: { targa: numTarga },
         success: function(response) {
-            alert('Targa eliminata con successo!');
-            location.reload();
+            
+            testo = 'Targa eliminata con successo';
+            testoHiddenDivElimina(testo);
+        
+            //alert('Targa eliminata con successo!');
+            //location.reload();
         },
         error: function(xhr, status, error) {
-            alert('Errore durante l\'eliminazione della targa.');
+            testo = 'Errore durante l\'eliminazione della targa';
+            testoHiddenDivElimina(testo);
+            //alert('Errore durante l\'eliminazione della targa.');
         }
     });
 }

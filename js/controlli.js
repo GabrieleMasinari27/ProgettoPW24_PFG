@@ -41,3 +41,16 @@ function testoHiddenDivAggiungi(testo) {
         window.location.href = 'targa.php';
     }, 3000); // reindirizza dopo 3 secondi
 }
+function testoHiddenDivElimina(testo) {
+    document.getElementById('hiddenDiv').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+
+    document.getElementById('testo2').innerHTML = testo;
+    document.getElementById('overlay2').style.display = 'block';
+    var hiddenDiv = document.getElementById('hiddenDiv2');
+    hiddenDiv.style.display = 'block';
+    hiddenDiv.style.opacity = 1; // aggiungi questa riga
+    setTimeout(function () {
+        window.location.href = 'targa.php';
+    }, 3000); // reindirizza dopo 3 secondi
+}
