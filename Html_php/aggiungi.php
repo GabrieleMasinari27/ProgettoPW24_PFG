@@ -36,12 +36,17 @@
       if (verificaVeicolo($telaio, $conn)) {
         //se la targa è attiva, verifico che non sia già presente
         if ($radio == 'targheatt' && verificaTargaAttiva($telaio, $conn)) {
-          echo("<script> alert('Esiste già una targa attiva per questo veicolo.') </script>");
-          }
+          echo "<script>
+       testo='Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarà reindirizzato alla pagina delle targhe';
+       testoHiddenDiv(testo);
+        </script>";
+      }
         else if($radio == 'targherest' && $dataRESObj < $dataEMObj){ 
           //se è restituita, verifico che la data di restituzione non preceda quella di emissione
-          echo("<script> alert('La data di restituzione non può essere più vecchia della data di inserimento.') </script>");
-        }
+          echo "<script>
+       testo='L'inserimento è stata effettuata correttamente';
+       testoHiddenDiv(testo);
+        </script>";}
         else{ //se tutto va bene posso lanciare la query
           $query = Inserimento($NumTarga, $dataEM,$radio,$telaio,$datarest);
           $error=false; //istanziamo error per poi poter stampare il messaggio di corretto inserimento o meno
@@ -49,16 +54,20 @@
             $result = $conn->query($query);
             echo("<script> alert('Inserimento eseguito con successo.') </script>");
           } catch (PDOException $e) { //se qualcosa va comunque storto, lo comunichiamo
-                echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
-                echo ("<script>alert('Inserimento non eseguito.')</script>");
-          }
+                //echo "<h3>DB Error on Query: " . $e->getMessage() . "</h3>";
+               echo "<script>
+            testo='L'inserimento non è stata effettuata correttamente';
+            testoHiddenDiv(testo);
+            </script>";}
       
         }
         header('Location: ' . "targa.php");
         }
         else{
-          		echo ("<h3>Il numero del telaio non è presente nel database!</h3>");
-        }
+        echo "<script>
+       testo='Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa';
+       testoHiddenDiv(testo);
+        </script>"; }
     }
     
         $query = "SELECT DISTINCT numero FROM TARGA";
@@ -85,6 +94,10 @@
       </div>
     </div>
     <div class="risultato">
+      <div id="overlay"></div>
+      <div id="hiddenDiv">
+          <p><b id="testo"></b></p>      
+          </div>
      <form name="form_ricerca" method="post">
 
           Aggiungi una nuova Targa: <br>
