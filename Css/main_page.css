@@ -72,7 +72,6 @@ input[type=reset] {
 /*per controlli*/
 input[type="number"] {
   width: 177px;
-  /*width: 60%;
   /* Imposta la larghezza desiderata */
 }
 
@@ -189,7 +188,7 @@ header {
 footer {
   background-color: #938068;
   padding: 5px;
-  
+  padding-bottom: 10px;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -215,8 +214,8 @@ a {
 .container {
   display: flex;
   width: 100%;
-  height: 100vh;
-  margin-bottom: 50px;
+  height: calc(100vh - 140px);
+
   /* Altezza rimanente della finestra */
 }
 
@@ -381,11 +380,14 @@ tr:not(:first-child):hover {
   }
 
   header {
-    font-size: 22px;
+    font-size: 25px;
   }
-  #footerImage{
-    width: 130px;
+  .container{
+height: calc(100vh - 120px);
   }
+   #footerImage {
+    width:130px;
+   } 
 }
 
 .btn {
