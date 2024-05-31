@@ -71,8 +71,8 @@ input[type=reset] {
 
 /*per controlli*/
 input[type="number"] {
-  /*width: 177px;*/
-  width: 60%;
+  width: 177px;
+  /*width: 60%;
   /* Imposta la larghezza desiderata */
 }
 
