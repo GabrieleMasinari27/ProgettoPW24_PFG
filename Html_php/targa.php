@@ -10,7 +10,7 @@
   <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <script type="text/javascript" src="../js/controlli.js"></script>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body onload="setTarga()">
   <?php
@@ -29,7 +29,7 @@
         <form name="form_ricerca" method="post">
           <fieldset>
             <legend>Filtro Ricerca per: </legend>
-          <input type="search" name="numerotarga"  placeholder=" Targa"pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri"  maxlength="7"><i class="fa fa-automobile"></i><br><br>
+          <input type="search" name="numerotarga"  placeholder=" Targa"pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri"  maxlength="7"><i class="fa fa-automobile"></i><br>
           Data di emissione:<br>
           <input type="date" name="dataemtarga"><br><br>
           <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>

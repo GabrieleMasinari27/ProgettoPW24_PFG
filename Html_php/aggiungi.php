@@ -10,7 +10,7 @@
   <script type="text/javascript" src="../js/crud.js"></script>
   <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
    <script type="text/javascript" src="../js/controlli.js"></script>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body onload="setTargaAggiungi()">
 

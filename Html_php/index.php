@@ -7,6 +7,7 @@
   <script type="text/javascript" src="../js/rinominaheader.js"></script>
 <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
