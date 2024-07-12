@@ -2,44 +2,43 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
 <head>
-  <link rel="stylesheet" href="../static/css/main_page.css">
-  <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"-->
-  <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="../js/rinominaheader.js"></script>
-<script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ProgettoPFG_Motorizzazione</title>
+    <link rel="stylesheet" href="../static/css/main_page.css">
+    <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../js/rinominaheader.js"></script>
+    <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
     {% include 'Header.html' %}
-  <div class="container col-sm-12">
-    <div class="ricercasx col-sm-2.5">
-      <div class="nav">
-        {% include 'nav.html' %}
-      </div>
-      <div id="nota">
-      <p>NOTA: <br>le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa, si prega di cliccare (rispettivamente) queste icone nella pagina delle targhe<br><span><i class="fa fa-plus-square-o"></i>&nbsp<i class="fa fa-pencil"></i>&nbsp<i class="fa fa-trash"></i></span></p>
-      </div>
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="ricercasx col-sm-3 p-2">
+                <div class="nav">
+                    {% include 'nav.html' %}
+                </div>
+                <div id="nota">
+                    <p>NOTA: <br>le operazioni di inserimento, modifica e rimozione dei dati sono disponibili soltanto sulla tabella Targa, si prega di cliccare (rispettivamente) queste icone nella pagina delle targhe<br><span><i class="fa fa-plus-square-o"></i>&nbsp<i class="fa fa-pencil"></i>&nbsp<i class="fa fa-trash"></i></span></p>
+                </div>
+            </div>
+            <div class="risultato col-sm-9 p-2">
+                <div>
+                    <p id="intro">Benvenuto a PFG Motorizzazione!</p>
+                    <p>Questa pagina web permette di visualizzare una collezione di dati relativi a targhe, siano esse ancora attive o già restituite; <br></p>
+                    <p>Ogni targa ha un collegamento a un veicolo e a un numero variabile revisioni, che possono essere consultate nelle apposite pagine. <br></p>
+                    <p>Per iniziare la navigazione selezionare uno dei collegamenti sulla tabella di navigazione (sulla sinistra).</p>
+                    <p>Autori:</p>
+                    <p>Gabriele Masinari: 1079692</p>
+                    <p>Gabriele Mazzoleni: 1079514</p>
+                    <p>Filippo Bolis Antonio: 1079493</p>
+                </div>
+                <div class="immagini">
+                    <img src="../static/images/auto1.png" alt="macchinaNonCaricata">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="risultato col-sm-9.5">
-      <div>
-        <p id="intro">Benvenuto a PFG Motorizzazione!</p>
-        <p>Questa pagina web permette di visualizzare una collezione di dati relativi a targhe, siano esse ancora attive o gia' restituite; <br></p>
-        <p>Ogni targa ha un collegamento a un veicolo e a un numero variabile revisioni, che possono essere consultate nelle apposite pagine. <br></p>
-        <p>Per iniziare la navigazione selezionare uno dei collegamenti sulla tabella di navigazione (sulla sinistra).</p>
-        <p>Autori:</p>
-        <p>Gabriele Masinari: 1079692</p>
-        <p>Gabriele Mazzoleni: 1079514</p>
-        <p>Filippo Bolis Antonio: 1079493</p>
-      
-      </div>
-      <div class="immagini">
-        <img src="..\static\images\auto1.png" alt="macchinaNonCaricata"></img>
-      </div>
-    </div>
-</div>
+    {% include 'Footer.html' %}
 </body>
 </html>
-
-{% include 'Footer.html' %}
