@@ -13,6 +13,7 @@
     border: 1px solid #555;
   }
   
+
   li a {
     display: block;
     color: #000;
@@ -37,7 +38,7 @@
   .nav {
     /* height: 23vh;*/
     flex: 1 1 23vh;
-    height: 25vh;
+    height: auto;
   }
   
   /*blocco filtro*/
@@ -225,7 +226,7 @@
     background-color: #81715b;
     padding: 15px;
     flex: 1 1 25vw;
-  
+    overflow-y: auto;
   }
   
   /* Stili per la nota testuale*/
