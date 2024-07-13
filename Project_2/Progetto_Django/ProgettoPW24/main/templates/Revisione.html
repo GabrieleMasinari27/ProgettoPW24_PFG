@@ -1,12 +1,64 @@
-<!-- main/templates/revisione.html -->
-{% include 'Header.html' %}
-{% include 'nav.html' %}
-
-<div class="container mt-4">
-    <h1>Revisione Veicolo</h1>
-    <form action="/revisione" method="post">
-        <!-- Form Fields -->
-    </form>
-</div>
-
-{% include 'Footer.html' %}
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+<head>
+    <link rel="stylesheet" href="../static/css/main_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="../js/rinominaheader.js"></script>
+    <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
+    <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>ProgettoPFG_Motorizzazione</title>
+</head>
+<body onload="setRevisione()">
+    {% include 'Header.html' %}
+    <div class="container-fluid" style="display: flex; flex-direction: column; height: 100vh;">
+        <div class="row" style="display: flex; flex: 1;">
+            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; display: flex; flex-direction: column; padding: 15px;">
+                <div class="nav" style="flex: 1;">
+                    {% include 'nav.html' %}
+                </div>
+                <div class="filtro" style="flex: 2;">
+                    <form name="form_ricerca" method="post">
+                        <fieldset>
+                            <legend>Filtro Ricerca per:</legend>
+                            <input type="number" name="numerorevisione" min="1" max="50" placeholder="Numero di revisione"><br>
+                            <input type="text" name="numerotarga" placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" minlength="7" maxlength="7"><i class="fa fa-automobile"></i><br><br>
+                            Data della revisione:
+                            <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
+                            Esito:<br>
+                            <input type="radio" name="esito" value="positivo"> Positivo <br>
+                            <input type="radio" name="esito" value="negativo"> Negativo <br>
+                            <input type="radio" name="esito" value="indifferente" checked> Indifferente <br><br>
+                            <label for="scelta">Ordina per:</label>
+                            <select id="ordinamento" name="scelta">
+                                <option value="ordinamentoNullo" selected>Nessun ordinamento</option>
+                                <option value="ordinaNumeroRev">Numero di revisione</option>
+                                <option value="ordinaNumeroTarga">Numero di targa</option>
+                                <option value="ordinaPositivo">Prima i positivi</option>
+                                <option value="ordinaNegativo">Prima i negativi</option>
+                            </select>
+                            <br>
+                            <input type="submit" name="bottonericerca" value="Cerca">&nbsp;&nbsp;<i class="fa fa-search"></i><br>
+                            <input type="reset" name="bottonericerca" value="Resetta">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="risultato col-sm-9 p-2" style="background-color: #D9CDAF; display: flex; flex-direction: column; padding: 20px; overflow-y: auto;">
+                <table class="table">
+                    <tr class="header">
+                        <th>IdRevisione</th>
+                        <th>Targa</th>
+                        <th>Data Revisione</th>
+                        <th>Esito</th>
+                        <th>Motivazione</th>
+                    </tr>
+                    <!-- Your PHP logic here -->
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'Footer.html' %}
+</body>
+</html>

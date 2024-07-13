@@ -1,416 +1,184 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  /*Blocco nav */
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    max-width: 300px;
-    background-color: #D9CDAF;
-    border: 1px solid #555;
-  }
-  
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-  
-  li {
-    text-align: center;
-    border-bottom: 1px solid #555;
-  }
-  
-  li:last-child {
-    border-bottom: none;
-  }
-  
-  li a:hover {
-    background-color: #938068;
-    color: white;
-  }
-  
-  .nav {
-    /* height: 23vh;*/
-    flex: 1 1 23vh;
-    height: auto;
-  }
-  
-  /*blocco filtro*/
-  input[type=submit] {
-    background-color: #b6905b;
-    color: rgb(255, 255, 255);
-    margin-top: 3px;
-    padding: 5px 5px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Ombra */
-    transition: background-color 0.3s ease;
-  }
-  
-  input[type=reset] {
-    background-color: #b6905b;
-    margin-top: 4px;
-    color: rgb(255, 255, 255);
-    padding: 5px 5px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Ombra */
-    transition: background-color 0.3s ease;
-  }
-  
-  /*per controlli*/
-  input[type="number"] {
-    width: 177px;
-    /* Imposta la larghezza desiderata */
-  }
-  
-  .filtro {
-    /*height: 35vh;*/
-    flex: 1 1 30vh;
-    color: white;
-    height: 40vh;
-    margin: auto;
-  
-  }
-  
-  /* Stile per l'overlay scuro */
-  #overlay,
-  #overlay1,
-  #overlay2 {
-    display: none;
-    /* Inizialmente nascosto */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Sfondo semi-trasparente */
-    z-index: 1;
-    /* Posiziona l'overlay sopra gli altri elementi */
-  }
-  
-  /*blocco div nascosto*/
-  #hiddenDiv,
-  #hiddenDiv1,
-  #hiddenDiv2 {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s;
-    background-color: #D9CDAF;
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-    /*rendiamolo un popup*/
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    /* Centra il popup */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    z-index: 2;
-    /* Posiziona il popup sopra l'overlay*/
-    cursor: pointer;
-  }
-  
-  #hiddenDiv.show {
-    display: block;
-    opacity: 1;
-  }
-  
-  /*Bottoni del div nascosto*/
-  #bottoneAnnulla {
-  
-    background-color: #A28050;
-    color: white;
-    padding: 10px 15px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Ombra */
-    transition: background-color 0.3s ease;
-  }
-  
-  #bottoneElimina {
-    border-radius: 4px;
-    background-color: #81715b;
-    color: white;
-    padding: 10px 15px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Ombra */
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Stili per il corpo della pagina */
-  body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #938068;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  
-  
-  }
-  
-  /* Stili per l'header */
-  header {
-    font-family: 'Trebuchet MS',
-      sans-serif;
-    background-color: #938068;
-    padding: 20px;
-  
-    text-align: center;
-    font-size: 30px;
-    color: white;
-  }
-  
-  /* Stili per il footer */
-  footer {
-    background-color: #938068;
-    padding: 5px;
-    padding-bottom: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-  }
-  
-  #footerImage {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 200px;
-    height: auto;
-    object-fit: cover;
-    position: relative;
-  }
-  
-  a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  /* Stili per il contenitore dei div ricercasx e risultato */
-  .container {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 140px);
-  
-    /* Altezza rimanente della finestra */
-  }
-  
-  /*Blocco ricercasx*/
-  .ricercasx {
-    /*width: 25%;*/
-    background-color: #81715b;
-    padding: 15px;
-    flex: 1 1 25vw;
-    overflow-y: auto;
-  }
-  
-  /* Stili per la nota testuale*/
-  #nota {
-    color: white !important;
-  }
-  
-  p {
-    text-align: left;
-  }
-  
-  /*Blocco icone*/
-  #icona_aggiungi {
-    text-align: center;
-  }
-  
-  #icona_aggiungi:hover {
-    cursor: pointer;
-  }
-  
-  #icona_aggiungi:hover::after {
-    content: "Aggiungi una riga";
-    display: inline;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px;
-    border-radius: 4px;
-    z-index: 1;
-  }
-  
-  #icona_modifica {
-    text-align: center;
-    position: relative;
-  
-  }
-  
-  #icona_modifica:hover {
-    cursor: pointer;
-  }
-  
-  #icona_modifica:hover::after {
-    content: "Modifica la  riga";
-    display: block;
-    position: absolute;
-    left: 50%;
-    bottom: 95%;
-    /* Posiziona il tooltip sopra l'elemento */
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px;
-    border-radius: 4px;
-    z-index: 1;
-    white-space: nowrap;
-    /* Impedisce che il testo vada a capo */
-  }
-  
-  #icona_elimina {
-    text-align: center;
-    position: relative;
-  
-  }
-  
-  #icona_elimina:hover {
-    cursor: pointer;
-  }
-  
-  #icona_elimina:hover::after {
-    content: "Elimina la riga";
-    display: block;
-    position: absolute;
-    left: 50%;
-    bottom: 95%;
-    /* Posiziona il tooltip sopra l'elemento */
-    transform: translateX(-60%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px;
-    border-radius: 4px;
-    z-index: 1;
-    white-space: nowrap;
-    /* Impedisce che il testo vada a capo */
-  }
-  
-  /* Stili per il div risultato */
-  .risultato {
-    width: 100%;
-    background-color: #D9CDAF;
-    height: 100%;
-    padding: 20px;
-    overflow-y: auto;
-    /* Scorrimento verticale solo se necessario */
-    overflow-x: auto;
-    /* Scorrimento orizzontale in caso di necessità */
-  }
-  
-  
-  /*Stili per le immagini*/
-  .immagini {
-  
-    max-width: 65%;
-    max-height: 65%;
-  }
-  
-  img {
-    width: 100%;
-    height: auto;
-  }
-  
-  
-  
-  /*Stili per la tabella*/
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #bdc3c7;
-    box-shadow: 2px 2px 12px;
-  }
-  
-  span {
-    color: black;
-  }
-  
-  tr {
-    transition: all .2s ease-in;
-  
-  }
-  
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #dddddd;
-  }
-  
-  .header {
-    background-color: #938068;
-    color: #fff;
-  }
-  
-  tr:not(:first-child):hover {
-    background-color: #f5f5f5;
-    transform: scale(1.02);
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  @media only screen and (max-width:768px) {
-    table {
-      width: 90%;
-  
-    }
-  
-    header {
-      font-size: 25px;
-    }
-    .container{
-  height: calc(100vh - 120px);
-    }
-     #footerImage {
-      width:130px;
-     } 
-  }
-  
-  .btn {
-    background-color: #b6905b;
-    color: rgb(255, 255, 255);
-    margin-top: 3px;
-    padding: 5px 5px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Ombra */
-    transition: background-color 0.3s ease;
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #938068;
+  display: flex;
+  flex-direction: column;
+}
 
-  .ricercasx {
-    flex: 0 0 20%; /* Adjust this value for slight width changes */
-    max-width: 20%;
+footer {
+  background-color: #938068;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  left: 0;
+}
+
+.container-fluid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+}
+
+.ricercasx {
+  background-color: #81715b;
+  padding: 15px;
+  flex: 1 1 20%;
+  overflow-y: auto;
 }
 
 .risultato {
-    flex: 0 0 80%; /* Adjust to match the total of 12 */
-    max-width: 80%;
+  background-color: #D9CDAF;
+  padding: 20px;
+  flex: 1 1 80%;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* Existing CSS for other elements */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Blocco nav */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 300px;
+  background-color: #D9CDAF;
+  border: 1px solid #555;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li {
+  text-align: center;
+  border-bottom: 1px solid #555;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li a:hover {
+  background-color: #938068;
+  color: white;
+}
+
+.nav {
+  flex: 1 1 23vh;
+  height: auto;
+}
+
+/* Blocco filtro */
+input[type=submit], input[type=reset] {
+  background-color: #b6905b;
+  color: rgb(255, 255, 255);
+  margin-top: 3px;
+  padding: 5px 5px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+input[type="number"] {
+  width: 177px;
+}
+
+.filtro {
+  flex: 1 1 30vh;
+  color: white;
+  height: 40vh;
+  margin: auto;
+}
+
+/* Stile per l'overlay scuro */
+#overlay, #overlay1, #overlay2 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Blocco div nascosto */
+#hiddenDiv, #hiddenDiv1, #hiddenDiv2 {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background-color: #D9CDAF;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#hiddenDiv.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Bottoni del div nascosto */
+#bottoneAnnulla, #bottoneElimina {
+  background-color: #b6905b;
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+#bottoneAnnulla:hover, #bottoneElimina:hover {
+  background-color: #938068;
+}
+
+#numeroTarga {
+  font-size: 15px;
+}
+
+#icona_aggiungi {
+  color: #5d5447;
+  font-size: 50px;
+  text-decoration: none;
 }
