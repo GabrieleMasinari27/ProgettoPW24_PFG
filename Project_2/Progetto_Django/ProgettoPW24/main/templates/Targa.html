@@ -6,17 +6,18 @@
     <meta charset="utf-8">
     <title>ProgettoPFG_Motorizzazione</title>
     <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../js/rinominaheader.js"></script>
     <script type="text/javascript" src="../js/crud.js"></script>
     <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
     <script type="text/javascript" src="../js/controlli.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body onload="setTarga()">
-    {% include 'Header.html' %}
+<body>
+    <header id="header">
+        Targa
+     </header>
     <div class="container-fluid" style="display: flex; flex-direction: column; height: 100vh;">
         <div class="row" style="display: flex; flex: 1;">
-            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; padding: 15px; flex: 1 1 20%; overflow-y: auto;">
+            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; padding: 15px; display: flex; flex-direction: column;">
                 <div class="nav">
                     {% include 'nav.html' %}
                 </div>
