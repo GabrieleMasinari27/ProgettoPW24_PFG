@@ -10,6 +10,7 @@
     <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
+    {% with numTelaio="" marca="" modello="" dataPro="" valoreordinamento=0 %}
     <header id="header">
         Veicolo
      </header>
@@ -53,10 +54,21 @@
                         <th>#Targhe Restituite</th>
                         <th>IdTargaAttiva</th>
                     </tr>
+                    {% for riga in result %}
+                    <tr>
+                        <td>{{ riga.0 }}</td>
+                        <td>{{ riga.1 }}</td>
+                        <td>{{ riga.2 }}</td>
+                        <td>{{ riga.3 }}</td>
+                        <td>{{ riga.4 }}</td>
+                        <td>{{ riga.5|default:"" }}</td>
+                    </tr>
+                {% endfor %}
                 </table>
             </div>
         </div>
     </div>
     {% include 'Footer.html' %}
+    {% endwith %}
 </body>
 </html>

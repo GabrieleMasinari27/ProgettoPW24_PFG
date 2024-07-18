@@ -20,12 +20,12 @@ def revisione(request):
     return render(request, 'revisione.html', {'result': result})
 
 def targa(request):
-    result = get_targa()
-    print(result)
+    result = get_targa("","","","")
     return render(request, 'targa.html', {'result': result})
 
 def veicolo(request):
-    return render(request, 'veicolo.html')
+    result = query_veicolo("","","","","")
+    return render(request, 'veicolo.html', {'result': result})
 
 def get_data_revisione():
     conn = sqlite3.connect('db.sqlite3')
@@ -51,7 +51,7 @@ def get_data_targa():
     
     return rows
 
-def get_targa(numTarga="", dataEM="", radiocheck="", valoreordinamento=""):
+def get_targa(numTarga, dataEM, radiocheck, valoreordinamento):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
     
@@ -101,6 +101,52 @@ def get_targa(numTarga="", dataEM="", radiocheck="", valoreordinamento=""):
     # Eseguo la query
     cursor.execute(query, params)
     rows = cursor.fetchall()
+    conn.close()
+    
+    return rows
+
+def query_veicolo(numTelaio, marca, modello, dataPro, valoreordinamento):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    
+    qry = """
+        SELECT
+            VEICOLO.telaio AS telaio,
+            VEICOLO.marca AS marca,
+            VEICOLO.modello AS modello,
+            VEICOLO.dataProd AS data,
+            (SELECT COUNT(*) FROM TARGA_RESTITUITA WHERE TARGA_RESTITUITA.veicolo = VEICOLO.telaio) as num_restituite,
+            (SELECT targa FROM TARGA_ATTIVA WHERE TARGA_ATTIVA.veicolo = VEICOLO.telaio) as targa_attiva
+        FROM
+            VEICOLO
+        WHERE 1=1
+    """
+    
+    if numTelaio:
+        qry += f" AND VEICOLO.telaio LIKE '%{numTelaio}%'"
+    
+    if marca:
+        qry += f" AND VEICOLO.marca LIKE '%{marca}%'"
+    
+    if modello:
+        qry += f" AND VEICOLO.modello LIKE '%{modello}%'"
+    
+    if dataPro:
+        qry += f" AND VEICOLO.dataProd LIKE '%{dataPro}%'"
+    
+    # Gestione dell'ordinamento
+    if valoreordinamento == 'ordinaNumeroTel':
+        qry += " ORDER BY VEICOLO.telaio"
+    elif valoreordinamento == 'ordinaMarca':
+        qry += " ORDER BY VEICOLO.marca"
+    elif valoreordinamento == 'ordinaModello':
+        qry += " ORDER BY VEICOLO.modello"
+    elif valoreordinamento == 'ordinaData':
+        qry += " ORDER BY VEICOLO.dataProd"
+    
+    cursor.execute(qry)
+    rows = cursor.fetchall()
+    
     conn.close()
     
     return rows
