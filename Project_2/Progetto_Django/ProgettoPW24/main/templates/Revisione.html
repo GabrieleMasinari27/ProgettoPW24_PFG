@@ -3,7 +3,6 @@
 <head>
     <link rel="stylesheet" href="../static/css/main_page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="../js/jquery-2.0.0.js"></script>
     <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -49,13 +48,21 @@
             <div class="risultato col-sm-9 p-2" style="background-color: #D9CDAF; display: flex; flex-direction: column; padding: 20px; overflow-y: auto;">
                 <table class="table">
                     <tr class="header">
-                        <th>IdRevisione</th>
-                        <th>Targa</th>
-                        <th>Data Revisione</th>
-                        <th>Esito</th>
-                        <th>Motivazione</th>
+                      <th>IdRevisione</th>
+                      <th>Targa</th>
+                      <th>Data Revisione</th>
+                      <th>Esito</th>
+                      <th>Motivazione</th>
                     </tr>
-                    <!-- Your PHP logic here -->
+                    {% for riga in result %}
+                    <tr>
+                        <td>{{ riga.0|default_if_none:"" }}</td>
+                        <td>{{ riga.1|default_if_none:"" }}</td>
+                        <td>{{ riga.2|default_if_none:"" }}</td>
+                        <td>{{ riga.3|default_if_none:"" }}</td>
+                        <td>{{ riga.4|default_if_none:"" }}</td>
+                    </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>

@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+    {% with numTarga="" dataEM="" radiocheck="" valoreordinamento="" count_revisioni=0 %}
     <header id="header">
         Targa
      </header>
@@ -69,11 +70,25 @@
                         <th>Modifica</th>
                         <th>Elimina</th>
                     </tr>
-                    <!-- Your PHP logic here -->
+                    {% for riga in result %}
+                        <tr>
+                            <td>{{ riga.0 }}</td>
+                            <td>{{ riga.1 }}</td>
+                            <td>{{ riga.5 }}</td>
+                            <td>{{ riga.6 }}</td>
+                            <td>{{ riga.2 }}</td>
+                            {% if riga.5 == "Attiva" %}
+                                <td>{{ riga.4 }}</td>
+                            {% else %}
+                                <td>{{ riga.3 }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>
     </div>
     {% include 'Footer.html' %}
+    {% endwith %}
 </body>
 </html>
