@@ -12,9 +12,6 @@ def aggiungi(request):
 def elimina(request):
     return render(request, 'elimina.html')
 
-def modifica(request):
-    return render(request, 'modifica.html')
-
 def revisione(request):
     result = get_data_revisione()
     return render(request, 'revisione.html', {'result': result})
@@ -173,3 +170,75 @@ def query_veicolo(numTelaio, marca, modello, dataPro, valoreordinamento):
     conn.close()
     
     return rows
+
+
+
+
+
+
+
+
+
+
+def verificaVeicolo(telaio):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM Veicolo WHERE telaio = ?", (telaio,))
+    result = cursor.fetchone()[0]
+    conn.close()
+    return result > 0
+
+def verificaTargaAttiva(telaio):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM Targa WHERE telaio = ? AND stato = 'Attiva'", (telaio,))
+    result = cursor.fetchone()[0]
+    conn.close()
+    return result > 0
+
+def modifica(request):
+    if request.method == "POST":
+        numTarga = request.POST.get("NumTarga", "")
+        dataEM = request.POST.get("dataEM", "")
+        statoTarga = request.POST.get("radiotarga", "")
+        telaio = request.POST.get("telaio", "")
+        dataRES = request.POST.get("datares", "")
+        OLDstato = request.POST.get("OLDstato", "")
+
+        if verificaVeicolo(telaio):
+            if statoTarga == 'targheatt' and OLDstato == "Restituita" and verificaTargaAttiva(telaio):
+                testo = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
+                return render(request, 'modifica.html', {'error': testo})
+            elif statoTarga == 'targherest' and dataRES < dataEM:
+                testo = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
+                return render(request, 'modifica.html', {'error': testo})
+            else:
+                query = """
+                    UPDATE Targa
+                    SET data_emissione = ?, stato = ?, telaio = ?, data_restituzione = ?
+                    WHERE num_targa = ?
+                """
+                conn = sqlite3.connect('db.sqlite3')
+                cursor = conn.cursor()
+                cursor.execute(query, (dataEM, statoTarga, telaio, dataRES, numTarga))
+                conn.commit()
+                conn.close()
+                testo = "La modifica è stata effettuata correttamente"
+                return render(request, 'modifica.html', {'success': testo})
+        else:
+            testo = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa"
+            return render(request, 'modifica.html', {'error': testo})
+    else:
+        numTarga = request.GET.get('numTarga', '')
+        OLDdataEM = request.GET.get('dataEM', '')
+        OLDstato = request.GET.get('stato', '')
+        OLDtelaio = request.GET.get('telaioRes', '') if OLDstato == "Restituita" else request.GET.get('telaioAtt', '')
+        OLDdataRes = request.GET.get('dataRes', '') if OLDstato == "Restituita" else ''
+        context = {
+            'numTarga': numTarga,
+            'OLDdataEM': OLDdataEM,
+            'OLDstato': OLDstato,
+            'OLDtelaio': OLDtelaio,
+            'OLDdataRes': OLDdataRes
+        }
+        return render(request, 'modifica.html', context)

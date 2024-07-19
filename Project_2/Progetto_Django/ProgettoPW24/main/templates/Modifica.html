@@ -1,12 +1,51 @@
-<!-- main/templates/modifica.html -->
-{% include 'Header.html' %}
-{% include 'nav.html' %}
-
-<div class="container mt-4">
-    <h1>Modifica Veicolo</h1>
-    <form action="/modifica" method="post">
-        <!-- Form Fields -->
-    </form>
-</div>
-
-{% include 'Footer.html' %}
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+<head>
+    <link rel="stylesheet" href="../static/css/main_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <title>ProgettoPFG_Motorizzazione</title>
+    <script src="https://kit.fontawesome.com/0b3c862c21.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header id="header">
+        Modifica
+     </header>
+    <div class="container">
+        <div class="ricercasx">
+            <div class="nav">
+                <nav>
+                    <ul>
+                        <li><a class="active" href="{% url 'index' %}"><i class="fa fa-home"></i></a></li>
+                        <li><a href="{% url 'targa' %}">Targa <i class="fa fa-drivers-license-o"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="filtro"></div>
+        </div>
+        <div class="risultato">
+            <div id="overlay"></div>
+            <div id="hiddenDiv">
+                <p><b id="testo">{% if error %}{{ error }}{% elif success %}{{ success }}{% endif %}</b></p>
+            </div>
+            <form action="modifica/" name="form_ricerca" method="post">
+                {% csrf_token %}
+                Targa selezionata: <br>
+                <input type="search" name="NumTarga" value="{{ numTarga }}" placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7" minlength="7" oninput="convertToUpperCase(this)" readonly><i class="fa fa-automobile"></i><br><br>
+                Modifica data di emissione:<br>
+                <input type="date" value="{{ OLDdataEM }}" name="dataEM" required><br><br>
+                Modifica il tipo di targa:<br>
+                <input type="radio" name="radiotarga" value="targheatt" id="radioatt" required {% if OLDstato == 'Attiva' %}checked{% endif %}>Targa attiva<br>
+                <input type="radio" name="radiotarga" value="targherest" id="radiorest" required {% if OLDstato == 'Restituita' %}checked{% endif %}>Targhe restituita<br><br>
+                <input type="hidden" name="OLDstato" value="{{ OLDstato }}">
+                Modifica il numero di telaio del veicolo a cui associare la targa (il numero del telaio deve essere già presente nella tabella Veicolo):<br>
+                <input type="number" name="telaio" value="{{ OLDtelaio }}" placeholder="Telaio veicolo associato" min="100000" max="1000000" required><br><br>
+                Aggiungi/Modifica l'eventuale data di restituzione:<br>
+                <input type="date" name="datares" value="{{ OLDdataRes }}" id="datarest" {% if OLDstato != 'Restituita' %}disabled{% endif %}><br><br>
+                <button class="btn"><i class="fa fa-pencil"></i> Modifica</button>
+            </form>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

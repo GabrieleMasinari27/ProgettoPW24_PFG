@@ -83,6 +83,16 @@
                             {% else %}
                                 <td>{{ riga.3 }}</td>
                             {% endif %}
+                            <td id="icona_modifica"> 
+                                <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&stato={{ riga.3 }}&telaioAtt={{ riga.4 }}&telaioRes={{ riga.5 }}&dataRes={{ riga.6 }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                            <td id="icona_elimina">  
+                                <a onclick="Mostra('{{ riga.0 }}')">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
