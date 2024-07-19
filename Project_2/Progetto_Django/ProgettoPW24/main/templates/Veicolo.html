@@ -14,13 +14,13 @@
     <header id="header">
         Veicolo
      </header>
-    <div class="container-fluid" style="display: flex; flex-direction: column; height: 100vh;">
-        <div class="row" style="display: flex; flex: 1;">
-            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; padding: 15px; flex-direction: column;">
-                <div class="nav" style="flex: 1;">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="ricercasx col-sm-3 p-2" >
+                <div class="nav" >
                     {% include 'nav.html' %}
                 </div>
-                <div class="filtro" style="flex: 2;">
+                <div class="filtro" >
                     <form name="form_ricerca" method="post">
                         {% csrf_token %}
                         <fieldset>
@@ -45,7 +45,8 @@
                     </form>
                 </div>
             </div>
-            <div class="risultato col-sm-9 p-2" style="background-color: #D9CDAF; padding: 20px; display: flex; flex-direction: column; overflow-y: auto;">
+            <div class="risultato col-sm-9 p-2" >
+             <div class="table-container">
                 <table class="table">
                     <tr class="header">
                         <th>#Telaio</th>
@@ -66,6 +67,7 @@
                     </tr>
                 {% endfor %}
                 </table>
+                </div>
             </div>
         </div>
     </div>
