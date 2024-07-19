@@ -16,9 +16,9 @@
     <header id="header">
         Targa
      </header>
-    <div class="container-fluid" style="display: flex; flex-direction: column; height: 100vh;">
-        <div class="row" style="display: flex; flex: 1;">
-            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; padding: 15px; flex-direction: column;">
+    <div class="container-fluid" >
+        <div class="row" >
+            <div class="ricercasx col-sm-3 p-2">
                 <div class="nav" style="flex: 1;">
                     {% include 'nav.html' %}
                 </div>
@@ -47,7 +47,7 @@
                     </form>
                 </div>
             </div>
-            <div class="risultato col-sm-9 p-2" style="background-color: #D9CDAF; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; overflow-x: auto;">
+            <div class="risultato col-sm-9 p-2" >
                 <div id="overlay"></div>
                 <div id="hiddenDiv">
                     <p>Sei sicuro di voler eliminare questa targa?</p>
@@ -60,6 +60,7 @@
                     <p><b id="testo2"></b></p>      
                 </div>
                 <a href="aggiungi.php"><i id="icona_aggiungi" class="fa fa-plus-square-o"></i></a>
+                <div class="table-container">
                 <table class="table">
                     <tr class="header">
                         <th>Targa</th>
@@ -95,7 +96,9 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    </div>
                 </table>
+
             </div>
         </div>
     </div>
