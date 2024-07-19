@@ -1,7 +1,10 @@
 * {
   box-sizing: border-box;
 }
-
+html,
+body {
+  overflow: hidden;
+}
 /*Blocco nav */
 ul {
   list-style-type: none;
@@ -39,7 +42,19 @@ li a:hover {
   flex: 1 1 23vh;
   height: 25vh;
 }
-
+.row{
+  display: flex;
+  flex:1;
+  margin:0;
+  padding:0;
+}
+.container-fluid{
+  display: flex;
+  flex-direction: column;
+  height:100vh;
+  padding:0;
+  margin:0;
+}
 /*blocco filtro*/
 input[type=submit] {
   background-color: #b6905b;
@@ -81,7 +96,7 @@ input[type="number"] {
   color: white;
   height: 40vh;
   margin: auto;
-
+  
 }
 
 /* Stile per l'overlay scuro */
@@ -317,12 +332,17 @@ p {
   background-color: #D9CDAF;
   height: 100%;
   padding: 20px;
-  overflow-y: auto;
-  /* Scorrimento verticale solo se necessario */
-  overflow-x: auto;
-  /* Scorrimento orizzontale in caso di necessità */
+ 
 }
-
+.table-container {
+  flex: 1;
+  overflow-y: auto;
+  /* Abilita lo scroll verticale per il contenitore della tabella */
+  max-height: 75vh;
+  /* Imposta un'altezza massima per il contenitore della tabella */
+  overflow-x: hidden;
+  box-shadow: 2px 2px 12px;
+}
 
 /*Stili per le immagini*/
 .immagini {
