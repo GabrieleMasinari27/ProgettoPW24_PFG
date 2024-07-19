@@ -12,13 +12,13 @@
     <header id="header">
         Revisione
      </header>
-    <div class="container-fluid" style="display: flex; flex-direction: column; height: 100vh; padding: 0; margin: 0;">
-        <div class="row" style="display: flex; flex: 1; margin: 0; padding: 0;">
-            <div class="ricercasx col-sm-3 p-2" style="background-color: #81715b; flex-direction: column; padding: 15px;">
-                <div class="nav" style="flex: 1;">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="ricercasx col-sm-3 p-2">
+                <div class="nav" >
                     {% include 'nav.html' %}
                 </div>
-                <div class="filtro" style="flex: 2;">
+                <div class="filtro" >
                     <form name="form_ricerca" method="post">
                         <fieldset>
                             <legend>Filtro Ricerca per:</legend>
@@ -45,28 +45,30 @@
                     </form>
                 </div>
             </div>
-            <div class="risultato col-sm-9 p-2" style="background-color: #D9CDAF; display: flex; flex-direction: column; padding: 20px; overflow-y: auto;">
-                <table class="table">
-                    <tr class="header">
-                      <th>IdRevisione</th>
-                      <th>Targa</th>
-                      <th>Data Revisione</th>
-                      <th>Esito</th>
-                      <th>Motivazione</th>
-                    </tr>
-                    {% for riga in result %}
-                    <tr>
-                        <td>{{ riga.0|default_if_none:"" }}</td>
-                        <td>{{ riga.1|default_if_none:"" }}</td>
-                        <td>{{ riga.2|default_if_none:"" }}</td>
-                        <td>{{ riga.3|default_if_none:"" }}</td>
-                        <td>{{ riga.4|default_if_none:"" }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+            
+                <div class="risultato col-sm-9 ">
+                <div class="table-container">
+                    <table class="table table-responsive">
+                        <tr class="header">
+                            <th>IdRevisione</th>
+                            <th>Targa</th>
+                            <th>Data Revisione</th>
+                            <th>Esito</th>
+                            <th>Motivazione</th>
+                        </tr>
+                        {% for riga in result %}
+                        <tr>
+                            <td>{{ riga.0|default_if_none:"" }}</td>
+                            <td>{{ riga.1|default_if_none:"" }}</td>
+                            <td>{{ riga.2|default_if_none:"" }}</td>
+                            <td>{{ riga.3|default_if_none:"" }}</td>
+                            <td>{{ riga.4|default_if_none:"" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+               </div>
             </div>
         </div>
-    </div>
     {% include 'Footer.html' %}
 </body>
 </html>
