@@ -24,6 +24,7 @@
                 </div>
                 <div class="filtro">
                     <form name="form_ricerca" method="post">
+                        {% csrf_token %}
                         <fieldset>
                             <legend>Filtro Ricerca per:</legend>
                             <input type="search" name="numerotarga" placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7">

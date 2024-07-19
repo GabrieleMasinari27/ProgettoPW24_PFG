@@ -20,7 +20,18 @@ def revisione(request):
     return render(request, 'revisione.html', {'result': result})
 
 def targa(request):
-    result = get_targa("","","","")
+    if request.method == "POST":
+        numTarga = request.POST.get("numerotarga", "")
+        dataEM = request.POST.get("dataemtarga", "")
+        radiocheck = request.POST.get("radiofiltrotarga", "")
+        valoreordinamento = request.POST.get("scelta", "")
+    else:
+        numTarga = ""
+        dataEM = ""
+        radiocheck = ""
+        valoreordinamento = ""
+
+    result = get_targa(numTarga, dataEM, radiocheck, valoreordinamento)
     return render(request, 'targa.html', {'result': result})
 
 def veicolo(request):
