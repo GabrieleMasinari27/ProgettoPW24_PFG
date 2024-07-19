@@ -35,7 +35,19 @@ def targa(request):
     return render(request, 'targa.html', {'result': result})
 
 def veicolo(request):
-    result = query_veicolo("","","","","")
+    if request.method == "POST":
+        numTelaio = request.POST.get("numTelaio", "")
+        marca = request.POST.get("marca", "")
+        modello = request.POST.get("modello", "")
+        dataPro = request.POST.get("dataPro", "")
+        valoreordinamento = request.POST.get("valoreordinamento", "")
+    else:
+        numTelaio = ""
+        marca = ""
+        modello = ""
+        dataPro = ""
+        valoreordinamento = ""
+    result = query_veicolo(numTelaio, marca, modello, dataPro, valoreordinamento)
     return render(request, 'veicolo.html', {'result': result})
 
 def get_data_revisione():

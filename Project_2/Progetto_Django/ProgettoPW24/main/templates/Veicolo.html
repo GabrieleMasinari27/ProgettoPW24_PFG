@@ -10,7 +10,7 @@
     <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
-    {% with numTelaio="" marca="" modello="" dataPro="" valoreordinamento=0 %}
+    {% with numTelaio="" marca="" modello="" dataPro="" valoreordinamento="" %}
     <header id="header">
         Veicolo
      </header>
@@ -22,15 +22,16 @@
                 </div>
                 <div class="filtro" style="flex: 2;">
                     <form name="form_ricerca" method="post">
+                        {% csrf_token %}
                         <fieldset>
                             <legend>Filtro Ricerca per:</legend>
-                            <input type="number" name="telaio" placeholder="Telaio" min="100000" max="1000000"><br>
+                            <input type="number" name="numTelaio" placeholder="Telaio" min="100000" max="1000000"><br>
                             <input type="text" name="marca" placeholder="Marca" pattern="[A-Za-z0-9-]+" title="Inserisci solo lettere e numeri" maxlength="15"><br>
                             <input type="text" name="modello" placeholder="Modello" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="15"><br><br>
                             Data della produzione:
-                            <input type="date" name="dataproduzione" placeholder="Data della produzione"><br><br>
+                            <input type="date" name="dataPro" placeholder="Data della produzione"><br><br>
                             <label for="scelta">Ordina per:</label>
-                            <select id="ordinamento" name="scelta">
+                            <select id="ordinamento" name="valoreordinamento">
                                 <option value="ordinamentoNullo">Nessun ordinamento</option>
                                 <option value="ordinaNumeroTel">Numero telaio</option>
                                 <option value="ordinaMarca">Alfabetico per marca</option>
