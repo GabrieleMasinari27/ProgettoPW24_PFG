@@ -28,7 +28,7 @@
             <div id="hiddenDiv">
                 <p><b id="testo">{% if error %}{{ error }}{% elif success %}{{ success }}{% endif %}</b></p>
             </div>
-            <form action="modifica/" name="form_ricerca" method="post">
+            <form action="{% url 'modifica' %}" name="form_ricerca" method="post">
                 {% csrf_token %}
                 Targa selezionata: <br>
                 <input type="search" name="NumTarga" value="{{ numTarga }}" placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7" minlength="7" oninput="convertToUpperCase(this)" readonly><i class="fa fa-automobile"></i><br><br>
@@ -47,5 +47,11 @@
         </div>
     </div>
     {% include 'footer.html' %}
+<script>
+    var errorMessage = "{% if error %}{{ error|escapejs }}{% else %}{% endif %}";
+    var successMessage = "{% if success %}{{ success|escapejs }}{% else %}{% endif %}";
+    var redirectUrl = "{% url 'targa' %}";
+</script>
+
 </body>
 </html>
