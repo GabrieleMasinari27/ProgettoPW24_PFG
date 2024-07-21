@@ -15,6 +15,9 @@
     <header id="header">
         Targa
      </header>
+     {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
     <div class="container-fluid" >
         <div class="row" >
             <div class="ricercasx col-sm-3 p-2">

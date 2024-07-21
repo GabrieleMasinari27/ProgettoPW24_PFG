@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from .models import Revisione
 from .forms import RicercaRevisioneForm
+from django.http import HttpResponse
 import sqlite3
 
 def index(request):
     return render(request, 'index.html')
-
-def aggiungi(request):
-    return render(request, 'aggiungi.html')
 
 def elimina(request):
     return render(request, 'elimina.html')
@@ -22,14 +20,16 @@ def targa(request):
         dataEM = request.POST.get("dataemtarga", "")
         radiocheck = request.POST.get("radiofiltrotarga", "")
         valoreordinamento = request.POST.get("scelta", "")
+        errore = request.POST.get("error", "")
     else:
         numTarga = ""
         dataEM = ""
         radiocheck = ""
         valoreordinamento = ""
+        errore = ""
 
     result = get_targa(numTarga, dataEM, radiocheck, valoreordinamento)
-    return render(request, 'targa.html', {'result': result})
+    return render(request, 'targa.html', {'result': result, 'error': errore})
 
 def veicolo(request):
     if request.method == "POST":
@@ -180,25 +180,24 @@ def verificaVeicolo(telaio):
     return result > 0
 
 def verificaTargaAttiva(telaio):
+    # Connetto al database
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM Targa WHERE telaio = ? AND stato = 'Attiva'", (telaio,))
+    
+    # Eseguo la query per contare le targhe attive per il veicolo specificato
+    cursor.execute("""
+        SELECT COUNT(*) 
+        FROM Targa_Attiva 
+        WHERE veicolo = ?
+    """, (telaio,))
+    
     result = cursor.fetchone()[0]
+    
+    # Chiudo la connessione al database
     conn.close()
+    
+    # Ritorno True se esiste almeno una targa attiva, altrimenti False
     return result > 0
-
-def inserimento(num_targa, data_em, stato, telaio, data_res):
-    return f"INSERT INTO Targa (num_targa, data_emissione, stato, telaio, data_restituzione) VALUES ('{num_targa}', '{data_em}', '{stato}', '{telaio}', '{data_res}')"
-def elimina_targa(request):
-    if request.method == 'POST':
-        num_targa = request.POST.get('targa')
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute("DELETE FROM Targa WHERE num_targa = %s", [num_targa])
-                return JsonResponse({'success': True, 'message': 'Targa eliminata con successo'})
-            except Exception as e:
-                return JsonResponse({'success': False, 'message': str(e)})
-    return JsonResponse({'success': False, 'message': 'Metodo non supportato'})
     
 def modifica(request):
     if request.method == "POST":
@@ -246,3 +245,69 @@ def modifica(request):
             'OLDdataRes': OLDdataRes
         }
         return render(request, 'modifica.html', context)
+
+def gestisci_errore(request, errore):
+    request.POST = request.POST.copy()  # Copia i dati POST per mantenerli
+    request.POST['error'] = errore
+    return targa(request)  # Chiama la funzione `targa` per gestire la visualizzazione dell'errore
+
+def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
+    # Connessione al database
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+
+    try:
+        if radio == 'targheatt':
+            # Inserimento della targa e del veicolo associato
+            cursor.execute("INSERT INTO TARGA (numero, dataEM) VALUES (?, ?)", (num_targa, data_em))
+            cursor.execute("INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES (?, ?)", (num_targa, telaio))
+        
+        elif radio == 'targherest':
+            # Inserimento della targa e del veicolo restituito
+            cursor.execute("INSERT INTO TARGA (numero, dataEM) VALUES (?, ?)", (num_targa, data_em))
+            cursor.execute("INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES (?, ?, ?)", (num_targa, telaio, data_rest))
+        
+        # Commit delle modifiche
+        conn.commit()
+        return "Inserimento effettuato correttamente"
+
+    except sqlite3.Error as e:
+        # Gestione degli errori
+        print(f"Errore durante l'inserimento: {e}")
+        conn.rollback()
+        return "Inserimento non effettuato correttamente"
+    
+    finally:
+        # Chiusura della connessione
+        conn.close()
+
+
+def aggiungi(request):
+    if request.method == "POST":
+        numTarga = request.POST.get("NumTarga", "")
+        dataEM = request.POST.get("dataEM", "")
+        statoTarga = request.POST.get("radiotarga", "")
+        telaio = request.POST.get("telaio", "")
+        dataRES = request.POST.get("datares", "")
+        print("entrato")
+        print(f"Stato targa: {statoTarga}, Telaio: {telaio}")  # Stampa di debug
+        conn = sqlite3.connect('db.sqlite3')
+
+        if verificaVeicolo(telaio):
+            if statoTarga == 'targheatt' and verificaTargaAttiva(telaio):
+                testo = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
+                print("targa attiva")
+                return gestisci_errore(request, testo)
+            elif statoTarga == 'targherest' and dataRES < dataEM:
+                testo = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
+                print("targa restituita")
+                return gestisci_errore(request, testo)
+            else:
+                print("innerelse: ", numTarga, dataEM, statoTarga, telaio, dataRES)
+                return gestisci_errore(request, inserimento(numTarga, dataEM, statoTarga, telaio, dataRES))
+        else:
+            print("outerelse")
+            testo = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa"
+            return render(request, 'aggiungi.html', {'error': testo})
+    else:
+        return render(request, 'aggiungi.html')

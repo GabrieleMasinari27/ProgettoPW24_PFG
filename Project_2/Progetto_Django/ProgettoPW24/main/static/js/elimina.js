@@ -8,7 +8,7 @@ function testoHiddenDivElimina(testo) {
     hiddenDiv.style.display = 'block';
     hiddenDiv.style.opacity = 1;
     setTimeout(function () {
-        window.location.href = '{% url "targa" %}';
+        window.location.href = '../../templates/targa';
     }, 3000); // reindirizza dopo 3 secondi
 }
 
