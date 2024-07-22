@@ -254,7 +254,7 @@ def gestisci_errore(request, errore):
 
 def elimina(request):
     if request.method == 'POST':
-        numTarga = request.POST.get("targa")
+        numTarga = request.POST.get("NumTarga")
         try:
             targa = Targa.objects.get(numero=numTarga)
             targa.delete()
@@ -264,7 +264,7 @@ def elimina(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
     return JsonResponse({'success': False, 'message': 'Metodo non consentito'})
-    
+
 def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
     # Connessione al database
     conn = sqlite3.connect('db.sqlite3')
