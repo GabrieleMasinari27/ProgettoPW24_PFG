@@ -10,7 +10,7 @@
 <body>
     <header id="header">
         Modifica
-     </header>
+    </header>
     <div class="container">
         <div class="ricercasx">
             <div class="nav">
@@ -33,25 +33,46 @@
                 Targa selezionata: <br>
                 <input type="search" name="NumTarga" value="{{ numTarga }}" placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7" minlength="7" oninput="convertToUpperCase(this)" readonly><i class="fa fa-automobile"></i><br><br>
                 Modifica data di emissione:<br>
-                <input type="date" value="{{ OLDdataEM }}" name="dataEM" required><br><br>
+                <input type="date" value="{{ request.GET.dataEM }}" name="dataEM" required><br><br>
                 Modifica il tipo di targa:<br>
-                <input type="radio" name="radiotarga" value="targheatt" id="radioatt" required {% if OLDstato == 'Attiva' %}checked{% endif %}>Targa attiva<br>
-                <input type="radio" name="radiotarga" value="targherest" id="radiorest" required {% if OLDstato == 'Restituita' %}checked{% endif %}>Targhe restituita<br><br>
-                <input type="hidden" name="OLDstato" value="{{ OLDstato }}">
+                <input type="radio" name="radiotarga" value="targheatt" id="radioatt" required {% if request.GET.OLDstato == 'Attiva' %}checked{% endif %}>Targa attiva<br>
+                <input type="radio" name="radiotarga" value="targherest" id="radiorest" required {% if request.GET.OLDstato == 'Restituita' %}checked{% endif %}>Targhe restituita<br><br>
+                <input type="hidden" name="OLDstato" value="{{ request.GET.OLDstato }}">
                 Modifica il numero di telaio del veicolo a cui associare la targa (il numero del telaio deve essere già presente nella tabella Veicolo):<br>
-                <input type="number" name="telaio" value="{{ OLDtelaio }}" placeholder="Telaio veicolo associato" min="100000" max="1000000" required><br><br>
+                <input type="number" name="telaio" value="{{ request.GET.OLDtelaio }}" placeholder="Telaio veicolo associato" min="100000" max="1000000" required><br><br>
                 Aggiungi/Modifica l'eventuale data di restituzione:<br>
-                <input type="date" name="datares" value="{{ OLDdataRes }}" id="datarest" {% if OLDstato != 'Restituita' %}disabled{% endif %}><br><br>
+                <input type="date" name="datares" value="{{ request.GET.OLDdataRes }}" id="datares" ><br><br>
                 <button class="btn"><i class="fa fa-pencil"></i> Modifica</button>
             </form>
         </div>
     </div>
     {% include 'footer.html' %}
-<script>
-    var errorMessage = "{% if error %}{{ error|escapejs }}{% else %}{% endif %}";
-    var successMessage = "{% if success %}{{ success|escapejs }}{% else %}{% endif %}";
-    var redirectUrl = "{% url 'targa' %}";
-</script>
+    <script>
+        var errorMessage = "{% if error %}{{ error|escapejs }}{% else %}{% endif %}";
+        var successMessage = "{% if success %}{{ success|escapejs }}{% else %}{% endif %}";
+        var redirectUrl = "{% url 'targa' %}";
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var radioAtt = document.getElementById('radioatt');
+            var radioRest = document.getElementById('radiorest');
+            var datares = document.getElementById('datares');
 
+            function toggleDataRes() {
+                if (radioRest.checked) {
+                    datares.removeAttribute('disabled');
+                } else {
+                    datares.setAttribute('disabled', 'disabled');
+                    datares.value = ''; // Reset the value when disabled
+                }
+            }
+
+            // Initial call to set the correct state based on the initial selection
+            toggleDataRes();
+
+            // Event listeners for radio buttons
+            radioAtt.addEventListener('change', toggleDataRes);
+            radioRest.addEventListener('change', toggleDataRes);
+        });
+    </script>
 </body>
 </html>

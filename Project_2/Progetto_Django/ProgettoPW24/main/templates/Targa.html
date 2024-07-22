@@ -95,7 +95,11 @@
                                 <td>{{ riga.3 }}</td>
                             {% endif %}
                             <td id="icona_modifica"> 
-                                <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&stato={{ riga.3 }}&telaioAtt={{ riga.4 }}&telaioRes={{ riga.5 }}&dataRes={{ riga.6 }}">
+                                {% if riga.5 == "Attiva" %}
+                                    <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.4 }}&OLDdataRes={{ riga.6 }}">
+                                {% else %}
+                                    <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.3 }}&OLDdataRes={{ riga.6 }}">
+                                {% endif %}
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             </td>
