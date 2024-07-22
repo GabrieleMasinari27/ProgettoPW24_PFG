@@ -173,33 +173,31 @@ def query_veicolo(numTelaio, marca, modello, dataPro, valoreordinamento):
     return rows
 
 def verificaVeicolo(telaio):
-    conn = sqlite3.connect('db.sqlite3')
-    cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM Veicolo WHERE telaio = ?", (telaio,))
-    result = cursor.fetchone()[0]
-    conn.close()
+    try:
+        conn = sqlite3.connect('db.sqlite3')
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM VEICOLO WHERE telaio = ?", (telaio,))
+        result = cursor.fetchone()[0]
+    except sqlite3.Error as e:
+        print(f"Errore del database: {e}")
+        result = 0
+    finally:
+        conn.close()
     return result > 0
 
 def verificaTargaAttiva(telaio):
-    # Connetto al database
-    conn = sqlite3.connect('db.sqlite3')
-    cursor = conn.cursor()
-    
-    # Eseguo la query per contare le targhe attive per il veicolo specificato
-    cursor.execute("""
-        SELECT COUNT(*) 
-        FROM Targa_Attiva 
-        WHERE veicolo = ?
-    """, (telaio,))
-    
-    result = cursor.fetchone()[0]
-    
-    # Chiudo la connessione al database
-    conn.close()
-    
-    # Ritorno True se esiste almeno una targa attiva, altrimenti False
+    try:
+        conn = sqlite3.connect('db.sqlite3')
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM TARGA_ATTIVA WHERE veicolo = ?", (telaio,))
+        result = cursor.fetchone()[0]
+    except sqlite3.Error as e:
+        print(f"Errore del database: {e}")
+        result = 0
+    finally:
+        conn.close()
     return result > 0
-    
+
 def modifica(request):
     if request.method == "POST":
         numTarga = request.POST.get("NumTarga", "")
@@ -209,74 +207,64 @@ def modifica(request):
         dataRES = request.POST.get("datares", "")
         OLDstato = request.POST.get("OLDstato", "")
 
-        if verificaVeicolo(telaio): #se il veicolo scelto esiste
+        if verificaVeicolo(telaio): # se il veicolo scelto esiste
             if statoTarga == 'targheatt' and OLDstato == "Restituita" and verificaTargaAttiva(telaio): 
-                #se provo a mettere una targa attiva dove ce ne è già uma mi da errore
                 error_message = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             elif statoTarga == 'targherest' and dataRES < dataEM:
-                #se provo a mettere una targa restituita con restituzione inferiore a emissione
                 error_message = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             else:
-                if statoTarga== "targheatt" and OLDstato == "Attiva": 
-                    #modifico una targa attiva, tenendola attiva
+                conn = None
+                try:
+                    conn = sqlite3.connect('db.sqlite3')
+                    cursor = conn.cursor()
+                    
+                    if statoTarga == "targheatt" and OLDstato == "Attiva": 
+                        query = """
+                        UPDATE TARGA_ATTIVA
+                        SET veicolo = ?
+                        WHERE targa = ?
+                        """
+                        cursor.execute(query, (telaio, numTarga))
+                    
+                    elif statoTarga == "targheatt" and OLDstato == "Restituita":
+                        cursor.execute("DELETE FROM TARGA_RESTITUITA WHERE targa = ?", (numTarga,))
+                        cursor.execute("INSERT INTO TARGA_ATTIVA (targa, veicolo) VALUES (?, ?)", (numTarga, telaio))
+                    
+                    elif statoTarga == "targherest" and OLDstato == "Restituita":
+                        query = """
+                        UPDATE TARGA_RESTITUITA
+                        SET veicolo = ?, dataRes = ?
+                        WHERE targa = ?
+                        """
+                        cursor.execute(query, (telaio, dataRES, numTarga))
+                    
+                    elif statoTarga == "targherest" and OLDstato == "Attiva":
+                        cursor.execute("DELETE FROM TARGA_ATTIVA WHERE targa = ?", (numTarga,))
+                        cursor.execute("INSERT INTO TARGA_RESTITUITA (targa, veicolo, dataRes) VALUES (?, ?, ?)", (numTarga, telaio, dataRES))
+                    
                     query = """
-                    UPDATE TARGA_ATTIVA
-                    SET veicolo = ?
-                    WHERE targa = ?
-                    ;
-                    """
-                    case = 1
-
-                if statoTarga=="targheatt" and OLDstato=="Restituita":
-                    #modifico una targa restituita, rendendola attiva
-                    query = """
-                    DELETE FROM TARGA_RESTITUITA WHERE targa = ? ;
-                    INSERT INTO TARGA_ATTIVA (targa,veicolo) VALUES(?,?);
-                    """
-                    case = 2
-                
-                if statoTarga=="targherest" and OLDstato=="Restituita":
-                    #modifico una targa restituita, tenendola restituita
-                    query = """
-                    UPDATE TARGA_RESTITUITA
-                    SET veicolo = ?, dataRes = ?
-                    WHERE targa = ?
-                    ;
-                    """
-                    case = 3
-                
-                if statoTarga=="targherest" and OLDstato=="Attiva":
-                    #modifico una targa attiva, rendendola restituita
-                    query = """
-                    DELETE FROM TARGA_ATTIVA WHERE targa = ? ;
-                    INSERT INTO TARGA_RESTITUITA (targa,veicolo,dataRes) VALUES(?,?,?);
-                    """
-                    case = 4
-                
-
-                query += """
-                    UPDATE Targa
-                    SET dataEM= ?
+                    UPDATE TARGA
+                    SET dataEM = ?
                     WHERE numero = ?
-                """
-                conn = sqlite3.connect('db.sqlite3')
-                cursor = conn.cursor()
-                #ogni caso di modifica richiede variabili differenti in ordine diverso
-                if case==1:
-                    cursor.execute(query, (telaio, numTarga, dataEM, numTarga))
-                elif case==2:
-                    cursor.execute(query, (numTarga, numTarga, telaio, dataEM, numTarga))
-                elif case==3:
-                    cursor.execute(query, (telaio, dataRES, numTarga, dataEM, numTarga))
-                elif case==4:
-                    cursor.execute(query, (numTarga, numTarga, telaio, dataRES, dataEM, numTarga))
+                    """
+                    cursor.execute(query, (dataEM, numTarga))
+                    
+                    conn.commit()
+                    success_message = "La modifica è stata effettuata correttamente"
+                    return render(request, 'modifica.html', {'success': success_message})
                 
-                conn.commit()
-                conn.close()
-                success_message = "La modifica è stata effettuata correttamente"
-                return render(request, 'modifica.html', {'success': success_message})
+                except sqlite3.Error as e:
+                    if conn:
+                        conn.rollback()
+                    print(f"Errore del database: {e}")
+                    error_message = "Errore nella modifica della targa. Per favore riprova."
+                    return render(request, 'modifica.html', {'error': error_message})
+                
+                finally:
+                    if conn:
+                        conn.close()
         else:
             error_message = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa"
             return render(request, 'modifica.html', {'error': error_message})
@@ -294,6 +282,7 @@ def modifica(request):
             'OLDdataRes': OLDdataRes
         }
         return render(request, 'modifica.html', context)
+
 
 def gestisci_errore(request, errore):
     request.POST = request.POST.copy()  # Copia i dati POST per mantenerli
