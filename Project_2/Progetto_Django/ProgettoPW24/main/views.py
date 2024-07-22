@@ -209,22 +209,70 @@ def modifica(request):
         dataRES = request.POST.get("datares", "")
         OLDstato = request.POST.get("OLDstato", "")
 
-        if verificaVeicolo(telaio):
-            if statoTarga == 'targheatt' and OLDstato == "Restituita" and verificaTargaAttiva(telaio):
+        if verificaVeicolo(telaio): #se il veicolo scelto esiste
+            if statoTarga == 'targheatt' and OLDstato == "Restituita" and verificaTargaAttiva(telaio): 
+                #se provo a mettere una targa attiva dove ce ne è già uma mi da errore
                 error_message = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             elif statoTarga == 'targherest' and dataRES < dataEM:
+                #se provo a mettere una targa restituita con restituzione inferiore a emissione
                 error_message = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             else:
-                query = """
+                if statoTarga== "targheatt" and OLDstato == "Attiva": 
+                    #modifico una targa attiva, tenendola attiva
+                    query = """
+                    UPDATE TARGA_ATTIVA
+                    SET veicolo = ?
+                    WHERE targa = ?
+                    ;
+                    """
+                    case = 1
+
+                if statoTarga=="targheatt" and OLDstato=="Restituita":
+                    #modifico una targa restituita, rendendola attiva
+                    query = """
+                    DELETE FROM TARGA_RESTITUITA WHERE targa = ? ;
+                    INSERT INTO TARGA_ATTIVA (targa,veicolo) VALUES(?,?);
+                    """
+                    case = 2
+                
+                if statoTarga=="targherest" and OLDstato=="Restituita":
+                    #modifico una targa restituita, tenendola restituita
+                    query = """
+                    UPDATE TARGA_RESTITUITA
+                    SET veicolo = ?, dataRes = ?
+                    WHERE targa = ?
+                    ;
+                    """
+                    case = 3
+                
+                if statoTarga=="targherest" and OLDstato=="Attiva":
+                    #modifico una targa attiva, rendendola restituita
+                    query = """
+                    DELETE FROM TARGA_ATTIVA WHERE targa = ? ;
+                    INSERT INTO TARGA_RESTITUITA (targa,veicolo,dataRes) VALUES(?,?,?);
+                    """
+                    case = 4
+                
+
+                query += """
                     UPDATE Targa
-                    SET dataEM= ? , stato = ?, telaio = ?, data_restituzione = ?
-                    WHERE num_targa = ?
+                    SET dataEM= ?
+                    WHERE numero = ?
                 """
                 conn = sqlite3.connect('db.sqlite3')
                 cursor = conn.cursor()
-                cursor.execute(query, (dataEM, statoTarga, telaio, dataRES, numTarga))
+                #ogni caso di modifica richiede variabili differenti in ordine diverso
+                if case==1:
+                    cursor.execute(query, (telaio, numTarga, dataEM, numTarga))
+                elif case==2:
+                    cursor.execute(query, (numTarga, numTarga, telaio, dataEM, numTarga))
+                elif case==3:
+                    cursor.execute(query, (telaio, dataRES, numTarga, dataEM, numTarga))
+                elif case==4:
+                    cursor.execute(query, (numTarga, numTarga, telaio, dataRES, dataEM, numTarga))
+                
                 conn.commit()
                 conn.close()
                 success_message = "La modifica è stata effettuata correttamente"
