@@ -11,6 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+    {% if success_message %}
+    <script>
+        var successMessage = "{{ success_message }}";
+        
+        testoHiddenDivElimina(successMessage)
+
+    </script>
+    {% endif %}
+
     {% with numTarga="" dataEM="" radiocheck="" valoreordinamento="" count_revisioni=0 %}
     <header id="header">
         Targa
@@ -60,11 +69,7 @@
                     <input type="hidden" name="NumTarga"  id="targaDaCancellare" value="">
                     <button type="submit" id="bottoneElimina">Elimina</button>
                 </form>
-                </div>
-
-
-
-                
+                </div>  
                 <div id="overlay2"></div>
                 <div id="hiddenDiv2">
                     <p><b id="testo2"></b></p>      

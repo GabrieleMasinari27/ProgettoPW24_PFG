@@ -1,8 +1,9 @@
-from django.shortcuts import render
+
 from .models import Revisione
 from .models import Targa 
 from .forms import RicercaRevisioneForm
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 import sqlite3
 
 def index(request):
@@ -285,8 +286,7 @@ def gestisci_errore(request, errore):
     request.POST['error'] = errore
     return targa(request)  # Chiama la funzione `targa` per gestire la visualizzazione dell'errore
 
-import logging
-logger = logging.getLogger(__name__)
+
 
 def elimina(request):
     conn = sqlite3.connect('db.sqlite3')
@@ -294,20 +294,20 @@ def elimina(request):
 
     if request.method == 'POST':
         num_targa = request.POST.get("NumTarga")
-        logger.info(f"NumTarga ricevuto: {num_targa}")
+        
         try:
             # Esegui la query di cancellazione
             cursor.execute("DELETE FROM TARGA WHERE numero = ?", (num_targa,))
             conn.commit()
-            logger.info(f"Targa {num_targa} eliminata correttamente")
-            return render(request, 'targa.html', {'success': 'La targa è stata eliminata correttamente'})
+            
+            return redirect('targa')
         except sqlite3.Error as e:
             conn.rollback()
-            logger.error(f"Errore del database: {e}")
+            
             return render(request, 'targa.html', {'error': f'Errore del database: {e}'})
         finally:
             conn.close()
-    return render(request, 'targa.html')
+    return redirect('targa', success_message='Targa eliminata con successo!')
 
 
 def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
@@ -348,7 +348,7 @@ def aggiungi(request):
         statoTarga = request.POST.get("radiotarga", "")
         telaio = request.POST.get("telaio", "")
         dataRES = request.POST.get("datares", "")
-        print("entrato")
+      
         print(f"Stato targa: {statoTarga}, Telaio: {telaio}")  # Stampa di debug
         conn = sqlite3.connect('db.sqlite3')
 
