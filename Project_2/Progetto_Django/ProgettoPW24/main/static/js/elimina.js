@@ -8,7 +8,7 @@ function testoHiddenDivElimina(testo) {
     hiddenDiv.style.display = 'block';
     hiddenDiv.style.opacity = 1;
     setTimeout(function () {
-        window.location.href = '../../templates/targa';
+        
     }, 3000); // reindirizza dopo 3 secondi
 }
 
@@ -30,28 +30,13 @@ function Annulla() {
     hiddenDiv.classList.toggle('show');
 }
 
-function Elimina() {
-    var numeroTarga = document.getElementById("numeroTarga").innerText;
+function elimina() {
+    const form = document.getElementById('elimina-form');
+    const targaDaCancellare = document.getElementById('targaDaCancellare');
 
-    $.ajax({
-        url: '{% url "elimina" %}',
-        type: 'POST',
-        data: {
-            targa: numeroTarga,
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        success: function (response) {
-            if (response.success) {
-                testoHiddenDivElimina('Targa eliminata con successo');
-                // Rimuovi la riga dalla tabella
-                var row = document.querySelector("tr[data-numero='" + numeroTarga + "']");
-                row.parentNode.removeChild(row);
-            } else {
-                testoHiddenDivElimina('Errore durante l\'eliminazione della targa: ' + response.message);
-            }
-        },
-        error: function (xhr, status, error) {
-            testoHiddenDivElimina('Errore durante l\'eliminazione della targa');
-        }
-    });
+    // Chiama la funzione testoHiddenDivElimina(testo)
+    testoHiddenDivElimina(`Targa eliminata con successo: ${targaDaCancellare.value}`);
+
+    // Invia il form
+    form.submit();
 }
