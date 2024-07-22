@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Revisione
+from .models import Targa 
 from .forms import RicercaRevisioneForm
 from django.http import HttpResponse
 import sqlite3
@@ -218,7 +219,7 @@ def modifica(request):
             else:
                 query = """
                     UPDATE Targa
-                    SET  stato = ?, telaio = ?, data_restituzione = ?
+                    SET dataEM= ? , stato = ?, telaio = ?, data_restituzione = ?
                     WHERE num_targa = ?
                 """
                 conn = sqlite3.connect('db.sqlite3')
@@ -251,6 +252,19 @@ def gestisci_errore(request, errore):
     request.POST['error'] = errore
     return targa(request)  # Chiama la funzione `targa` per gestire la visualizzazione dell'errore
 
+def elimina(request):
+    if request.method == 'POST':
+        numTarga = request.POST.get("targa")
+        try:
+            targa = Targa.objects.get(numero=numTarga)
+            targa.delete()
+            return JsonResponse({'success': True})
+        except Targa.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Targa non trovata'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+    return JsonResponse({'success': False, 'message': 'Metodo non consentito'})
+    
 def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
     # Connessione al database
     conn = sqlite3.connect('db.sqlite3')

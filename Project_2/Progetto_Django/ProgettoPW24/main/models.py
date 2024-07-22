@@ -7,5 +7,8 @@ class Revisione(models.Model):
     esito = models.CharField(max_length=100)
     motivazione = models.TextField()
 
+class Targa(models.Model):
+    num_targa = models.CharField(max_length=100, unique=True)
+    
     def __str__(self):
         return f"{self.numRevisione} - {self.numTarga}"

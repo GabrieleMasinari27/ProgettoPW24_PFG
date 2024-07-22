@@ -18,7 +18,7 @@ function Mostra(numTarga) {
     hiddenDiv.classList.toggle('show');
     document.getElementById("numeroTarga").innerText = numTarga;
     document.getElementById("bottoneElimina").onclick = function () {
-        Elimina(numTarga);
+       // Elimina(numTarga);
     };
 }
 
@@ -28,17 +28,22 @@ function Annulla() {
     hiddenDiv.classList.toggle('show');
 }
 
-function Elimina(numTarga) {
+function Elimina() {
+    var numeroTarga = document.getElementById("numeroTarga").innerText;
+
     $.ajax({
-        url: '{% url "elimina_targa" %}',
+        url: '{% url "elimina" %}',
         type: 'POST',
         data: {
-            targa: numTarga,
+            targa: numeroTarga,
             csrfmiddlewaretoken: '{{ csrf_token }}'
         },
         success: function (response) {
             if (response.success) {
                 testoHiddenDivElimina('Targa eliminata con successo');
+                // Rimuovi la riga dalla tabella
+                var row = document.querySelector("tr[data-numero='" + numeroTarga + "']");
+                row.parentNode.removeChild(row);
             } else {
                 testoHiddenDivElimina('Errore durante l\'eliminazione della targa: ' + response.message);
             }
