@@ -302,16 +302,18 @@ def gestisci_errore(request, errore):
 
 def elimina(request):
     if request.method == 'POST':
-        numTarga = request.POST.get("NumTarga")
+        num_targa = request.POST.get("NumTarga")
         try:
-            targa = Targa.objects.get(numero=numTarga)
+            targa = Targa.objects.get(num_targa=num_targa)
             targa.delete()
-            return JsonResponse({'success': True})
+            return render(request, 'targa.html', {'success': 'La targa è stata eliminata correttamente'})
         except Targa.DoesNotExist:
-            return JsonResponse({'success': False, 'message': 'Targa non trovata'})
+            return render(request, 'targa.html', {'error': 'Targa non trovata'})
         except Exception as e:
-            return JsonResponse({'success': False, 'message': str(e)})
-    return JsonResponse({'success': False, 'message': 'Metodo non consentito'})
+            return render(request, 'targa.html', {'error': f'Errore: {e}'})
+
+    return render(request, 'targa.html')
+
 
 def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
     # Connessione al database

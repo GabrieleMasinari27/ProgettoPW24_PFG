@@ -51,12 +51,20 @@
             </div>
             <div class="risultato col-sm-9 p-2" >
                 <div id="overlay"></div>
-                <div id="hiddenDiv">
-                    <p>Sei sicuro di voler eliminare questa targa?</p>
-                    <p id="numeroTarga"></p>
-                    <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
-                    <button onclick="Elimina()" id="bottoneElimina">Elimina</button>
+            <div id="hiddenDiv">
+                 <p>Sei sicuro di voler eliminare questa targa?</p>
+                 <p id="numeroTarga"></p>
+                <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
+                <form action="{% url 'elimina' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="NumTarga" value="{{ numeroTarga }}">
+                    <button type="submit" id="bottoneElimina">Elimina</button>
+                </form>
                 </div>
+
+
+
+                
                 <div id="overlay2"></div>
                 <div id="hiddenDiv2">
                     <p><b id="testo2"></b></p>      
