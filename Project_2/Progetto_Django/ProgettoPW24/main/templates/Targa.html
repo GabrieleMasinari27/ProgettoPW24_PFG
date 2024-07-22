@@ -57,7 +57,7 @@
                 <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
                 <form action="{% url 'elimina' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="NumTarga" value="{{ numeroTarga }}">
+                    <input type="hidden" name="NumTarga"  id="targaDaCancellare" value="">
                     <button type="submit" id="bottoneElimina">Elimina</button>
                 </form>
                 </div>

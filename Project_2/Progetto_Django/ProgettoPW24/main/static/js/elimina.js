@@ -17,8 +17,10 @@ function Mostra(numTarga) {
     var hiddenDiv = document.getElementById('hiddenDiv');
     hiddenDiv.classList.toggle('show');
     document.getElementById("numeroTarga").innerText = numTarga;
+    document.getElementById("targaDaCancellare").value = numTarga;
     document.getElementById("bottoneElimina").onclick = function () {
        // Elimina(numTarga);
+    
     };
 }
 

@@ -7,10 +7,6 @@ import sqlite3
 
 def index(request):
     return render(request, 'index.html')
-
-def elimina(request):
-    return render(request, 'elimina.html')
-
 def revisione(request):
     result = get_data_revisione()
     return render(request, 'revisione.html', {'result': result})
@@ -289,18 +285,28 @@ def gestisci_errore(request, errore):
     request.POST['error'] = errore
     return targa(request)  # Chiama la funzione `targa` per gestire la visualizzazione dell'errore
 
+import logging
+logger = logging.getLogger(__name__)
+
 def elimina(request):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+
     if request.method == 'POST':
         num_targa = request.POST.get("NumTarga")
+        logger.info(f"NumTarga ricevuto: {num_targa}")
         try:
-            targa = Targa.objects.get(num_targa=num_targa)
-            targa.delete()
+            # Esegui la query di cancellazione
+            cursor.execute("DELETE FROM TARGA WHERE numero = ?", (num_targa,))
+            conn.commit()
+            logger.info(f"Targa {num_targa} eliminata correttamente")
             return render(request, 'targa.html', {'success': 'La targa è stata eliminata correttamente'})
-        except Targa.DoesNotExist:
-            return render(request, 'targa.html', {'error': 'Targa non trovata'})
-        except Exception as e:
-            return render(request, 'targa.html', {'error': f'Errore: {e}'})
-
+        except sqlite3.Error as e:
+            conn.rollback()
+            logger.error(f"Errore del database: {e}")
+            return render(request, 'targa.html', {'error': f'Errore del database: {e}'})
+        finally:
+            conn.close()
     return render(request, 'targa.html')
 
 
