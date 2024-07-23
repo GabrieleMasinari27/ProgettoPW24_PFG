@@ -56,6 +56,8 @@
             var radioAtt = document.getElementById('radioatt');
             var radioRest = document.getElementById('radiorest');
             var datares = document.getElementById('datares');
+            var hiddenDiv = document.getElementById('hiddenDiv');
+            var testo = document.getElementById('testo');
 
             function toggleDataRes() {
                 if (radioRest.checked) {
@@ -71,6 +73,15 @@
             // Event listeners for radio buttons
             radioAtt.addEventListener('change', toggleDataRes);
             radioRest.addEventListener('change', toggleDataRes);
+
+            // Show message and redirect if there is a success or error message
+            if (errorMessage || successMessage) {
+                hiddenDiv.style.display = 'block';
+                hiddenDiv.style.opacity = '1';
+                setTimeout(function() {
+                    window.location.href = redirectUrl;
+                }, 2000);  // Redirect after 2 seconds
+            }
         });
     </script>
 </body>

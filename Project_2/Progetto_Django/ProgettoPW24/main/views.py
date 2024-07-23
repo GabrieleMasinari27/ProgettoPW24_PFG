@@ -249,7 +249,7 @@ def modifica(request):
                     cursor.execute(query, (dataEM, numTarga))
                     
                     conn.commit()
-                    success_message = "La modifica è stata effettuata correttamente"
+                    success_message = "Modifica effettuata correttamente"
                     return render(request, 'modifica.html', {'success': success_message})
                 
                 except sqlite3.Error as e:
@@ -263,7 +263,7 @@ def modifica(request):
                     if conn:
                         conn.close()
         else:
-            error_message = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa"
+            error_message = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarai reindirizzato alla pagina di targa"
             return render(request, 'modifica.html', {'error': error_message})
     else:
         numTarga = request.GET.get('numTarga', '')
