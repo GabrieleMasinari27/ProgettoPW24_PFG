@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
+
 <head>
     <link rel="stylesheet" href="../static/css/main_page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,25 +11,15 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-    {% if success_message %}
-    <script>
-        var successMessage = "{{ success_message }}";
-        
-        testoHiddenDivElimina(successMessage)
-
-    </script>
-    {% endif %}
-
     {% with numTarga="" dataEM="" radiocheck="" valoreordinamento="" count_revisioni=0 %}
     <header id="header">
         Targa
-     </header>
-     {% if error %}
-        <div class="error">{{ error }}</div>
-    {% endif %}
-    <div class="container-fluid" >
-        <div class="row" >
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
             <div class="ricercasx col-sm-3 p-2">
                 <div class="nav" style="flex: 1;">
                     {% include 'nav.html' %}
@@ -38,13 +29,15 @@
                         {% csrf_token %}
                         <fieldset>
                             <legend>Filtro Ricerca per:</legend>
-                            <input type="search" name="numerotarga" placeholder=" Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" maxlength="7">
+                            <input type="search" name="numerotarga" placeholder=" Targa" pattern="[A-Za-z0-9]+"
+                                title="Inserisci solo lettere e numeri" maxlength="7">
                             <i class="fa fa-automobile"></i><br>
                             Data di emissione:<br>
                             <input type="date" name="dataemtarga"><br><br>
                             <input type="radio" name="radiofiltrotarga" value="targheatt">Targhe attive<br>
                             <input type="radio" name="radiofiltrotarga" value="targherest">Targhe restituite <br>
-                            <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe <br><br>
+                            <input type="radio" name="radiofiltrotarga" value="targhetutte" checked>Tutte le targhe
+                            <br><br>
                             <label for="scelta">Ordina per:</label>
                             <select id="ordinamento" name="scelta">
                                 <option value="ordinamentoNullo" selected>Nessun ordinamento</option>
@@ -52,42 +45,47 @@
                                 <option value="ordinaNumeroTarga">Numero di targa</option>
                             </select>
                             <br>
-                            <input type="submit" name="bottonericerca" id="bottonericerca" value="Cerca">&nbsp&nbsp;<i class="fa fa-search"></i><br>
+                            <input type="submit" name="bottonericerca" id="bottonericerca" value="Cerca">&nbsp&nbsp;<i
+                                class="fa fa-search"></i><br>
                             <input type="reset" name="bottonericerca" value="Resetta">
                         </fieldset>
                     </form>
                 </div>
             </div>
-            <div class="risultato col-sm-9 p-2" >
+            <div class="risultato col-sm-9 p-2">
                 <div id="overlay"></div>
             <div id="hiddenDiv">
-                 <p>Sei sicuro di voler eliminare questa targa?</p>
-                 <p id="numeroTarga"></p>
-                <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
-                <form action="{% url 'elimina' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="NumTarga"  id="targaDaCancellare" value="">
-                    <button type="submit" id="bottoneElimina">Elimina</button>
-                </form>
-                </div>  
+                <p>Sei sicuro di voler eliminare questa targa?</p>
+                <p id="numeroTarga"></p>
+                <div style="display: flex; ">
+                    <button onclick="Annulla()" id="bottoneAnnulla">Annulla</button>
+                    <form action="{% url 'elimina' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="NumTarga" id="targaDaCancellare" value="">
+                        <button type="submit" id="bottoneElimina">Elimina</button>
+                    </form>
+                </div>
+            </div>
+
                 <div id="overlay2"></div>
                 <div id="hiddenDiv2">
-                    <p><b id="testo2"></b></p>      
+                    <p><b id="testo2">{% if error %}{{ error }}{% elif success %}{{ success }}{% endif %}</b></p>
                 </div>
+
                 <a href="/aggiungi"><i id="icona_aggiungi" class="fa fa-plus-square-o"></i></a>
                 <div class="table-container">
-                <table class="table">
-                    <tr class="header">
-                        <th>Targa</th>
-                        <th>Data Emissione</th>
-                        <th>Stato della targa</th>
-                        <th>Data Restituzione</th>
-                        <th># Revisioni Effettuate</th>
-                        <th>Telaio Veicolo</th>
-                        <th>Modifica</th>
-                        <th>Elimina</th>
-                    </tr>
-                    {% for riga in result %}
+                    <table class="table">
+                        <tr class="header">
+                            <th>Targa</th>
+                            <th>Data Emissione</th>
+                            <th>Stato della targa</th>
+                            <th>Data Restituzione</th>
+                            <th># Revisioni Effettuate</th>
+                            <th>Telaio Veicolo</th>
+                            <th>Modifica</th>
+                            <th>Elimina</th>
+                        </tr>
+                        {% for riga in result %}
                         <tr>
                             <td>{{ riga.0 }}</td>
                             <td>{{ riga.1 }}</td>
@@ -95,27 +93,29 @@
                             <td>{{ riga.6 }}</td>
                             <td>{{ riga.2 }}</td>
                             {% if riga.5 == "Attiva" %}
-                                <td>{{ riga.4 }}</td>
+                            <td>{{ riga.4 }}</td>
                             {% else %}
-                                <td>{{ riga.3 }}</td>
+                            <td>{{ riga.3 }}</td>
                             {% endif %}
-                            <td id="icona_modifica"> 
+                            <td id="icona_modifica">
                                 {% if riga.5 == "Attiva" %}
-                                    <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.4 }}&OLDdataRes={{ riga.6 }}">
-                                {% else %}
-                                    <a href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.3 }}&OLDdataRes={{ riga.6 }}">
-                                {% endif %}
-                                    <i class="fa fa-pencil"></i>
-                                </a>
+                                <a
+                                    href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.4 }}&OLDdataRes={{ riga.6 }}">
+                                    {% else %}
+                                    <a
+                                        href="/modifica/?numTarga={{ riga.0 }}&dataEM={{ riga.1 }}&OLDstato={{ riga.5 }}&OLDtelaio={{ riga.3 }}&OLDdataRes={{ riga.6 }}">
+                                        {% endif %}
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                             </td>
-                            <td id="icona_elimina">  
+                            <td id="icona_elimina">
                                 <a onclick="Mostra('{{ riga.0 }}')">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
-                    {% endfor %}
-                    </div>
+                        {% endfor %}
+                </div>
                 </table>
 
             </div>
@@ -123,5 +123,30 @@
     </div>
     {% include 'Footer.html' %}
     {% endwith %}
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+                var errorMessage = "{% if error %}{{ error|escapejs }}{% else %}{% endif %}";
+                var successMessage = "{% if success %}{{ success|escapejs }}{% else %}{% endif %}";
+                var redirectUrl = "{% url 'targa' %}";
+
+                document.getElementById('hiddenDiv').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('overlay2').style.display = 'none'; // Set display to none by default
+
+                var hiddenDiv2 = document.getElementById('hiddenDiv2');
+                var testo2 = document.getElementById('testo2');
+
+                // Show message and redirect if there is a success or error message
+                if (errorMessage || successMessage) {
+                    document.getElementById('overlay2').style.display = 'block'; // Set display to block only if there's an error or success message
+                    hiddenDiv2.style.display = 'block';
+                    hiddenDiv2.style.opacity = '1';
+                    setTimeout(function () {
+                        window.location.href = redirectUrl;
+                    }, 3000);  // Redirect after 3 seconds
+                }
+            });
+        </script>
 </body>
 </html>

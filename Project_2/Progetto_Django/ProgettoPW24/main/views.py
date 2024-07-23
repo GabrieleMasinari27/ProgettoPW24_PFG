@@ -206,10 +206,10 @@ def modifica(request):
 
         if verificaVeicolo(telaio): # se il veicolo scelto esiste
             if statoTarga == 'targheatt' and OLDstato == "Restituita" and verificaTargaAttiva(telaio): 
-                error_message = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
+                error_message = "Mi dispiace, esiste già una targa attiva per questo veicolo. Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             elif statoTarga == 'targherest' and dataRES < dataEM:
-                error_message = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
+                error_message = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento. Sarai reindirizzato alla pagina delle targhe"
                 return render(request, 'modifica.html', {'error': error_message})
             else:
                 conn = None
@@ -263,7 +263,7 @@ def modifica(request):
                     if conn:
                         conn.close()
         else:
-            error_message = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarai reindirizzato alla pagina di targa"
+            error_message = "Siamo spiacenti il telaio da lei inserito per la targa non è valido.Sarai reindirizzato alla pagina di targa"
             return render(request, 'modifica.html', {'error': error_message})
     else:
         numTarga = request.GET.get('numTarga', '')
@@ -299,15 +299,15 @@ def elimina(request):
             # Esegui la query di cancellazione
             cursor.execute("DELETE FROM TARGA WHERE numero = ?", (num_targa,))
             conn.commit()
-            
-            return redirect('targa')
+            testo="Targa eliminata con successo"
+            return gestisci_errore(request, testo)
         except sqlite3.Error as e:
             conn.rollback()
-            
-            return render(request, 'targa.html', {'error': f'Errore del database: {e}'})
+            testo="Errore del database:"
+            return gestisci_errore(request, testo)
         finally:
             conn.close()
-    return redirect('targa', success_message='Targa eliminata con successo!')
+    return redirect('targa')
 
 
 def inserimento(num_targa: str, data_em: str, radio: str, telaio: str, data_rest: str) -> None:
@@ -349,24 +349,23 @@ def aggiungi(request):
         telaio = request.POST.get("telaio", "")
         dataRES = request.POST.get("datares", "")
       
-        print(f"Stato targa: {statoTarga}, Telaio: {telaio}")  # Stampa di debug
+        
         conn = sqlite3.connect('db.sqlite3')
 
         if verificaVeicolo(telaio):
             if statoTarga == 'targheatt' and verificaTargaAttiva(telaio):
-                testo = "Mi dispiace, esiste già una targa attiva per questo veicolo<br>Sarai reindirizzato alla pagina delle targhe"
-                print("targa attiva")
+                testo = "Mi dispiace, esiste già una targa attiva per questo veicolo.Sarai reindirizzato alla pagina delle targhe"
+              
                 return gestisci_errore(request, testo)
             elif statoTarga == 'targherest' and dataRES < dataEM:
-                testo = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento<br>Sarai reindirizzato alla pagina delle targhe"
-                print("targa restituita")
+                testo = "Mi dispiace, la data di restituzione non può essere più vecchia della data di inserimento.Sarai reindirizzato alla pagina delle targhe"
+                
                 return gestisci_errore(request, testo)
             else:
-                print("innerelse: ", numTarga, dataEM, statoTarga, telaio, dataRES)
+               
                 return gestisci_errore(request, inserimento(numTarga, dataEM, statoTarga, telaio, dataRES))
         else:
-            print("outerelse")
-            testo = "Siamo spiacenti il telaio da lei inserito per la targa non è valido<br>Sarà reindirizzato alla pagina di targa"
-            return render(request, 'aggiungi.html', {'error': testo})
+            testo = "Siamo spiacenti il telaio da lei inserito per la targa non è valido.Sarà reindirizzato alla pagina di targa"
+            return gestisci_errore(request, testo)
     else:
         return render(request, 'aggiungi.html')

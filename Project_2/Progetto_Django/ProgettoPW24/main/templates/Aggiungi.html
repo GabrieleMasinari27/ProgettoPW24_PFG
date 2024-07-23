@@ -43,8 +43,8 @@
                 <input type="date" name="dataEM" required><br><br>
 
                 Seleziona il tipo di targa:<br>
-                <input type="radio" name="radiotarga" value="targheatt" id="radioatt" required>Targa attiva<br>
-                <input type="radio" name="radiotarga" value="targherest" id="radiorest" required>Targhe
+                <input type="radio" name="radiotarga" value="targheatt" id="radioatt" required onchange="toggleDatares(this)">Targa attiva<br>
+                <input type="radio" name="radiotarga" value="targherest" id="radiorest" required onchange="toggleDatares(this)">Targhe
                 restituita<br><br>
 
                 Seleziona il numero di telaio del veicolo a cui associare la targa (il numero del telaio deve essere già
@@ -60,7 +60,16 @@
         </div>
     </div>
 {% include 'footer.html' %}
-
+<script>
+    function toggleDatares(radio) {
+        var dataresInput = document.getElementById('datarest');
+        if (radio.value === 'targheatt') {
+            dataresInput.disabled = true;
+        } else {
+            dataresInput.disabled = false;
+        }
+    }
+</script>
 </body>
 
 </html>
