@@ -9,7 +9,19 @@ import sqlite3
 def index(request):
     return render(request, 'index.html')
 def revisione(request):
-    result = get_data_revisione()
+    if request.method == "POST":
+        num_revisione = request.POST.get("numerorevisione", "")
+        num_targa = request.POST.get("numerotarga", "")
+        data_re = request.POST.get("datarevisione", "")
+        posneg = request.POST.get("esito", "")
+        valore_ordinamento = request.POST.get("scelta", "")
+    else:
+        num_revisione = ""
+        num_targa = ""
+        data_re = ""
+        posneg = ""
+        valore_ordinamento = ""
+    result = get_data_revisione(num_revisione,num_targa,data_re,posneg,valore_ordinamento)
     return render(request, 'revisione.html', {'result': result})
 
 def targa(request):
@@ -45,17 +57,51 @@ def veicolo(request):
     result = query_veicolo(numTelaio, marca, modello, dataPro, valoreordinamento)
     return render(request, 'veicolo.html', {'result': result})
 
-def get_data_revisione():
+def get_data_revisione(num_revisione="", num_targa="", data_re="", posneg="indifferente", valore_ordinamento=""):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
-    
-    query = "SELECT * FROM REVISIONE"
-    cursor.execute(query)
-    
+    qry = """
+        SELECT
+            REVISIONE.numero AS numRevisione,
+            REVISIONE.dataRev AS dataRevisione,
+            REVISIONE.targa AS numTarga,
+            REVISIONE.esito AS esito,
+            REVISIONE.motivazione AS motivazione
+        FROM REVISIONE
+        WHERE 1=1
+    """
+
+    if num_targa:
+        qry += " AND REVISIONE.targa LIKE '%{}%'".format(num_targa)
+
+    if num_revisione:
+        qry += " AND REVISIONE.numero LIKE '%{}%'".format(num_revisione)
+
+    if data_re:
+        qry += " AND REVISIONE.dataRev LIKE '%{}%'".format(data_re)
+
+    if posneg != "indifferente":
+        qry += " AND REVISIONE.esito LIKE '%{}%'".format(posneg)
+
+    if valore_ordinamento == "ordinamentoNullo":
+        pass
+    elif valore_ordinamento == "ordinaNumeroRev":
+        qry += " ORDER BY REVISIONE.numero"
+    elif valore_ordinamento == "ordinaNumeroTarga":
+        qry += " ORDER BY REVISIONE.targa"
+    elif valore_ordinamento == "ordinaPositivo":
+        qry += " ORDER BY REVISIONE.esito DESC"
+    elif valore_ordinamento == "ordinaNegativo":
+        qry += " ORDER BY REVISIONE.esito ASC"
+
+    cursor.execute(qry)
+
     rows = cursor.fetchall()
     conn.close()
     
     return rows
+
+
 
 def get_data_targa():
     conn = sqlite3.connect('db.sqlite3')

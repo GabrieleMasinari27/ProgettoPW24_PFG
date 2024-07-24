@@ -8,9 +8,3 @@ function Mostra(numTarga) {
     document.getElementById("targaDaCancellare").value = numTarga;
    
 }
-
-function Annulla() {
-    document.getElementById("overlay").style.display = "none";
-    var hiddenDiv = document.getElementById('hiddenDiv');
-    hiddenDiv.classList.toggle('show');
-}

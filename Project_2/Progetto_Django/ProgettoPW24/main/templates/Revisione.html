@@ -9,6 +9,7 @@
     <title>ProgettoPFG_Motorizzazione</title>
 </head>
 <body>
+    {% with num_revisione="" num_targa="" data_re="" posneg="" valore_ordinamento="" %}
     <header id="header">
         Revisione
      </header>
@@ -20,9 +21,10 @@
                 </div>
                 <div class="filtro" >
                     <form name="form_ricerca" method="post">
+                        {% csrf_token %}
                         <fieldset>
                             <legend>Filtro Ricerca per:</legend>
-                            <input type="number" name="numerorevisione" min="1" max="50" placeholder="Numero di revisione"><br>
+                            <input type="number" name="numerorevisione" min="1" max="1000" placeholder="Numero di revisione"><br>
                             <input type="text" name="numerotarga" placeholder="Targa" pattern="[A-Za-z0-9]+" title="Inserisci solo lettere e numeri" minlength="7" maxlength="7"><i class="fa fa-automobile"></i><br><br>
                             Data della revisione:
                             <input type="date" name="datarevisione" placeholder="Data della revisione"><br><br>
@@ -59,8 +61,8 @@
                         {% for riga in result %}
                         <tr>
                             <td>{{ riga.0|default_if_none:"" }}</td>
-                            <td>{{ riga.1|default_if_none:"" }}</td>
                             <td>{{ riga.2|default_if_none:"" }}</td>
+                            <td>{{ riga.1|default_if_none:"" }}</td>
                             <td>{{ riga.3|default_if_none:"" }}</td>
                             <td>{{ riga.4|default_if_none:"" }}</td>
                         </tr>
@@ -70,6 +72,7 @@
             </div>
         </div>
     {% include 'Footer.html' %}
+    {% endwith %}
 </body>
 </html>
  
