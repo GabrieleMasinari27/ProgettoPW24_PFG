@@ -1,3 +1,13 @@
+Metodo per l'installazione del progetto Django:
+-scaricare la cartella "Project_2" ed estrarla;
+-nel terminale Windows (o da terminale VSCode) raggiungere la cartella con il comando cd;
+-eseguire il comando "pip install django";
+-con il comando cd spostarsi su "Progetto_Django/ProgettoPW24";
+-eseguire il comando "manage.py runserver";
+-seguire il link che compare.
+
+Di seguito i comandi SQL per la creazione delle tabelle del database e dei trigger su di esso.
+
 CREATE TABLE TARGA (
     numero VARCHAR(7) PRIMARY KEY,
     dataEM date
