@@ -3,6 +3,6 @@ Metodo per l'installazione del progetto Django:
 -nel terminale Windows (o da terminale VSCode) raggiungere la cartella con il comando cd;
 -eseguire il comando "pip install django";
 -con il comando cd spostarsi su "Progetto_Django/ProgettoPW24";
--eseguire il comando "manage.py runserver";
+-eseguire il comando "python manage.py runserver";
 -seguire il link che compare.
 
